@@ -39,7 +39,7 @@ export const config: Config = {
   outputTargets: [
     {
       type: 'dist',
-      esmLoaderPath: '../loader',
+      polyfills: true,
       copy: [
         {src: 'themes'},
         {

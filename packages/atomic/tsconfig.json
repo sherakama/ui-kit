@@ -4,11 +4,9 @@
     "allowSyntheticDefaultImports": true,
     "declaration": false,
     "experimentalDecorators": true,
-    "lib": [
-      "dom",
-      "es2020"
-    ],
+    "lib": ["dom", "es2020"],
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "module": "esnext",
     "target": "es2020",
     "noUnusedLocals": true,
@@ -16,12 +14,6 @@
     "jsx": "react",
     "jsxFactory": "h"
   },
-  "include": [
-    "src",
-    "types/jsx.d.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "src/external-builds"
-  ]
+  "include": ["src", "types/jsx.d.ts"],
+  "exclude": ["node_modules", "src/external-builds"]
 }
