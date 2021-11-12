@@ -228,4 +228,16 @@
         <label>Agrandir {{0}}</label>
         <name>quantic_Expand</name>
     </customLabels>
+    <customLabels>
+      <label>A aidé {{0}} utilisateur</label>
+      <name>cookbook_HelpedUsers</name>
+  </customLabels>
+  <customLabels>
+    <label>A aidé {{0}} utilisateurs</label>
+    <name>cookbook_HelpedUsers_plural</name>
+  </customLabels>
+  <customLabels>
+    <label>N'a aidé aucun utilisateur</label>
+    <name>cookbook_HelpedUsers_zero</name>
+  </customLabels>
 </Translations>
