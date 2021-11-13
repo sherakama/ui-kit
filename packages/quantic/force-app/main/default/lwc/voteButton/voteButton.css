@@ -1,0 +1,13 @@
+:host{
+  cursor: pointer;
+}
+.zest{
+  display: flex;
+  align-items: center;
+}
+.text-color_initial{
+  color: #0176D3;
+}
+.icon-color_initial{
+  /* --sds-c-icon-color-background: #0176D3; */
+}
