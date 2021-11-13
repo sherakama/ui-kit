@@ -1,0 +1,10 @@
+.title_bold{
+  font-weight: 700;
+}
+.text_light{
+  font-weight: 300;
+}
+.row{
+  display: flex;
+  align-items: center;
+}
