@@ -3,7 +3,7 @@
     <template if:true={finalState}>
       <h3 class={labelClass}>{finalText}</h3>
       <template if:true={showAbandonRequest}>
-        <lightning-button variant="brand-outline" label="Abandon request" title="Primary action with lighter look"></lightning-button>
+        <lightning-button onclick={handleAbandon} variant="brand-outline" label={abandonLabel}></lightning-button>
       </template>
     </template>
     <template if:false={finalState}>
@@ -11,11 +11,10 @@
       <div class="row">
         <div class={questionClass}>{question}</div>
         <div class="slds-grid slds-m-left_large">
-          <c-vote-button class="slds-m-right_medium" type="positive" id="yes" label="Yes" size={size}></c-vote-button>
-          <c-vote-button type="negative" id="no" label="No" size={size}></c-vote-button>
+          <c-vote-button state={positiveState} onclick={positiveVote} class="slds-m-right_medium" type="positive" id="yes" label="Yes" size={size}></c-vote-button>
+          <c-vote-button state={negativeState} onclick={negativeVote} type="negative" id="no" label="No" size={size}></c-vote-button>
         </div>
       </div>
     </template>
   </div>
-
 </template>

@@ -23,7 +23,7 @@ export default class VoteTracker extends LightningElement {
   /**
    * The size of the component.
    * @api
-   * @type {string}
+   * @type {'small'|'big'}
    */
   @api size = "small";
 
@@ -35,13 +35,37 @@ export default class VoteTracker extends LightningElement {
   @api finalText = "Thank you for the feedback!"
 
   /**
-   * The state of the component
+   * The label to be shown in the button to abandon a request.
+   * @type {string}
+   */
+  @api abandonLabel = 'Abandon request';
+
+  /**
+   * Tells if the component is on the final state that appear after voting.
    * @type {boolean}
    */
   _finalState = false;
 
   /**
-   * Returns the css class to be given to the label
+   * The state of the positive vote button. 
+   * @type {'initial'|'selected'|'neutral'}
+   */
+  _positiveState = 'initial';
+
+  /**
+   * The state of the negative vote button.
+   * @type {'initial'|'selected'|'neutral'}
+   */
+  _negativeState = 'initial';
+
+  /**
+   * The timeout to wait before showing the final state.
+   * @type {number}
+   */
+  _timeout = 2000;
+
+  /**
+   * Returns the css class to be given to the label.
    * @returns {string}
    */
   get labelClass() {
@@ -49,49 +73,80 @@ export default class VoteTracker extends LightningElement {
   }
 
   /**
-   * Returns the css class to be given to the question
+   * Returns the css class to be given to the question.
    * @returns {string}
    */
   get questionClass() {
     return this.size === 'small' ? 'slds-text-title_bold text_light' : 'slds-text-heading_small';
   }
 
+  /**
+   * Tells if the abandon request button should be shown.c/exampleCaseAssist
+   * @returns {boolean}
+   */
   get showAbandonRequest() {
     return this.size === 'big';
   }
 
+  /**
+   * Tells if the component is in the final state.
+   * @returns {boolean}
+   */
   get finalState() {
     return this._finalState;
   }
 
-  renderedCallback() {
-    const positiveButton = this.template.querySelector('#yes-12');
-    const negativeButton = this.template.querySelector('#no-12');
+  /**
+   * Returns the state of the positive vote button.
+   * @returns {'initial'|'selected'|'neutral'}
+   */
+  get positiveState() {
+    return this._positiveState;
+  }
 
-    const positiveVote = () => {
-      positiveButton.state = 'selected';
-      negativeButton.state = 'neutral';
-      killEvents()
-      // eslint-disable-next-line @lwc/lwc/no-async-operation
-      setTimeout(() => {
-        this._finalState = true
-      }, 3000)
-    }
+  /**
+   * Returns the state of the negative vote button.
+   * @returns {'initial'|'selected'|'neutral'}
+   */
+  get negativeState() {
+    return this._negativeState
+  }
 
-    const negativeVote = () => {
-      negativeButton.state = 'selected';
-      positiveButton.state = 'neutral';
-      killEvents()
+  /**
+   * Hamdles the click on the positive vote button.
+   * @returns {void}
+   */
+  positiveVote() {
+    if (this._positiveState === 'initial') {
+      this._positiveState = 'selected';
+      this._negativeState = 'neutral';
       // eslint-disable-next-line @lwc/lwc/no-async-operation
       setTimeout(() => {
         this._finalState = true;
-      }, 2000)
+      }, this._timeout);
     }
-    const killEvents = () => {
-      positiveButton.removeEventListener('click', positiveVote);
-      negativeButton.removeEventListener('click', negativeVote);
+  }
+
+  /**
+   * Handles the click on the negative vote button.
+   * @returns {void}
+   */
+  negativeVote() {
+    if (this._negativeState === 'initial') {
+      this._negativeState = 'selected';
+      this._positiveState = 'neutral';
+      // eslint-disable-next-line @lwc/lwc/no-async-operation
+      setTimeout(() => {
+        this._finalState = true;
+      }, this._timeout);
     }
-    positiveButton?.addEventListener('click', positiveVote);
-    negativeButton?.addEventListener('click', negativeVote);
+  }
+
+  /**
+   * Handles the click on the abandon request button.
+   * @returns {void}
+   */
+  handleAbandon() {
+    this.dispatchEvent(new CustomEvent('abandon'));
   }
 }
