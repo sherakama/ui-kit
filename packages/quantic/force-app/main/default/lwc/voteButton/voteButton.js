@@ -35,7 +35,7 @@ export default class VoteButton extends LightningElement {
    * @type {'initial'|'neutral'|'selected'}
    * @defaultValue `'initial'`
    */
-  @api state = 'selected';
+  @api state = 'initial';
 
   /**
    * The name of the icon to be in the button.
