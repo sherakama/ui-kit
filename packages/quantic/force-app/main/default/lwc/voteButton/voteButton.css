@@ -1,7 +1,7 @@
 :host{
   cursor: pointer;
 }
-.zest{
+.row{
   display: flex;
   align-items: center;
 }
@@ -10,4 +10,7 @@
 }
 .icon-color_initial{
   /* --sds-c-icon-color-background: #0176D3; */
+}
+.label_small{
+  font-size: 12px;
 }
