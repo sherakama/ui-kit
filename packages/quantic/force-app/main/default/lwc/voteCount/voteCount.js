@@ -52,7 +52,7 @@ export default class VoteCount extends LightningElement {
    * @returns {string}
    */
   get variant() {
-    return !this.active ? 'success' : '';
+    return this.active ? 'success' : '';
   }
 
   /**
@@ -60,6 +60,6 @@ export default class VoteCount extends LightningElement {
    * @returns {string}
    */
   get labelClass() {
-    return !this.active ? 'view-count_label slds-text-color_success' : 'view-count_label view-count_label-neutral';
+    return this.active ? 'view-count_label slds-text-color_success' : 'view-count_label view-count_label-neutral';
   }
 }
