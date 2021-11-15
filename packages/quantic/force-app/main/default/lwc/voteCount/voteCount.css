@@ -1,6 +1,6 @@
-.view-count_icon{
-  --sds-c-icon-color-foreground-default: #706E6B;
-}
 .view-count_label{
+  font-size: 12px;
+}
+.view-count_label-neutral{
   color: #706E6B;
 }

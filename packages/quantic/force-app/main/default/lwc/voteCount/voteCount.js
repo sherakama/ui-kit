@@ -20,25 +20,46 @@ export default class VoteCount extends LightningElement {
 
   /**
    * The count to be shown to the user.
-   * @api
    * @type {number}
    * @defaultValue `0`
    */
   @api count = 0;
 
   /**
+   * Tells if the component is active, the active state means the component will be colored in green.
+   * @type {boolean}
+   * @defaultValue `false`
+   */
+  @api active = false;
+
+  /**
    * The alternative text to be assigned to the button icon.
-   * @api
    * @type {string}
    */
   @api altText;
 
   /**
-   * Returns the label to show with the count value.c/descriptionStrengthIndicator
+   * Returns the label to show with the count value.
    * @returns {string}
    */
   get label() {
-    const labelName = I18nUtils.getLabelNameWithCount('helpedUsers', this.count)
+    const labelName = I18nUtils.getLabelNameWithCount('helpedUsers', this.count);
     return I18nUtils.format(this.labels[labelName], this.count);
+  }
+
+  /**
+   * Returns the variant of the icon.
+   * @returns {string}
+   */
+  get variant() {
+    return !this.active ? 'success' : '';
+  }
+
+  /**
+   * Returns the css class of the labe.
+   * @returns {string}
+   */
+  get labelClass() {
+    return !this.active ? 'view-count_label slds-text-color_success' : 'view-count_label view-count_label-neutral';
   }
 }
