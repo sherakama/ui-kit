@@ -11,7 +11,10 @@ import {
 import {buildController, Controller} from '../controller/headless-controller';
 import {updatePage} from '../../features/pagination/pagination-actions';
 import {logResultsSort} from '../../features/sort-criteria/sort-criteria-analytics-actions';
-import {ConfigurationSection, SortSection} from '../../state/state-sections';
+import {
+  SearchConfigurationSection,
+  SortSection,
+} from '../../state/state-sections';
 import {ArrayValue, isArray, Schema} from '@coveo/bueno';
 import {validateInitialState} from '../../utils/validate-payload';
 import {configuration, sortCriteria} from '../../app/reducers';
@@ -33,7 +36,7 @@ export interface SortInitialState {
 }
 
 function validateSortInitialState(
-  engine: SearchEngine<ConfigurationSection & SortSection>,
+  engine: SearchEngine<SearchConfigurationSection & SortSection>,
   state: Partial<SortInitialState> | undefined
 ) {
   if (!state) {
@@ -137,7 +140,7 @@ export function buildSort(engine: SearchEngine, props: SortProps = {}): Sort {
 
 function loadSortReducers(
   engine: SearchEngine
-): engine is SearchEngine<ConfigurationSection & SortSection> {
+): engine is SearchEngine<SearchConfigurationSection & SortSection> {
   engine.addReducers({configuration, sortCriteria});
   return true;
 }

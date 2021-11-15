@@ -32,7 +32,7 @@ import {
 import {SearchThunkExtraArguments} from '../../../app/search-thunk-extra-arguments';
 import {
   FacetSection,
-  ConfigurationSection,
+  SearchConfigurationSection,
   FacetSearchSection,
   SearchSection,
 } from '../../../state/state-sections';
@@ -143,7 +143,10 @@ export function buildFacet(engine: SearchEngine, props: FacetProps): Facet {
 function loadFacetReducers(
   engine: CoreEngine
 ): engine is CoreEngine<
-  FacetSection & ConfigurationSection & FacetSearchSection & SearchSection,
+  FacetSection &
+    SearchConfigurationSection &
+    FacetSearchSection &
+    SearchSection,
   SearchThunkExtraArguments
 > {
   engine.addReducers({facetSet, configuration, facetSearchSet, search});

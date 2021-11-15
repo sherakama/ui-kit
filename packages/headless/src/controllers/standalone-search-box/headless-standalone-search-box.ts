@@ -17,7 +17,7 @@ import {
 } from '../../features/standalone-search-box-set/standalone-search-box-set-actions';
 import {StandaloneSearchBoxAnalytics} from '../../features/standalone-search-box-set/standalone-search-box-set-state';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   QuerySection,
   QuerySuggestionSection,
   StandaloneSearchBoxSection,
@@ -155,7 +155,7 @@ function loadStandaloneSearchBoxReducers(
   engine: SearchEngine
 ): engine is SearchEngine<
   StandaloneSearchBoxSection &
-    ConfigurationSection &
+    SearchConfigurationSection &
     QuerySection &
     QuerySuggestionSection
 > {

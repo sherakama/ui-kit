@@ -1,6 +1,6 @@
 import {SearchEngine} from '../../../../app/search-engine/search-engine';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   DateFacetSection,
   SearchSection,
 } from '../../../../state/state-sections';
@@ -74,7 +74,7 @@ export function buildDateFilter(
 function loadDateFilterReducer(
   engine: SearchEngine
 ): engine is SearchEngine<
-  DateFacetSection & ConfigurationSection & SearchSection
+  DateFacetSection & SearchConfigurationSection & SearchSection
 > {
   engine.addReducers({dateFacetSet, configuration, search});
   return true;

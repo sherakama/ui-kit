@@ -15,7 +15,7 @@ import {
 import {
   AdvancedSearchQueriesSection,
   CategoryFacetSection,
-  ConfigurationSection,
+  SearchConfigurationSection,
   ContextSection,
   DateFacetSection,
   DebugSection,
@@ -51,7 +51,7 @@ import {AsyncThunkOptions} from '../../app/async-thunk-options';
 import {buildSearchRequest} from './search-request';
 import {deselectAllBreadcrumbs} from '../breadcrumb/breadcrumb-actions';
 
-export type StateNeededByExecuteSearch = ConfigurationSection &
+export type StateNeededByExecuteSearch = SearchConfigurationSection &
   Partial<
     QuerySection &
       AdvancedSearchQueriesSection &

@@ -1,12 +1,12 @@
 import {SearchAppState} from '../..';
-import {ConfigurationSection} from '../../state/state-sections';
+import {SearchConfigurationSection} from '../../state/state-sections';
 import {sortFacets} from '../../utils/facet-utils';
 import {CategoryFacetSetState} from '../facets/category-facet-set/category-facet-set-state';
 import {AnyFacetRequest} from '../facets/generic/interfaces/generic-facet-request';
 import {buildSearchAndFoldingLoadCollectionRequest} from '../search-and-folding/search-and-folding-request';
 import {mapSearchRequest} from './search-mappings';
 
-type StateNeededBySearchRequest = ConfigurationSection &
+type StateNeededBySearchRequest = SearchConfigurationSection &
   Partial<SearchAppState>;
 
 export const buildSearchRequest = async (state: StateNeededBySearchRequest) => {

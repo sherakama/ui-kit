@@ -24,7 +24,7 @@ import {
   fetchFieldsDescription,
 } from '../../features/fields/fields-actions';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   DebugSection,
   FieldsSection,
   SearchSection,
@@ -273,7 +273,7 @@ export function buildRelevanceInspector(
 function loadRelevanceInspectorReducers(
   engine: SearchEngine
 ): engine is SearchEngine<
-  DebugSection & SearchSection & ConfigurationSection & FieldsSection
+  DebugSection & SearchSection & SearchConfigurationSection & FieldsSection
 > {
   engine.addReducers({
     debug,

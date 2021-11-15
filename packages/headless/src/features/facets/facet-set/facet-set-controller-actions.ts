@@ -1,7 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {FacetValue} from './interfaces/response';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   FacetSection,
 } from '../../../state/state-sections';
 import {updateFacetOptions} from '../../facet-options/facet-options-actions';
@@ -27,7 +27,7 @@ export const executeToggleFacetSelect = createAsyncThunk<
     facetId: string;
     selection: FacetValue;
   },
-  AsyncThunkOptions<FacetSection & ConfigurationSection>
+  AsyncThunkOptions<FacetSection & SearchConfigurationSection>
 >('facet/executeToggleSelect', ({facetId, selection}, thunk) => {
   const {
     dispatch,

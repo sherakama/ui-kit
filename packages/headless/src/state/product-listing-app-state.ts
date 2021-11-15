@@ -1,7 +1,7 @@
 import {
   CategoryFacetSearchSection,
   CategoryFacetSection,
-  ConfigurationSection,
+  SearchConfigurationSection,
   DateFacetSection,
   FacetOptionsSection,
   FacetOrderSection,
@@ -14,7 +14,7 @@ import {
   VersionSection,
 } from './state-sections';
 
-export type ProductListingAppState = ConfigurationSection &
+export type ProductListingAppState = SearchConfigurationSection &
   ProductListingSection &
   FacetSearchSection &
   FacetSection &

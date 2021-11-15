@@ -12,7 +12,7 @@ import {updateRangeFacetSortCriterion} from '../../../../features/facets/range-f
 import {deselectAllFacetValues} from '../../../../features/facets/facet-set/facet-set-actions';
 import {updateFacetOptions} from '../../../../features/facet-options/facet-options-actions';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   SearchSection,
 } from '../../../../state/state-sections';
 import {isRangeFacetValueSelected} from '../../../../features/facets/range-facets/generic/range-facet-utils';
@@ -29,7 +29,7 @@ export function buildCoreRangeFacet<
   T extends RangeFacetRequest,
   R extends RangeFacetResponse
 >(
-  engine: CoreEngine<ConfigurationSection & SearchSection>,
+  engine: CoreEngine<SearchConfigurationSection & SearchSection>,
   props: RangeFacetProps<T>
 ) {
   type RangeFacetValue = R['values'][0];

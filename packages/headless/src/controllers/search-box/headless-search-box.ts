@@ -15,7 +15,7 @@ import {
 import {buildController, Controller} from '../controller/headless-controller';
 import {logSearchboxSubmit} from '../../features/query/query-analytics-actions';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   QuerySection,
   QuerySetSection,
   QuerySuggestionSection,
@@ -252,7 +252,7 @@ function loadSearchBoxReducers(
 ): engine is SearchEngine<
   QuerySection &
     QuerySuggestionSection &
-    ConfigurationSection &
+    SearchConfigurationSection &
     QuerySetSection &
     SearchSection
 > {

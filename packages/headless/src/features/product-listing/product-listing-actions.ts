@@ -2,7 +2,7 @@ import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 import {isErrorResponse} from '../../api/search/search-api-client';
 import {
   CategoryFacetSection,
-  ConfigurationSection,
+  SearchConfigurationSection,
   DateFacetSection,
   FacetOptionsSection,
   FacetOrderSection,
@@ -66,7 +66,7 @@ export const setAdditionalFields = createAction(
     })
 );
 
-export type StateNeededByFetchProductListing = ConfigurationSection &
+export type StateNeededByFetchProductListing = SearchConfigurationSection &
   ProductListingSection &
   Partial<
     PaginationSection &

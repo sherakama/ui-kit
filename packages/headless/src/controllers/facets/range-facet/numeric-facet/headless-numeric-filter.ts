@@ -1,6 +1,6 @@
 import {SearchEngine} from '../../../../app/search-engine/search-engine';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   NumericFacetSection,
   SearchSection,
 } from '../../../../state/state-sections';
@@ -75,7 +75,7 @@ export function buildNumericFilter(
 function loadNumericFilterReducer(
   engine: SearchEngine
 ): engine is SearchEngine<
-  NumericFacetSection & ConfigurationSection & SearchSection
+  NumericFacetSection & SearchConfigurationSection & SearchSection
 > {
   engine.addReducers({numericFacetSet, configuration, search});
   return true;

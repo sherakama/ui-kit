@@ -8,7 +8,7 @@ import {
   AsyncThunkSearchOptions,
   isErrorResponse,
 } from '../../api/search/search-api-client';
-import {ConfigurationSection} from '../../state/state-sections';
+import {SearchConfigurationSection} from '../../state/state-sections';
 import {FieldDescription} from '../../api/search/fields/fields-response';
 
 const nonEmptyArray = new ArrayValue({
@@ -49,7 +49,7 @@ export const disableFetchAllFields = createAction('fields/fetchall/disable');
 export const fetchFieldsDescription = createAsyncThunk<
   FieldDescription[],
   void,
-  AsyncThunkSearchOptions<ConfigurationSection>
+  AsyncThunkSearchOptions<SearchConfigurationSection>
 >('fields/description', async (_, {extra, getState, rejectWithValue}) => {
   const state = getState();
   const {accessToken, organizationId} = state.configuration;

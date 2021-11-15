@@ -24,7 +24,7 @@ import {
 } from '../../../../core/facets/_common/facet-option-definitions';
 import {validateOptions} from '../../../../../utils/validate-payload';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   DateFacetSection,
   SearchSection,
 } from '../../../../../state/state-sections';
@@ -125,7 +125,9 @@ export const dateFacetOptionsSchema = new Schema<Required<DateFacetOptions>>({
 });
 
 export function validateDateFacetOptions(
-  engine: CoreEngine<ConfigurationSection & SearchSection & DateFacetSection>,
+  engine: CoreEngine<
+    SearchConfigurationSection & SearchSection & DateFacetSection
+  >,
   options: DateFacetOptions
 ) {
   validateOptions(engine, dateFacetOptionsSchema, options, 'buildDateFacet');

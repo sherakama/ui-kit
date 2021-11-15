@@ -4,7 +4,7 @@ import {SearchEngine} from '../../app/search-engine/search-engine';
 import {fetchResultContent} from '../../features/result-preview/result-preview-actions';
 import {logDocumentQuickview} from '../../features/result-preview/result-preview-analytics-actions';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   ResultPreviewSection,
 } from '../../state/state-sections';
 import {loadReducerError} from '../../utils/errors';
@@ -108,7 +108,7 @@ export function buildQuickview(
 
 function loadQuickviewReducers(
   engine: SearchEngine
-): engine is SearchEngine<ConfigurationSection & ResultPreviewSection> {
+): engine is SearchEngine<SearchConfigurationSection & ResultPreviewSection> {
   engine.addReducers({configuration, resultPreview});
   return true;
 }

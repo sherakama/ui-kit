@@ -18,7 +18,7 @@ import {fetchProductListing} from '../../../features/product-listing/product-lis
 import {ProductListingEngine} from '../../../app/product-listing-engine/product-listing-engine';
 import {CoreEngine} from '../../../app/engine';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   FacetSearchSection,
   FacetSection,
 } from '../../../state/state-sections';
@@ -136,7 +136,7 @@ export function buildFacet(
 function loadFacetReducers(
   engine: CoreEngine
 ): engine is CoreEngine<
-  FacetSection & ConfigurationSection & FacetSearchSection,
+  FacetSection & SearchConfigurationSection & FacetSearchSection,
   SearchThunkExtraArguments
 > {
   engine.addReducers({facetSet, configuration, facetSearchSet});

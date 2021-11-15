@@ -8,7 +8,7 @@ import {executeSearch} from '../../../features/search/search-actions';
 import {CoreEngine} from '../../../app/engine';
 import {
   CategoryFacetSearchSection,
-  ConfigurationSection,
+  SearchConfigurationSection,
 } from '../../../state/state-sections';
 import {registerCategoryFacetSearch} from '../../../features/facets/facet-search-set/category/category-facet-search-actions';
 import {buildGenericFacetSearch} from '../../core/facets/facet-search/facet-search';
@@ -18,7 +18,7 @@ import {SearchThunkExtraArguments} from '../../../app/search-thunk-extra-argumen
 
 export function buildCategoryFacetSearch(
   engine: CoreEngine<
-    CategoryFacetSearchSection & ConfigurationSection,
+    CategoryFacetSearchSection & SearchConfigurationSection,
     SearchThunkExtraArguments
   >,
   props: CategoryFacetSearchProps

@@ -3,7 +3,7 @@ import {FieldDescription} from '../../api/search/fields/fields-response';
 import {AsyncThunkSearchOptions} from '../../api/search/search-api-client';
 import {CoreEngine} from '../../app/engine';
 import {fields} from '../../app/reducers';
-import {ConfigurationSection} from '../../state/state-sections';
+import {SearchConfigurationSection} from '../../state/state-sections';
 import {
   registerFieldsToInclude,
   enableFetchAllFields,
@@ -46,7 +46,7 @@ export interface FieldActionCreators {
   fetchFieldsDescription(): AsyncThunkAction<
     FieldDescription[],
     void,
-    AsyncThunkSearchOptions<ConfigurationSection>
+    AsyncThunkSearchOptions<SearchConfigurationSection>
   >;
 }
 

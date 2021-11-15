@@ -3,7 +3,7 @@ import {logPagerResize} from '../../../features/pagination/pagination-analytics-
 import {fetchProductListing} from '../../../features/product-listing/product-listing-actions';
 import {ProductListingEngine} from '../../../product-listing.index';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   PaginationSection,
 } from '../../../state/state-sections';
 import {loadReducerError} from '../../../utils/errors';
@@ -58,7 +58,9 @@ export function buildResultsPerPage(
 
 function loadResultsPerPageReducers(
   engine: ProductListingEngine
-): engine is ProductListingEngine<PaginationSection & ConfigurationSection> {
+): engine is ProductListingEngine<
+  PaginationSection & SearchConfigurationSection
+> {
   engine.addReducers({pagination, configuration});
   return true;
 }

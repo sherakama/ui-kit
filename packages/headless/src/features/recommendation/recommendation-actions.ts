@@ -7,7 +7,7 @@ import {
 } from '../../api/search/search-api-client';
 import {Result} from '../../api/search/search/result';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   RecommendationSection,
 } from '../../state/state-sections';
 import {
@@ -18,7 +18,7 @@ import {logRecommendationUpdate} from './recommendation-analytics-actions';
 import {SearchAction} from '../analytics/analytics-utils';
 import {RecommendationAppState} from '../../state/recommendation-app-state';
 
-export type StateNeededByGetRecommendations = ConfigurationSection &
+export type StateNeededByGetRecommendations = SearchConfigurationSection &
   RecommendationSection &
   Partial<RecommendationAppState>;
 

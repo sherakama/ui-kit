@@ -1,5 +1,6 @@
 import {isNullOrUndefined} from '@coveo/bueno';
 import {createReducer} from '@reduxjs/toolkit';
+import {updateBasicConfiguration} from '../basic-configuration/basic-configuration-actions';
 import {restoreSearchParameters} from '../search-parameters/search-parameter-actions';
 import {updateActiveTab} from '../tab-set/tab-set-actions';
 import {
@@ -9,12 +10,51 @@ import {
   setOriginLevel2,
   setOriginLevel3,
 } from './analytics-configuration-actions';
-import {getAnalyticsConfigurationInitialState} from './analytics-configuration-state';
+import {
+  analyticsAPIEndpoint,
+  getAnalyticsConfigurationInitialState,
+} from './analytics-configuration-state';
+
+function analyticsUrlFromPlatformUrl(
+  platformUrl: string,
+  organizationId: string
+) {
+  const isCoveoPlatformURL =
+    /^https:\/\/platform(dev|qa|hipaa)?(-)?(eu|au)?\.cloud\.coveo\.com/.test(
+      platformUrl
+    );
+  if (isCoveoPlatformURL) {
+    return (
+      platformUrl.replace(/^(https:\/\/)platform/, '$1analytics') +
+      analyticsAPIEndpoint
+    );
+  }
+
+  const isCoveoOrgDomainUrlMatch = platformUrl.match(
+    new RegExp(`^https://(${organizationId}\\.org)\\.coveo.com`)
+  );
+  if (isCoveoOrgDomainUrlMatch) {
+    return (
+      platformUrl.replace(isCoveoOrgDomainUrlMatch[1], 'analytics.cloud') +
+      analyticsAPIEndpoint
+    );
+  }
+
+  return platformUrl;
+}
 
 export const analyticsConfigurationReducer = createReducer(
   getAnalyticsConfigurationInitialState(),
   (builder) =>
     builder
+      .addCase(updateBasicConfiguration, (state, action) => {
+        if (action.payload.platformUrl) {
+          state.analytics.apiBaseUrl = analyticsUrlFromPlatformUrl(
+            action.payload.platformUrl,
+            state.organizationId //TODO fix this somehow.
+          );
+        }
+      })
       .addCase(updateAnalyticsConfiguration, (state, action) => {
         if (!isNullOrUndefined(action.payload.enabled)) {
           state.analytics.enabled = action.payload.enabled;

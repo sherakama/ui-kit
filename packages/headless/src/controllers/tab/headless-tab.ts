@@ -1,7 +1,10 @@
 import {buildController, Controller} from '../controller/headless-controller';
 import {executeSearch} from '../../features/search/search-actions';
 import {logInterfaceChange} from '../../features/analytics/analytics-actions';
-import {ConfigurationSection, TabSection} from '../../state/state-sections';
+import {
+  SearchConfigurationSection,
+  TabSection,
+} from '../../state/state-sections';
 import {BooleanValue, Schema} from '@coveo/bueno';
 import {
   requiredEmptyAllowedString,
@@ -11,7 +14,7 @@ import {
 } from '../../utils/validate-payload';
 import {configuration, tabSet} from '../../app/reducers';
 import {loadReducerError} from '../../utils/errors';
-import {getConfigurationInitialState} from '../../features/configuration/configuration-state';
+import {getAnalyticsConfigurationInitialState} from '../../features/analytics-configuration/analytics-configuration-state';
 import {SearchEngine} from '../../app/search-engine/search-engine';
 import {
   registerTab,
@@ -141,14 +144,14 @@ export function buildTab(engine: SearchEngine, props: TabProps): Tab {
 
 function loadTabReducers(
   engine: SearchEngine
-): engine is SearchEngine<ConfigurationSection & TabSection> {
+): engine is SearchEngine<SearchConfigurationSection & TabSection> {
   engine.addReducers({configuration, tabSet});
   return true;
 }
 
 function assertIdNotEqualToDefaultOriginLevel2(id: string | undefined) {
   const defaultOriginLevel2 =
-    getConfigurationInitialState().analytics.originLevel2;
+    getAnalyticsConfigurationInitialState().analytics.originLevel2;
   if (id === defaultOriginLevel2) {
     throw new Error(
       `The #id option on the Tab controller cannot use the reserved value "${defaultOriginLevel2}". Please specify a different value.`

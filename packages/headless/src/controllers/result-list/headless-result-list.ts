@@ -1,5 +1,5 @@
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   FieldsSection,
   SearchSection,
 } from '../../state/state-sections';
@@ -181,7 +181,7 @@ export function buildResultList(
 function loadResultListReducers(
   engine: SearchEngine
 ): engine is SearchEngine<
-  SearchSection & ConfigurationSection & FieldsSection
+  SearchSection & SearchConfigurationSection & FieldsSection
 > {
   engine.addReducers({search, configuration, fields});
   return true;

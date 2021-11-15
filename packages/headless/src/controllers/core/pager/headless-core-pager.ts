@@ -14,7 +14,7 @@ import {
 } from '../../../features/pagination/pagination-selectors';
 import {minimumPage} from '../../../features/pagination/pagination-slice';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   PaginationSection,
 } from '../../../state/state-sections';
 import {loadReducerError} from '../../../utils/errors';
@@ -207,7 +207,7 @@ export function buildCorePager(
 
 function loadPagerReducers(
   engine: CoreEngine
-): engine is CoreEngine<PaginationSection & ConfigurationSection> {
+): engine is CoreEngine<PaginationSection & SearchConfigurationSection> {
   engine.addReducers({configuration, pagination});
   return true;
 }

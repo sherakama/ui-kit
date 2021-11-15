@@ -1,5 +1,5 @@
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   NumericFacetSection,
   SearchSection,
 } from '../../../../../state/state-sections';
@@ -207,7 +207,7 @@ export function buildCoreNumericFilter(
 function loadNumericFilterReducer(
   engine: CoreEngine
 ): engine is CoreEngine<
-  NumericFacetSection & ConfigurationSection & SearchSection
+  NumericFacetSection & SearchConfigurationSection & SearchSection
 > {
   engine.addReducers({numericFacetSet, configuration, search});
   return true;

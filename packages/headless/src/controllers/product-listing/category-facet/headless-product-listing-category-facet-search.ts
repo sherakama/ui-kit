@@ -9,7 +9,7 @@ import {CategoryFacetSearchResult} from '../../core/facets/category-facet/headle
 import {CoreEngine} from '../../../app/engine';
 import {
   CategoryFacetSearchSection,
-  ConfigurationSection,
+  SearchConfigurationSection,
   ProductListingSection,
 } from '../../../state/state-sections';
 import {defaultFacetSearchOptions} from '../../../features/facets/facet-search-set/facet-search-reducer-helpers';
@@ -19,7 +19,9 @@ import {ProductListingThunkExtraArguments} from '../../../app/product-listing-th
 
 export function buildCategoryFacetSearch(
   engine: CoreEngine<
-    ProductListingSection & CategoryFacetSearchSection & ConfigurationSection,
+    ProductListingSection &
+      CategoryFacetSearchSection &
+      SearchConfigurationSection,
     ProductListingThunkExtraArguments
   >,
   props: CategoryFacetSearchProps

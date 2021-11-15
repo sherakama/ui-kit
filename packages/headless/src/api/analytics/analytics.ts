@@ -10,7 +10,7 @@ import {getQueryInitialState} from '../../features/query/query-state';
 import {getSearchHubInitialState} from '../../features/search-hub/search-hub-state';
 import {getSearchInitialState} from '../../features/search/search-state';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   ContextSection,
   PipelineSection,
   QuerySection,
@@ -27,7 +27,7 @@ import {
   getStateNeededForFacetMetadata,
 } from '../../features/facets/facet-set/facet-set-analytics-actions-utils';
 
-export type StateNeededByAnalyticsProvider = ConfigurationSection &
+export type StateNeededByAnalyticsProvider = SearchConfigurationSection &
   Partial<
     SearchHubSection &
       SearchSection &

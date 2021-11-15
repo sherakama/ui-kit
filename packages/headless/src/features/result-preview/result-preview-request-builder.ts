@@ -4,12 +4,12 @@ import {
   HtmlRequestOptions,
 } from '../../api/search/html/html-request';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   QuerySection,
   ResultPreviewSection,
 } from '../../state/state-sections';
 
-export type StateNeededByHtmlEndpoint = ConfigurationSection &
+export type StateNeededByHtmlEndpoint = SearchConfigurationSection &
   ResultPreviewSection &
   Partial<QuerySection>;
 

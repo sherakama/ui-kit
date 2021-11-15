@@ -2,14 +2,14 @@ import {SearchPageClientProvider} from 'coveo.analytics';
 import {getProductRecommendationsInitialState} from '../../features/product-recommendations/product-recommendations-state';
 import {getSearchHubInitialState} from '../../features/search-hub/search-hub-state';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   ProductRecommendationsSection,
   SearchHubSection,
 } from '../../state/state-sections';
 import {getLanguage} from './shared-analytics';
 
 export type StateNeededByProductRecommendationsAnalyticsProvider =
-  ConfigurationSection &
+  SearchConfigurationSection &
     Partial<SearchHubSection & ProductRecommendationsSection>;
 
 export class ProductRecommendationAnalyticsProvider

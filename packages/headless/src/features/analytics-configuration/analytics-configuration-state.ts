@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import {analyticsUrl} from '../../api/platform-client';
+import {BasicConfigurationState} from '../basic-configuration/basic-configuration-state';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

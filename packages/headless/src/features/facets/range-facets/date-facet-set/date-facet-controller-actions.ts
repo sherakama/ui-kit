@@ -1,7 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {DateFacetValue} from './interfaces/response';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   DateFacetSection,
 } from '../../../../state/state-sections';
 import {executeToggleRangeFacetSelect} from '../generic/range-facet-controller-actions';
@@ -28,7 +28,7 @@ export const executeToggleDateFacetSelect = createAsyncThunk<
     facetId: string;
     selection: DateFacetValue;
   },
-  AsyncThunkOptions<ConfigurationSection & DateFacetSection>
+  AsyncThunkOptions<SearchConfigurationSection & DateFacetSection>
 >(
   'dateFacet/executeToggleSelect',
   (payload, {dispatch, extra: {validatePayload}}) => {

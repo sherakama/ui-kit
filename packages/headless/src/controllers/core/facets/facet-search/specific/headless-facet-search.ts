@@ -6,7 +6,7 @@ import {buildGenericFacetSearch} from '../facet-search';
 import {FacetSearchOptions} from '../../../../../features/facets/facet-search-set/facet-search-request-options';
 import {SpecificFacetSearchResult} from '../../../../../api/search/facet-search/specific-facet-search/specific-facet-search-response';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   FacetSearchSection,
 } from '../../../../../state/state-sections';
 import {deselectAllFacetValues} from '../../../../../features/facets/facet-set/facet-set-actions';
@@ -20,7 +20,7 @@ export interface FacetSearchProps {
 export type FacetSearch = ReturnType<typeof buildFacetSearch>;
 
 export function buildFacetSearch(
-  engine: CoreEngine<FacetSearchSection & ConfigurationSection>,
+  engine: CoreEngine<FacetSearchSection & SearchConfigurationSection>,
   props: FacetSearchProps
 ) {
   const {dispatch} = engine;

@@ -7,7 +7,7 @@ import {FacetSearchOptions} from '../../../../../features/facets/facet-search-se
 import {CategoryFacetSearchResult} from '../../../../../api/search/facet-search/category-facet-search/category-facet-search-response';
 import {
   CategoryFacetSearchSection,
-  ConfigurationSection,
+  SearchConfigurationSection,
 } from '../../../../../state/state-sections';
 import {defaultFacetSearchOptions} from '../../../../../features/facets/facet-search-set/facet-search-reducer-helpers';
 import {CoreEngine} from '../../../../../app/engine';
@@ -21,7 +21,7 @@ export type CategoryFacetSearch = ReturnType<
 >;
 
 export function buildCoreCategoryFacetSearch(
-  engine: CoreEngine<CategoryFacetSearchSection & ConfigurationSection>,
+  engine: CoreEngine<CategoryFacetSearchSection & SearchConfigurationSection>,
   props: CategoryFacetSearchProps
 ) {
   const {dispatch} = engine;

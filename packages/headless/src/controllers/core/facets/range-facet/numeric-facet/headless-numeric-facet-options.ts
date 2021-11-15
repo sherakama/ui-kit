@@ -25,7 +25,7 @@ import {
 } from '../../../../core/facets/_common/facet-option-definitions';
 import {validateOptions} from '../../../../../utils/validate-payload';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   NumericFacetSection,
   SearchSection,
 } from '../../../../../state/state-sections';
@@ -132,7 +132,7 @@ export const numericFacetOptionsSchema = new Schema<
 
 export function validateNumericFacetOptions(
   engine: CoreEngine<
-    NumericFacetSection & ConfigurationSection & SearchSection
+    NumericFacetSection & SearchConfigurationSection & SearchSection
   >,
   options: NumericFacetOptions
 ) {

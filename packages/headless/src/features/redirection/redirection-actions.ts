@@ -7,7 +7,7 @@ import {ExecutionPlan} from '../../api/search/plan/plan-endpoint';
 import {StringValue} from '@coveo/bueno';
 import {logRedirection} from './redirection-analytics-actions';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   ContextSection,
   PipelineSection,
   QuerySection,
@@ -15,7 +15,7 @@ import {
 } from '../../state/state-sections';
 import {buildPlanRequest} from '../standalone-search-box-set/standalone-search-box-set-actions';
 
-export type RedirectionState = ConfigurationSection &
+export type RedirectionState = SearchConfigurationSection &
   QuerySection &
   Partial<ContextSection & SearchHubSection & PipelineSection>;
 

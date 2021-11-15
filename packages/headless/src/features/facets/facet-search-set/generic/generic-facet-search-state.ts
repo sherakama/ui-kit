@@ -1,20 +1,20 @@
 import {
   CategoryFacetSearchSection,
   CategoryFacetSection,
-  ConfigurationSection,
+  SearchConfigurationSection,
   FacetSearchSection,
   FacetSection,
 } from '../../../../state/state-sections';
 
-export type StateNeededForSpecificFacetSearch = ConfigurationSection &
+export type StateNeededForSpecificFacetSearch = SearchConfigurationSection &
   FacetSearchSection &
   FacetSection;
 
-export type StateNeededForCategoryFacetSearch = ConfigurationSection &
+export type StateNeededForCategoryFacetSearch = SearchConfigurationSection &
   CategoryFacetSearchSection &
   CategoryFacetSection;
 
-export type StateNeededForFacetSearch = ConfigurationSection &
+export type StateNeededForFacetSearch = SearchConfigurationSection &
   Partial<
     StateNeededForSpecificFacetSearch & StateNeededForCategoryFacetSearch
   >;

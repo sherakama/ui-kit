@@ -3,7 +3,7 @@ import {SearchEngine} from '../../app/search-engine/search-engine';
 import {logPagerResize} from '../../features/pagination/pagination-analytics-actions';
 import {executeSearch} from '../../features/search/search-actions';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   PaginationSection,
 } from '../../state/state-sections';
 import {loadReducerError} from '../../utils/errors';
@@ -58,7 +58,7 @@ export function buildResultsPerPage(
 
 function loadResultsPerPageReducers(
   engine: SearchEngine
-): engine is SearchEngine<PaginationSection & ConfigurationSection> {
+): engine is SearchEngine<PaginationSection & SearchConfigurationSection> {
   engine.addReducers({pagination, configuration});
   return true;
 }

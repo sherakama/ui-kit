@@ -6,7 +6,7 @@ import {
 } from '../../api/search/search-api-client';
 import {Result} from '../../api/search/search/result';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   FoldingSection,
   QuerySection,
 } from '../../state/state-sections';
@@ -61,7 +61,7 @@ export const registerFolding = createAction(
     validatePayload(payload, foldingOptionsSchemaDefinition)
 );
 
-export type StateNeededByLoadCollection = ConfigurationSection &
+export type StateNeededByLoadCollection = SearchConfigurationSection &
   FoldingSection &
   QuerySection;
 

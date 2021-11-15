@@ -6,7 +6,7 @@ import {
 import {logDidYouMeanClick} from '../../features/did-you-mean/did-you-mean-analytics-actions';
 import {executeSearch} from '../../features/search/search-actions';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   DidYouMeanSection,
 } from '../../state/state-sections';
 import {
@@ -105,7 +105,7 @@ export function buildDidYouMean(engine: SearchEngine): DidYouMean {
 
 function loadDidYouMeanReducers(
   engine: SearchEngine<object>
-): engine is SearchEngine<ConfigurationSection & DidYouMeanSection> {
+): engine is SearchEngine<SearchConfigurationSection & DidYouMeanSection> {
   engine.addReducers({configuration, didYouMean});
   return true;
 }

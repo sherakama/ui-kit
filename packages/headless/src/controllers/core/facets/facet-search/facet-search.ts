@@ -8,7 +8,7 @@ import {
 } from '../../../../features/facets/facet-search-set/generic/generic-facet-search-actions';
 import {
   CategoryFacetSearchSection,
-  ConfigurationSection,
+  SearchConfigurationSection,
   FacetSearchSection,
 } from '../../../../state/state-sections';
 import {CoreEngine} from '../../../../app/engine';
@@ -26,7 +26,8 @@ export type GenericFacetSearch = ReturnType<typeof buildGenericFacetSearch>;
 
 export function buildGenericFacetSearch<T extends FacetSearchState>(
   engine: CoreEngine<
-    ConfigurationSection & (FacetSearchSection | CategoryFacetSearchSection),
+    SearchConfigurationSection &
+      (FacetSearchSection | CategoryFacetSearchSection),
     ClientThunkExtraArguments<FacetSearchAPIClient>
   >,
   props: GenericFacetSearchProps<T>

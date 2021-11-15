@@ -1,7 +1,7 @@
 import {NumericRangeRequest} from '../../../../features/facets/range-facets/numeric-facet-set/interfaces/request';
 import {NumericFacetValue} from '../../../../features/facets/range-facets/numeric-facet-set/interfaces/response';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   NumericFacetSection,
   SearchSection,
 } from '../../../../state/state-sections';
@@ -90,7 +90,7 @@ export function buildNumericFacet(
 function loadNumericFacetReducers(
   engine: SearchEngine
 ): engine is SearchEngine<
-  NumericFacetSection & ConfigurationSection & SearchSection
+  NumericFacetSection & SearchConfigurationSection & SearchSection
 > {
   engine.addReducers({numericFacetSet, configuration, search});
   return true;

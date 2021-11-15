@@ -15,7 +15,7 @@ import {
   buildCoreRangeFacet,
 } from '../headless-core-range-facet';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   DateFacetSection,
   SearchSection,
 } from '../../../../../state/state-sections';
@@ -190,7 +190,7 @@ export function buildCoreDateFacet(
 function loadDateFacetReducers(
   engine: CoreEngine
 ): engine is CoreEngine<
-  ConfigurationSection & SearchSection & DateFacetSection
+  SearchConfigurationSection & SearchSection & DateFacetSection
 > {
   engine.addReducers({configuration, search, dateFacetSet});
   return true;

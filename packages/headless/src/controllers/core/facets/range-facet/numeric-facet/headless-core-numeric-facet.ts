@@ -15,7 +15,7 @@ import {
   buildCoreRangeFacet,
 } from '../headless-core-range-facet';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   NumericFacetSection,
   SearchSection,
 } from '../../../../../state/state-sections';
@@ -192,7 +192,7 @@ export function buildCoreNumericFacet(
 function loadNumericFacetReducers(
   engine: CoreEngine
 ): engine is CoreEngine<
-  NumericFacetSection & ConfigurationSection & SearchSection
+  NumericFacetSection & SearchConfigurationSection & SearchSection
 > {
   engine.addReducers({numericFacetSet, configuration, search});
   return true;

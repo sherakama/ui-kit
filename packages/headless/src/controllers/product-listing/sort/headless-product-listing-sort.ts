@@ -14,7 +14,7 @@ import {
 } from '../../../features/sort/sort';
 import {CoreEngine} from '../../../app/engine';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   StructuredSortSection,
 } from '../../../state/state-sections';
 import {configuration, sort} from '../../../app/reducers';
@@ -56,7 +56,7 @@ export interface ProductListingSortInitialState {
 }
 
 function validateSortInitialState(
-  engine: CoreEngine<ConfigurationSection & StructuredSortSection>,
+  engine: CoreEngine<SearchConfigurationSection & StructuredSortSection>,
   state: ProductListingSortInitialState | undefined
 ) {
   if (!state) {
@@ -149,7 +149,7 @@ export function buildSort(
 
 function loadSortReducers(
   engine: CoreEngine
-): engine is CoreEngine<ConfigurationSection & StructuredSortSection> {
+): engine is CoreEngine<SearchConfigurationSection & StructuredSortSection> {
   engine.addReducers({configuration, sort});
   return true;
 }

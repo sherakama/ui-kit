@@ -2,7 +2,7 @@ import {Schema, StringValue} from '@coveo/bueno';
 import {SearchParametersState} from '../../state/search-app-state';
 import {validateInitialState} from '../../utils/validate-payload';
 import {buildController, Controller} from '../controller/headless-controller';
-import {ConfigurationSection} from '../../state/state-sections';
+import {SearchConfigurationSection} from '../../state/state-sections';
 import {buildSearchParameterSerializer} from '../../features/search-parameters/search-parameter-serializer';
 import {buildSearchParameterManager} from '../search-parameter-manager/headless-search-parameter-manager';
 import {configuration} from '../../app/reducers';
@@ -148,7 +148,7 @@ function deserializeFragment(fragment: string) {
 function loadUrlManagerReducers(
   engine: SearchEngine
 ): engine is SearchEngine<
-  Partial<SearchParametersState> & ConfigurationSection
+  Partial<SearchParametersState> & SearchConfigurationSection
 > {
   engine.addReducers({configuration});
   return true;

@@ -11,7 +11,7 @@ import {
 } from '../../api/search/search-api-client';
 
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   ContextSection,
   PipelineSection,
   QuerySuggestionSection,
@@ -21,7 +21,7 @@ import {QuerySuggestRequest} from '../../api/search/query-suggest/query-suggest-
 import {getVisitorID, historyStore} from '../../api/analytics/analytics';
 import {QuerySuggestSuccessResponse} from '../../api/search/query-suggest/query-suggest-response';
 
-export type StateNeededByQuerySuggest = ConfigurationSection &
+export type StateNeededByQuerySuggest = SearchConfigurationSection &
   QuerySuggestionSection &
   Partial<ContextSection & PipelineSection & SearchHubSection>;
 

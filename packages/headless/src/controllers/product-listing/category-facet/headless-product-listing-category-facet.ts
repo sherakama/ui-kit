@@ -10,7 +10,7 @@ import {CategoryFacetSortCriterion} from '../../../features/facets/category-face
 import {
   CategoryFacetSearchSection,
   CategoryFacetSection,
-  ConfigurationSection,
+  SearchConfigurationSection,
   ProductListingSection,
 } from '../../../state/state-sections';
 import {
@@ -134,7 +134,7 @@ function loadCategoryFacetReducers(
 ): engine is ProductListingEngine<
   CategoryFacetSection &
     CategoryFacetSearchSection &
-    ConfigurationSection &
+    SearchConfigurationSection &
     ProductListingSection
 > {
   engine.addReducers({

@@ -1,7 +1,7 @@
 import {configuration} from '../../../app/reducers';
 import {SearchEngine} from '../../../app/search-engine/search-engine';
 import {loadReducerError} from '../../../utils/errors';
-import {ConfigurationSection} from '../../../state/state-sections';
+import {SearchConfigurationSection} from '../../../state/state-sections';
 import {Result} from '../../../api/search/search/result';
 import {debounce} from 'ts-debounce';
 
@@ -105,7 +105,7 @@ export function buildInteractiveResultCore(
 
 function loadInteractiveResultCoreReducers(
   engine: SearchEngine
-): engine is SearchEngine<ConfigurationSection> {
+): engine is SearchEngine<SearchConfigurationSection> {
   engine.addReducers({configuration});
   return true;
 }

@@ -10,7 +10,7 @@ import {numericFacetSelectedValuesSelector} from '../../features/facets/range-fa
 import {dateFacetSelectedValuesSelector} from '../../features/facets/range-facets/date-facet-set/date-facet-selectors';
 import {
   CategoryFacetSection,
-  ConfigurationSection,
+  SearchConfigurationSection,
   DateFacetSection,
   FacetSection,
   NumericFacetSection,
@@ -377,7 +377,7 @@ export function buildBreadcrumbManager(
 function loadBreadcrumbManagerReducers(
   engine: SearchEngine
 ): engine is SearchEngine<
-  ConfigurationSection &
+  SearchConfigurationSection &
     SearchSection &
     FacetSection &
     NumericFacetSection &

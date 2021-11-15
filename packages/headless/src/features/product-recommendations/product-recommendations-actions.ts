@@ -5,7 +5,7 @@ import {
 } from '../../api/search/search-api-client';
 
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   ProductRecommendationsSection,
 } from '../../state/state-sections';
 import {
@@ -25,9 +25,10 @@ import {logProductRecommendations} from './product-recommendations-analytics.act
 import {SearchAction} from '../analytics/analytics-utils';
 import {ProductRecommendationsAppState} from '../../state/product-recommendations-app-state';
 
-export type StateNeededByGetProductRecommendations = ConfigurationSection &
-  ProductRecommendationsSection &
-  Partial<ProductRecommendationsAppState>;
+export type StateNeededByGetProductRecommendations =
+  SearchConfigurationSection &
+    ProductRecommendationsSection &
+    Partial<ProductRecommendationsAppState>;
 
 export interface GetProductRecommendationsThunkReturn {
   recommendations: ProductRecommendation[];

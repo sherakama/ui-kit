@@ -17,7 +17,7 @@ import {
 import {FacetSortCriterion} from '../../../../features/facets/facet-set/interfaces/request';
 import {updateFacetOptions} from '../../../../features/facet-options/facet-options-actions';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   FacetSearchSection,
   FacetSection,
   ProductListingSection,
@@ -390,7 +390,7 @@ function loadFacetReducers(
   engine: CoreEngine
 ): engine is CoreEngine<
   FacetSection &
-    ConfigurationSection &
+    SearchConfigurationSection &
     FacetSearchSection &
     (SearchSection | ProductListingSection),
   SearchThunkExtraArguments

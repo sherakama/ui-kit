@@ -1,7 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {NumericFacetValue} from './interfaces/response';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   NumericFacetSection,
 } from '../../../../state/state-sections';
 import {executeToggleRangeFacetSelect} from '../generic/range-facet-controller-actions';
@@ -30,7 +30,7 @@ export const executeToggleNumericFacetSelect = createAsyncThunk<
     facetId: string;
     selection: NumericFacetValue;
   },
-  AsyncThunkOptions<ConfigurationSection & NumericFacetSection>
+  AsyncThunkOptions<SearchConfigurationSection & NumericFacetSection>
 >(
   executeToggleNumericFacetSelectType,
   (payload, {dispatch, extra: {validatePayload}}) => {

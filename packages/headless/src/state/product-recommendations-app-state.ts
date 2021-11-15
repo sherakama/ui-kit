@@ -1,5 +1,5 @@
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   ContextSection,
   DictionaryFieldContextSection,
   ProductRecommendationsSection,
@@ -7,7 +7,7 @@ import {
   VersionSection,
 } from './state-sections';
 
-export type ProductRecommendationsAppState = ConfigurationSection &
+export type ProductRecommendationsAppState = SearchConfigurationSection &
   ProductRecommendationsSection &
   ContextSection &
   DictionaryFieldContextSection &

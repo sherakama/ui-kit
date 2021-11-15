@@ -10,7 +10,10 @@ import {
 } from '../../features/history/history-analytics-actions';
 import {HistoryState} from '../../features/history/history-state';
 import {executeSearch} from '../../features/search/search-actions';
-import {ConfigurationSection, HistorySection} from '../../state/state-sections';
+import {
+  SearchConfigurationSection,
+  HistorySection,
+} from '../../state/state-sections';
 import {loadReducerError} from '../../utils/errors';
 import {buildController, Controller} from '../controller/headless-controller';
 
@@ -100,7 +103,7 @@ export function buildHistoryManager(engine: SearchEngine): HistoryManager {
 
 function loadHistoryManagerReducers(
   engine: SearchEngine
-): engine is SearchEngine<HistorySection & ConfigurationSection> {
+): engine is SearchEngine<HistorySection & SearchConfigurationSection> {
   engine.addReducers({history, configuration, facetOrder});
   return true;
 }

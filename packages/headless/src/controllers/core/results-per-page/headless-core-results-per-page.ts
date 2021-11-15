@@ -6,7 +6,7 @@ import {
   updateNumberOfResults,
 } from '../../../features/pagination/pagination-actions';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   PaginationSection,
 } from '../../../state/state-sections';
 import {loadReducerError} from '../../../utils/errors';
@@ -121,7 +121,7 @@ export function buildCoreResultsPerPage(
 
 function loadResultsPerPageReducers(
   engine: CoreEngine
-): engine is CoreEngine<PaginationSection & ConfigurationSection> {
+): engine is CoreEngine<PaginationSection & SearchConfigurationSection> {
   engine.addReducers({pagination, configuration});
   return true;
 }

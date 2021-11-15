@@ -11,7 +11,7 @@ import {
   FoldedResult,
 } from '../../features/folding/folding-state';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   FoldingSection,
   QuerySection,
   SearchSection,
@@ -187,7 +187,7 @@ export function buildFoldedResultList(
 function loadFoldingReducer(
   engine: SearchEngine
 ): engine is SearchEngine<
-  SearchSection & ConfigurationSection & FoldingSection & QuerySection
+  SearchSection & SearchConfigurationSection & FoldingSection & QuerySection
 > {
   engine.addReducers({search, configuration, folding, query});
   return true;

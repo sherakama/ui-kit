@@ -1,6 +1,6 @@
 import {
   AdvancedSearchQueriesSection,
-  ConfigurationSection,
+  SearchConfigurationSection,
   ContextSection,
   DebugSection,
   DictionaryFieldContextSection,
@@ -11,7 +11,7 @@ import {
   VersionSection,
 } from './state-sections';
 
-export type RecommendationAppState = ConfigurationSection &
+export type RecommendationAppState = SearchConfigurationSection &
   FieldsSection &
   AdvancedSearchQueriesSection &
   ContextSection &

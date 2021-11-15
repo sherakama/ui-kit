@@ -1,8 +1,8 @@
 import {SearchAppState} from '../../state/search-app-state';
 import {getVisitorID} from '../../api/analytics/analytics';
-import {ConfigurationSection} from '../../state/state-sections';
+import {SearchConfigurationSection} from '../../state/state-sections';
 
-type StateNeededByExecuteSearchAndFolding = ConfigurationSection &
+type StateNeededByExecuteSearchAndFolding = SearchConfigurationSection &
   Partial<SearchAppState>;
 
 export const buildSearchAndFoldingLoadCollectionRequest = async (

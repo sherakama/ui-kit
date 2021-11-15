@@ -23,7 +23,7 @@ import {AsyncThunkAction, createAsyncThunk} from '@reduxjs/toolkit';
 import {requiredNonEmptyString} from '../../utils/validate-payload';
 import {ThunkExtraArguments} from '../../app/thunk-extra-arguments';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   PipelineSection,
 } from '../../state/state-sections';
 import {RecommendationAppState} from '../../state/recommendation-app-state';
@@ -69,7 +69,7 @@ export const makeAnalyticsAction = <T extends AnalyticsType>(
   analyticsType: T,
   log: (
     client: CoveoSearchPageClient,
-    state: ConfigurationSection & Partial<SearchAppState>
+    state: SearchConfigurationSection & Partial<SearchAppState>
   ) => Promise<void | SearchEventResponse> | void,
   provider: (state: Partial<SearchAppState>) => SearchPageClientProvider = (
     s

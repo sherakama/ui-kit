@@ -17,7 +17,7 @@ import {updateFacetOptions} from '../../../../features/facet-options/facet-optio
 import {
   CategoryFacetSearchSection,
   CategoryFacetSection,
-  ConfigurationSection,
+  SearchConfigurationSection,
   SearchSection,
 } from '../../../../state/state-sections';
 import {partitionIntoParentsAndValues} from '../../../../features/facets/category-facet-set/category-facet-utils';
@@ -341,7 +341,7 @@ function loadCategoryFacetReducers(
 ): engine is CoreEngine<
   CategoryFacetSection &
     CategoryFacetSearchSection &
-    ConfigurationSection &
+    SearchConfigurationSection &
     SearchSection
 > {
   engine.addReducers({

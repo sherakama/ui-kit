@@ -1,5 +1,4 @@
 import {AdvancedSearchQueriesState} from '../features/advanced-search-queries/advanced-search-queries-state';
-import {ConfigurationState} from '../features/configuration/configuration-state';
 import {ContextState} from '../features/context/context-state';
 import {DidYouMeanState} from '../features/did-you-mean/did-you-mean-state';
 import {FacetOptionsState} from '../features/facet-options/facet-options-state';
@@ -34,6 +33,7 @@ import {ProductListingState} from '../features/product-listing/product-listing-s
 import {SortState} from '../features/sort/sort-state';
 import {TabSetState} from '../features/tab-set/tab-set-state';
 import {StaticFilterSetState} from '../features/static-filter-set/static-filter-set-state';
+import {SearchConfigurationState} from '../features/search-configuration/search-configuration-state';
 
 export interface QuerySection {
   /**
@@ -163,11 +163,18 @@ export interface SearchHubSection {
   searchHub: string;
 }
 
-export interface ConfigurationSection {
+export interface SearchConfigurationSection {
   /**
    * The global headless engine configuration.
    */
-  configuration: ConfigurationState;
+  configuration: SearchConfigurationState;
+}
+
+export interface CaseAsssitConfigurationSection {
+  /**
+   * The global headless engine configuration.
+   */
+  configuration: CaseAssitConfigurationState;
 }
 
 export interface FacetSearchSection {

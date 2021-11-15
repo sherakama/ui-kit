@@ -8,7 +8,7 @@ import {
   isErrorResponse,
 } from '../../api/search/search-api-client';
 import {
-  ConfigurationSection,
+  SearchConfigurationSection,
   ContextSection,
   PipelineSection,
   QuerySection,
@@ -72,7 +72,7 @@ export const updateAnalyticsToOmniboxFromLink =
     'standaloneSearchBox/updateAnalyticsToOmniboxFromLink'
   );
 
-export type StateNeededForRedirect = ConfigurationSection &
+export type StateNeededForRedirect = SearchConfigurationSection &
   QuerySection &
   Partial<ContextSection & SearchHubSection & PipelineSection>;
 
