@@ -35,7 +35,7 @@ export default class VoteButton extends LightningElement {
    * @type {'initial'|'neutral'|'selected'}
    * @defaultValue `'initial'`
    */
-  @api state = 'initial';
+  @api state = 'selected';
 
   /**
    * The name of the icon to be in the button.
@@ -69,7 +69,7 @@ export default class VoteButton extends LightningElement {
    * @returns {string}
    */
   get labelClass() {
-    let className = this.size === 'big' ? 'slds-text-heading_small ' : 'label_small';
+    let className = this.size === 'big' ? 'slds-text-heading_small ' : 'label_small ';
     if (this.state === 'neutral') {
       className += 'slds-text-color_weak';
     } else if (this.state === 'initial') {
