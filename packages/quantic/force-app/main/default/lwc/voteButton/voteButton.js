@@ -94,4 +94,12 @@ export default class VoteButton extends LightningElement {
     }
     return 'error';
   }
+
+  /**
+   * Returns the css class of the container.
+   * @returns {string}
+   */
+  get containerClass(){
+    return this.state === 'initial'? 'vote-button clickable':'vote-button';
+  }
 }
