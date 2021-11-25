@@ -80,7 +80,7 @@ export default class QuanticSearchInterface extends LightningElement {
   unsubscribeUrlManager;
 
   connectedCallback() {
-    loadDependencies(this).then((CoveoHeadless) => {
+    loadDependencies(this, 'search').then((CoveoHeadless) => {
       if (!getHeadlessBindings(this.engineId).engine) {
         getHeadlessConfiguration().then((data) => {
           if (data) {

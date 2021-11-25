@@ -1,0 +1,26 @@
+<template>
+  <div class="slds-is-relative">
+    <div class={formClass}>
+      <div class="slds-form-element__control">
+        <input
+          value={value}
+          type="text"
+          class="slds-input"
+          oninput={handleChange}
+          maxlength={maxLength}
+          required={required}
+          id="subject-input"
+          aria-describedby="subject-error-message"
+        />
+        <template if:true={hasError}>
+          <div class="slds-form-element__help" id="subject-error-message">
+            {errorMessage}
+          </div>
+        </template>
+      </div>
+    </div>
+    <span class="slds-is-absolute input_count slds-align_absolute-center"
+      >{length}/{maxLength}</span
+    >
+  </div>
+</template>
