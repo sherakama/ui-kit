@@ -1,0 +1,135 @@
+<template>
+  <div
+    class="slds-grid"
+    style="min-width:1200px;background-color:white;min-height:800px;">
+    <div
+      class="slds-col slds-align_absolute-center"
+      style="flex-direction: column;">
+      <div class="config-container slds-align_absolute-center">
+        <textarea data-selector="jsonConfigTextArea" cols="80" rows="30">
+          {configValue}
+        </textarea>
+        <lightning-button
+          variant="brand"
+          label="Apply"
+          title="Primary action"
+          onclick={handleApply}
+          class="slds-var-m-left_x-small"></lightning-button>
+      </div>
+
+      <template if:true={shouldRender}>
+        <div
+          class="search__container slds-var-p-around_medium"
+          onregisterresulttemplates={handleResultTemplateRegistration}>
+          <c-quantic-search-interface
+            engine-id={engineId}
+            search-hub={searchHub}
+            pipeline={pipeline}
+            disable-state-in-url={disableStateInUrl}
+            skip-first-search={skipFirstSearch}>
+            <div class="slds-grid slds-grid_vertical slds-grid_align-center">
+              <div
+                class="slds-col slds-size_1-of-1 slds-large-size_6-of-12 slds-align-middle">
+                <div class="slds-var-m-vertical_small">
+                  <c-quantic-search-box
+                    engine-id={engineId}></c-quantic-search-box>
+                </div>
+              </div>
+              <div class="slds-col">
+                <div
+                  class="slds-grid slds-gutters_direct slds-wrap main slds-grid_align-center">
+                  <template if:true={facets}>
+                    <div
+                      class="slds-col slds-order_2 slds-large-order_1 slds-size_1-of-1 slds-large-size_3-of-12">
+                      <c-quantic-facet-manager engine-id={engineId}>
+                        <template for:each={facets} for:item="facet">
+                          <template if:true={facet.isNumeric}>
+                            <c-quantic-numeric-facet
+                              engine-id={engineId}
+                              field={facet.field}
+                              label={facet.label}
+                              with-input={facet.withInput}
+                              key={facet.id}></c-quantic-numeric-facet>
+                          </template>
+                          <template if:true={facet.isCategory}>
+                            <c-quantic-category-facet
+                              engine-id={engineId}
+                              field={facet.field}
+                              label={facet.label}
+                              key={facet.id}></c-quantic-category-facet>
+                          </template>
+                          <template if:true={facet.isTimeframe}>
+                            <c-quantic-timeframe-facet
+                              engine-id={engineId}
+                              field={facet.field}
+                              label={facet.label}
+                              key={facet.id}
+                              with-date-picker={facet.withDatePicker}>
+                              <template
+                                for:each={facet.timeframes}
+                                for:item="timeframe">
+                                <c-quantic-timeframe
+                                  unit={timeframe.unit}
+                                  amount={timeframe.amount}
+                                  key={timeframe.key}></c-quantic-timeframe>
+                              </template>
+                            </c-quantic-timeframe-facet>
+                          </template>
+                          <template if:true={facet.isDefault}>
+                            <c-quantic-facet
+                              engine-id={engineId}
+                              field={facet.field}
+                              label={facet.label}
+                              key={facet.id}
+                              display-values-as={facet.valueAs}></c-quantic-facet>
+                          </template>
+                        </template>
+                      </c-quantic-facet-manager>
+                    </div>
+                  </template>
+                  <div
+                    class="slds-col slds-order_1 slds-large-order_2 slds-size_1-of-1 slds-large-size_6-of-12">
+                    <template if:true={tabs}>
+                      <ul
+                        class="slds-tabs_default slds-tabs_default__nav"
+                        role="tablist">
+                        <template for:each={tabs} for:item="tab">
+                          <c-quantic-tab label={tab.label} expression={tab.expression} engine-id={engineId} is-active={tab.default} key={tab.label}></c-quantic-tab>
+                        </template>
+                      </ul>
+                    </template>
+                    <div class="slds-grid slds-var-m-top_small">
+                      <c-quantic-summary
+                        class="slds-var-m-vertical_x-small slds-medium-size_7-of-12"
+                        engine-id={engineId}>
+                      </c-quantic-summary>
+                      <c-quantic-sort
+                        class="slds-var-m-vertical_xxx-small slds-medium-size_5-of-12 slds-col_bump-left"
+                        engine-id={engineId}>
+                      </c-quantic-sort>
+                    </div>
+                    <c-quantic-query-error
+                      engine-id={engineId}></c-quantic-query-error>
+                    <c-quantic-breadcrumb-manager
+                      engine-id={engineId}></c-quantic-breadcrumb-manager>
+                    <c-quantic-did-you-mean
+                      engine-id={engineId}></c-quantic-did-you-mean>
+                    <c-quantic-no-results
+                      engine-id={engineId}></c-quantic-no-results>
+                    <c-quantic-result-list
+                      engine-id={engineId}></c-quantic-result-list>
+                    <div class="slds-var-m-vertical_medium">
+                      <c-quantic-pager engine-id={engineId}></c-quantic-pager>
+                      <c-quantic-results-per-page
+                        engine-id={engineId}></c-quantic-results-per-page>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </c-quantic-search-interface>
+        </div>
+      </template>
+    </div>
+  </div>
+</template>
