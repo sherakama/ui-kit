@@ -24,7 +24,7 @@ export default class ExampleConfigAgentPanel extends LightningElement {
    * @property {Object} analytics
    * @property {Array<FacetOptions>} facets
    */
-  @track _configValue = {
+  @track _config = {
     templates: [],
     analytics: {
       originLevel1: 'SFINT-4300-POC',
@@ -93,14 +93,36 @@ export default class ExampleConfigAgentPanel extends LightningElement {
         label: 'Files',
         expression: '@boxdocumenttype==File OR @spcontenttype==Document'
       },
-    ]
+    ],
+    summary: {
+      include: false
+    },
+    queryError: {
+      include: false,
+    },
+    breadcrumb: {
+      include: false,
+    },
+    didYouMean: {
+      include: true,
+    },
+    noResults: {
+      include: true,
+    },
+    pager: {
+      include: false,
+    },
+    resultsPerPage: {
+      include: false,
+      choicesDisplayed: '10,25,50,100'
+    }
   };
 
   @track shouldRender = true;
   engineId = 'exampleAgentPanel';
 
   get facets() {
-    return this._configValue.facets.map(facet => ({
+    return this._config.facets.map(facet => ({
       ...facet,
       id: facet.facetId || facet.field,
       isNumeric: facet.type === 'numeric',
@@ -117,14 +139,29 @@ export default class ExampleConfigAgentPanel extends LightningElement {
   }
 
   get tabs() {
-    return this._configValue.tabs.map(tab => ({
+    return this._config.tabs.map(tab => ({
       ...tab,
       expression: tab.expression || ''
     }));
   }
 
+  get breadcrumb() {
+    return {
+      ...this._config.breadcrumb,
+      categoryDivider: this._config.breadcrumb.categoryDivider || '/',
+      collapseThreshold: this._config.breadcrumb.collapseThreshold || 5,
+    }
+  }
+
+  get noResults() {
+    return {
+      ...this._config.noResults,
+      disableCancelLastAction: this._config.noResults.disableCancelLastAction || false
+    }
+  }
+
   get configValue() {
-    return JSON.stringify(this._configValue, undefined, 2);
+    return JSON.stringify(this._config, undefined, 2);
   }
 
   handleApply() {
@@ -136,7 +173,7 @@ export default class ExampleConfigAgentPanel extends LightningElement {
     try {
       // @ts-ignore
       const newConfig = JSON.parse(configTextField.value);
-      this._configValue = Object.assign({}, this._configValue, newConfig);
+      this._config = Object.assign({}, this._config, newConfig);
       setTimeout(() => {
         this.shouldRender = true;
       }, 500);
