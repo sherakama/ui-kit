@@ -29,6 +29,8 @@ export default class QuanticResultList extends LightningElement {
    */
   @api fieldsToInclude = 'date,author,source,language,filetype,parents,sfknowledgearticleid';
 
+  @api templateConfigs = [];
+
   /** @type {ResultListState}*/
   @track state;
 
@@ -80,13 +82,27 @@ export default class QuanticResultList extends LightningElement {
   }
 
   registerTemplates() {
-    this.dispatchEvent(
-      new CustomEvent('registerresulttemplates', {
-        bubbles: true,
-        detail: this.resultTemplatesManager,
+    this.templateConfigs.forEach(template => {
+      const condition = CoveoHeadless.ResultTemplatesHelpers.fieldMustMatch(
+        template.condition.fieldName,
+        [...template.condition.fieldValues]
+      );
+      this.resultTemplatesManager.registerTemplates({
+        content: template.config,
+        conditions: [condition],
+        fields: [...template.fieldsToInclude]
       })
-    );
+    });
   }
+
+  // registerTemplates() {
+  //   this.dispatchEvent(
+  //     new CustomEvent('registerresulttemplates', {
+  //       bubbles: true,
+  //       detail: this.resultTemplatesManager,
+  //     })
+  //   );
+  // }
 
   disconnectedCallback() {
     this.unsubscribe?.();

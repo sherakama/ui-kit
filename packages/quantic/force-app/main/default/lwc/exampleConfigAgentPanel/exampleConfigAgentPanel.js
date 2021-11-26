@@ -1,10 +1,5 @@
 /* eslint-disable @lwc/lwc/no-async-operation */
 // @ts-ignore
-import youtubeTemplate from './resultTemplates/youtubeResultTemplate.html';
-// @ts-ignore
-import caseTemplate from './resultTemplates/caseResultTemplate.html';
-// @ts-ignore
-import chatterTemplate from './resultTemplates/chatterResultTemplate.html';
 import {LightningElement, track} from 'lwc';
 
 /**
@@ -25,7 +20,19 @@ export default class ExampleConfigAgentPanel extends LightningElement {
    * @property {Array<FacetOptions>} facets
    */
   @track _config = {
-    templates: [],
+    templates: [
+      {
+        name: "Case Template",
+        config: {
+          showLabel: false
+        },
+        condition: {
+          fieldName: 'objecttype',
+          fieldValues: ['Case']
+        },
+        fieldsToInclude: ['sfstatus', 'sfcasestatus', 'sfcasenumber']
+      }
+    ],
     analytics: {
       originLevel1: 'SFINT-4300-POC',
     },
@@ -115,7 +122,7 @@ export default class ExampleConfigAgentPanel extends LightningElement {
     resultsPerPage: {
       include: false,
       choicesDisplayed: '10,25,50,100'
-    }
+    },
   };
 
   @track shouldRender = true;
@@ -180,41 +187,5 @@ export default class ExampleConfigAgentPanel extends LightningElement {
     } catch (error) {
       console.error('Invalid JSON config ', error);
     }
-  }
-
-  handleResultTemplateRegistration(event) {
-    event.stopPropagation();
-
-    const resultTemplatesManager = event.detail;
-
-    const isCase = CoveoHeadless.ResultTemplatesHelpers.fieldMustMatch(
-      'objecttype',
-      ['Case']
-    );
-    const isYouTube = CoveoHeadless.ResultTemplatesHelpers.fieldMustMatch(
-      'filetype',
-      ['YouTubeVideo']
-    );
-    const isChatter = CoveoHeadless.ResultTemplatesHelpers.fieldMustMatch(
-      'objecttype',
-      ['FeedItem']
-    );
-    resultTemplatesManager.registerTemplates(
-      {
-        content: youtubeTemplate,
-        conditions: [isYouTube],
-        fields: ['ytvideoid', 'ytvideoduration'],
-      },
-      {
-        content: caseTemplate,
-        conditions: [isCase],
-        fields: ['sfstatus', 'sfcasestatus', 'sfcasenumber'],
-      },
-      {
-        content: chatterTemplate,
-        conditions: [isChatter],
-        fields: ['sfcreatedbyname'],
-      }
-    );
   }
 }
