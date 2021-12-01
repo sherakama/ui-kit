@@ -111,11 +111,11 @@ async function buildOptions(): Promise<Options> {
       template: 'Build Your Own',
     },
     scratchOrg: {
-      alias: 'LWC',
+      alias: 'Deque',
       defFile: await prepareScratchOrgDefinitionFile(
         path.resolve('config/project-scratch-def.json')
       ),
-      duration: ci ? 1 : 7,
+      duration: 30,
     },
     jwt: {
       clientId: process.env.SFDX_AUTH_CLIENT_ID,
