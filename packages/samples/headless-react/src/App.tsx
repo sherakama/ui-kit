@@ -4,6 +4,7 @@ import {BrowserRouter, NavLink, Switch, Route} from 'react-router-dom';
 import {RecommendationPage} from './pages/RecommendationPage';
 import {StandaloneSearchBoxPage} from './pages/StandaloneSearchBoxPage';
 import {SamlPage} from './pages/SamlPage';
+import {ThesaurusDebuggingPage} from './pages/ThesaurusDebuggingPage';
 
 function App(props: SearchPageProps) {
   const activeNavLink: React.CSSProperties = {color: 'red'};
@@ -37,6 +38,11 @@ function App(props: SearchPageProps) {
               Saml
             </NavLink>
           </button>
+          <button>
+            <NavLink to="/custom-controller" activeStyle={activeNavLink}>
+              Custom controller & engine extension with custom reducer
+            </NavLink>
+          </button>
         </nav>
         <Switch>
           <Route path="/recommendation">
@@ -50,6 +56,9 @@ function App(props: SearchPageProps) {
           </Route>
           <Route path="/saml">
             <SamlPage organizationId="" provider="" />
+          </Route>
+          <Route path="/custom-controller">
+            <ThesaurusDebuggingPage />
           </Route>
           <Route path="/search-page">
             <SearchPage {...props} />
