@@ -6,8 +6,8 @@ import {
 import {Component} from 'react';
 import {ThesaurusDebugger} from '../components/thesaurus-debugger/thesaurus-debugger.fn';
 import {
-  buildThesaurusDebugger,
-  ThesaurusDebugger as HeadlessThesaurusDebugger,
+  buildHeadlessThesaurusDebugger,
+  HeadlessThesaurusDebugger,
 } from '../controller/thesaurus-debugger/headless-thesaurus-debugger';
 
 export class ThesaurusDebuggingPage extends Component {
@@ -16,9 +16,12 @@ export class ThesaurusDebuggingPage extends Component {
   constructor(props: {}) {
     super(props);
     this.engine = buildSearchEngine({
-      configuration: getSampleSearchEngineConfiguration(),
+      configuration: {
+        ...getSampleSearchEngineConfiguration(),
+        search: {pipeline: 'olamothe'},
+      },
     });
-    this.thesaurusDebugger = buildThesaurusDebugger(this.engine);
+    this.thesaurusDebugger = buildHeadlessThesaurusDebugger(this.engine);
   }
   render() {
     return <ThesaurusDebugger controller={this.thesaurusDebugger} />;

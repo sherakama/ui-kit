@@ -5,7 +5,8 @@ import {getThesaurusDebuggerInitialState} from './thesaurus-debugger-state';
 export const thesaurusDebuggerReducer = createReducer(
   getThesaurusDebuggerInitialState(),
   (builder) =>
-    builder.addCase(getThesaurusPlan.fulfilled, (state) => {
+    builder.addCase(getThesaurusPlan.fulfilled, (state, {payload}) => {
+      state.processedQuery = payload.parsedInput.basicExpression;
       return state;
     })
 );
