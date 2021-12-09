@@ -5,6 +5,7 @@ import {RecommendationPage} from './pages/RecommendationPage';
 import {StandaloneSearchBoxPage} from './pages/StandaloneSearchBoxPage';
 import {SamlPage} from './pages/SamlPage';
 import {ThesaurusDebuggingPage} from './pages/ThesaurusDebuggingPage';
+import {DependentFacetPage} from './pages/DependentFacetPage';
 
 function App(props: SearchPageProps) {
   const activeNavLink: React.CSSProperties = {color: 'red'};
@@ -39,6 +40,11 @@ function App(props: SearchPageProps) {
             </NavLink>
           </button>
           <button>
+            <NavLink to="/dependent-facet" activeStyle={activeNavLink}>
+              Dependent facet
+            </NavLink>
+          </button>
+          <button>
             <NavLink to="/custom-controller" activeStyle={activeNavLink}>
               Custom controller & engine extension with custom reducer
             </NavLink>
@@ -59,6 +65,9 @@ function App(props: SearchPageProps) {
           </Route>
           <Route path="/custom-controller">
             <ThesaurusDebuggingPage />
+          </Route>
+          <Route path="/dependent-facet">
+            <DependentFacetPage />
           </Route>
           <Route path="/search-page">
             <SearchPage {...props} />

@@ -15,7 +15,7 @@
   },
   "types": "./dist/definitions/index.d.ts",
   "license": "Apache-2.0",
-  "version": "1.41.0",
+  "version": "1.41.1",
   "files": [
     "dist/",
     "recommendation/",
@@ -23,9 +23,9 @@
     "product-listing/"
   ],
   "scripts": {
-    "start": "concurrently \"npm run typedefinitions -- -w\" \"rollup -c -w\"",
+    "start": "concurrently \"npm run typedefinitions -- -w\" \"node esbuild.js dev\"",
     "build": "npm run build:prod --",
-    "build:prod": "npm run typedefinitions && rollup -c --environment BUILD:production",
+    "build:prod": "npm run typedefinitions && node esbuild.js && rollup -c --environment BUILD:production",
     "typedefinitions": "tsc -p src/tsconfig.build.json -d --emitDeclarationOnly --declarationDir dist/definitions",
     "clean": "rimraf -f -r dist/*",
     "test": "jest",
