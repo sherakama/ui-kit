@@ -1,8 +1,15 @@
-import {LightningElement, api, track} from "lwc";
+import {LightningElement, api, track} from 'lwc';
 import {TimeSpan} from 'c/quanticUtils';
 
 /** @typedef {import("coveo").Result} Result */
 /** @typedef {import("coveo").ResultTemplatesManager} ResultTemplatesManager */
+/**
+ * @typedef {Object} TemplateConfig
+ * @property {Boolean} showLabel
+ * @property {Boolean} hasThumbnail
+ * @property {Boolean} hasYTDuration
+ * @property {Array<Object>} metadata
+ */
 
 /**
  * The `QuanticResult` component is used internally by the `QuanticResultList` component.
@@ -40,7 +47,7 @@ export default class QuanticConfigurableResult extends LightningElement {
   }
 
   get videoThumbnail() {
-    return `http://img.youtube.com/vi/${this.result.raw.ytvideoid}/mqdefault.jpg`
+    return `http://img.youtube.com/vi/${this.result.raw.ytvideoid}/mqdefault.jpg`;
   }
 
   get videoSourceId() {
@@ -48,14 +55,37 @@ export default class QuanticConfigurableResult extends LightningElement {
   }
 
   get videoTimeSpan() {
-    return new TimeSpan(this.result.raw.ytvideoduration, false).getCleanHHMMSS();
+    return new TimeSpan(
+      this.result.raw.ytvideoduration,
+      false
+    ).getCleanHHMMSS();
   }
 
-  onHasPreview = (evt) => {
+  get metadatas() {
+    return (
+      this.templateConfig.metadata
+        .map(meta => {
+          const fieldValue = this.result.raw[meta.field];
+          return fieldValue
+            ? {
+                label: meta.label,
+                value: fieldValue,
+                icon: meta.icon,
+              }
+            : null;
+        })
+        .filter(val => val != null) || []
+    );
+  }
+
+  onHasPreview = evt => {
     this.resultHasPreview = evt.detail.hasPreview;
     evt.stopPropagation();
   };
 
+  /**
+   * @returns {TemplateConfig}
+   */
   get templateConfig() {
     const config = this.resultTemplatesManager.selectTemplate(this.result);
     return config;

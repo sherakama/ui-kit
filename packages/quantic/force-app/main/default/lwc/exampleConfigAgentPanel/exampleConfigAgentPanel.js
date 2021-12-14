@@ -22,16 +22,40 @@ export default class ExampleConfigAgentPanel extends LightningElement {
   @track _config = {
     templates: [
       {
-        name: "Case Template",
+        name: 'Case Template',
         config: {
-          showLabel: false
+          showLabel: false,
+          hasThumbnail: false,
         },
         condition: {
           fieldName: 'objecttype',
-          fieldValues: ['Case']
+          fieldValues: ['Case'],
         },
-        fieldsToInclude: ['sfstatus', 'sfcasestatus', 'sfcasenumber']
-      }
+        fieldsToInclude: ['sfstatus', 'sfcasestatus', 'sfcasenumber'],
+      },
+      {
+        name: 'YouTube Template',
+        config: {
+          showLabel: true,
+          hasThumbnail: true,
+          hasYTDuration: true,
+          metadata: [
+            {
+              field: 'author',
+              label: 'Author',
+            },
+            {
+              field: 'sourcetype',
+              label: 'Source',
+            },
+          ],
+        },
+        condition: {
+          fieldName: 'filetype',
+          fieldValues: ['YouTubeVideo'],
+        },
+        fieldsToInclude: ['ytvideoid', 'ytvideoduration'],
+      },
     ],
     analytics: {
       originLevel1: 'SFINT-4300-POC',
@@ -59,14 +83,14 @@ export default class ExampleConfigAgentPanel extends LightningElement {
         withDatePicker: true,
         timeframes: [
           {
-            unit: 'week'
-          },
-          {
-            unit: 'month'
+            unit: 'week',
           },
           {
             unit: 'month',
-            amount: 6
+          },
+          {
+            unit: 'month',
+            amount: 6,
           },
           {
             unit: 'year',
@@ -85,24 +109,24 @@ export default class ExampleConfigAgentPanel extends LightningElement {
         default: true,
       },
       {
-        label: 'Articles',
-        expression: '@sfkbid'
+        label: 'YouTube',
+        expression: '@filetype=="YouTubeVideo"',
       },
       {
-        label: 'Issues',
-        expression: '@jisourcetype AND NOT @jidocumenttype="WorkLog"'
+        label: 'Cases',
+        expression: '@objecttype=="Case"',
       },
       {
         label: 'Community',
-        expression: '@objecttype=="Message"'
+        expression: '@objecttype=="Message"',
       },
       {
         label: 'Files',
-        expression: '@boxdocumenttype==File OR @spcontenttype==Document'
+        expression: '@boxdocumenttype==File OR @spcontenttype==Document',
       },
     ],
     summary: {
-      include: false
+      include: false,
     },
     queryError: {
       include: false,
@@ -121,7 +145,7 @@ export default class ExampleConfigAgentPanel extends LightningElement {
     },
     resultsPerPage: {
       include: false,
-      choicesDisplayed: '10,25,50,100'
+      choicesDisplayed: '10,25,50,100',
     },
   };
 
@@ -140,15 +164,15 @@ export default class ExampleConfigAgentPanel extends LightningElement {
       timeframes: facet.timeframes?.map((tf, idx) => ({
         ...tf,
         amount: tf.amount || '1',
-        key: idx
-      }))
+        key: idx,
+      })),
     }));
   }
 
   get tabs() {
     return this._config.tabs.map(tab => ({
       ...tab,
-      expression: tab.expression || ''
+      expression: tab.expression || '',
     }));
   }
 
@@ -157,14 +181,15 @@ export default class ExampleConfigAgentPanel extends LightningElement {
       ...this._config.breadcrumb,
       categoryDivider: this._config.breadcrumb.categoryDivider || '/',
       collapseThreshold: this._config.breadcrumb.collapseThreshold || 5,
-    }
+    };
   }
 
   get noResults() {
     return {
       ...this._config.noResults,
-      disableCancelLastAction: this._config.noResults.disableCancelLastAction || false
-    }
+      disableCancelLastAction:
+        this._config.noResults.disableCancelLastAction || false,
+    };
   }
 
   get configValue() {
