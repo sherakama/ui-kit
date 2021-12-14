@@ -64,7 +64,7 @@ export default class QuanticConfigurableResult extends LightningElement {
   get metadatas() {
     return (
       this.templateConfig.metadata
-        .map(meta => {
+        ?.map(meta => {
           const fieldValue = this.result.raw[meta.field];
           return fieldValue
             ? {
