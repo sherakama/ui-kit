@@ -195,29 +195,10 @@ async function createGithubDiscussionPost(
     runner.add(async (log) => {
       options.packageVersion = await getPackageVersion(log);
     });
-    options.promote &&
-      runner.add(async (log) => await ensurePackageNotPublished(log, options));
-    options.removeTranslations &&
-      runner.add(async (log) => await removeTranslations(log));
     runner.add(async (log) => {
-      packageVersionId = (await createPackage(log, options)).result
-        .SubscriberPackageVersionId;
-      !options.promote &&
-        log(
-          JSON.stringify(
-            await getMatchingPackageVersion(options.packageVersion),
-            null,
-            2
-          )
-        );
+      log('previous step worked. package version determined:');
+      log(options.packageVersion);
     });
-    options.promote &&
-      runner
-        .add(async (log) => await promotePackage(log, packageVersionId))
-        .add(
-          async (log) =>
-            await createGithubDiscussionPost(log, options, packageVersionId)
-        );
 
     await runner.run();
   } catch (error) {
