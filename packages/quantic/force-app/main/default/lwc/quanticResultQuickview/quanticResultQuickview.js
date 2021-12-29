@@ -86,13 +86,6 @@ export default class QuanticResultQuickview extends LightningElement {
     });
   }
 
-  renderedCallback() {
-    if (this.contentContainer && this.state?.resultHasPreview) {
-      // eslint-disable-next-line @lwc/lwc/no-inner-html
-      this.contentContainer.innerHTML = this.state.content;
-    }
-  }
-
   /**
    * @param {SearchEngine} engine
    */
@@ -186,5 +179,9 @@ export default class QuanticResultQuickview extends LightningElement {
 
   get hasButtonLabel() {
     return !!this.previewButtonLabel;
+  }
+
+  get richText() {
+    return this.state?.content;
   }
 }
