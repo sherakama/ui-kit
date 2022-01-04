@@ -1,6 +1,9 @@
-import { LightningElement, api, track } from 'lwc';
-import { registerComponentForInit, initializeWithHeadless } from 'c/quanticHeadlessLoader';
-import { I18nUtils } from 'c/quanticUtils';
+import {LightningElement, api, track} from 'lwc';
+import {
+  registerComponentForInit,
+  initializeWithHeadless,
+} from 'c/quanticHeadlessLoader';
+import {I18nUtils} from 'c/quanticUtils';
 
 import coveoOnlineHelpLink from '@salesforce/label/c.quantic_CoveoOnlineHelpLink';
 import moreInformation from '@salesforce/label/c.quantic_MoreInformation';
@@ -9,7 +12,7 @@ import community from '@salesforce/label/c.quantic_Community';
 import contactCoveoSupportTeam from '@salesforce/label/c.quantic_ContactCoveoSupportTeam';
 import goBack from '@salesforce/label/c.quantic_GoBack';
 
-import { errorMap, genericError } from './errorLabels.js';
+import {errorMap, genericError} from './errorLabels.js';
 
 /** @typedef {import("coveo").QueryError} QueryError */
 /** @typedef {import("coveo").SearchEngine} SearchEngine */
@@ -35,7 +38,7 @@ export default class QuanticQueryError extends LightningElement {
   /** @type {Boolean} */
   @track hasError;
   /** @type {string} */
-  @track error
+  @track error;
 
   /** @type {QueryError} */
   queryError;
@@ -50,8 +53,8 @@ export default class QuanticQueryError extends LightningElement {
     checkForMore,
     community,
     contactCoveoSupportTeam,
-    goBack
-  }
+    goBack,
+  };
 
   connectedCallback() {
     registerComponentForInit(this, this.engineId);
@@ -67,7 +70,7 @@ export default class QuanticQueryError extends LightningElement {
   initialize = (engine) => {
     this.queryError = CoveoHeadless.buildQueryError(engine);
     this.unsubscribe = this.queryError.subscribe(() => this.updateState());
-  }
+  };
 
   disconnectedCallback() {
     this.unsubscribe?.();
@@ -76,7 +79,9 @@ export default class QuanticQueryError extends LightningElement {
   updateState() {
     this.type = this.queryError.state.error?.type;
     this.hasError = this.queryError.state.hasError;
-    this.error = this.queryError.state.error ? JSON.stringify(this.queryError.state.error, null, 2): "";
+    this.error = this.queryError.state.error
+      ? JSON.stringify(this.queryError.state.error, null, 2)
+      : '';
   }
 
   get errorTitle() {
@@ -106,7 +111,7 @@ export default class QuanticQueryError extends LightningElement {
       }
     } else {
       this.copyToClipboardFallback(text);
-    } 
+    }
   }
   /**
    * @param {string} text
@@ -121,6 +126,18 @@ export default class QuanticQueryError extends LightningElement {
   }
 
   get checkForMoreLabel() {
-    return I18nUtils.format(this.labels.checkForMore, I18nUtils.getTextWithDecorator(this.labels.community, '<a href="https://connect.coveo.com/s/">', '</a>'), I18nUtils.getTextWithDecorator(this.labels.contactCoveoSupportTeam,'<a href="https://connect.coveo.com/s/article/5382">', '</a>'));
+    return I18nUtils.format(
+      this.labels.checkForMore,
+      I18nUtils.getTextWithDecorator(
+        this.labels.community,
+        '<a href="https://connect.coveo.com/s/">',
+        '</a>'
+      ),
+      I18nUtils.getTextWithDecorator(
+        this.labels.contactCoveoSupportTeam,
+        '<a href="https://connect.coveo.com/s/article/5382">',
+        '</a>'
+      )
+    );
   }
 }

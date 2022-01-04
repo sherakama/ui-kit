@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Translations xmlns="http://soap.sforce.com/2006/04/metadata">
     <customLabels>
         <label>Résultat {{0}} de {{1}}</label>
@@ -117,11 +117,13 @@
         <name>quantic_NoResultsTitle</name>
     </customLabels>
     <customLabels>
-        <label>Vous pouvez essayer d'utiliser différents mots-clés ou de vérifier les fautes d'orthographe.</label>
+        <label
+    >Vous pouvez essayer d'utiliser différents mots-clés ou de vérifier les fautes d'orthographe.</label>
         <name>quantic_NoResultsWithoutFilters</name>
     </customLabels>
     <customLabels>
-        <label>Vous pouvez essayer d'utiliser différents mots-clés, vérifier les fautes d'orthographe ou sélectionner moins de filtres.</label>
+        <label
+    >Vous pouvez essayer d'utiliser différents mots-clés, vérifier les fautes d'orthographe ou sélectionner moins de filtres.</label>
         <name>quantic_NoResultsWithFilters</name>
     </customLabels>
     <customLabels>
@@ -137,7 +139,8 @@
         <name>quantic_MoreInformation</name>
     </customLabels>
     <customLabels>
-        <label>Vérifiez la {{0}} pour des erreurs similaires ou {{1}} pour plus d'informations.</label>
+        <label
+    >Vérifiez la {{0}} pour des erreurs similaires ou {{1}} pour plus d'informations.</label>
         <name>quantic_CheckForMore</name>
     </customLabels>
     <customLabels>
@@ -157,15 +160,18 @@
         <name>quantic_DisconnectedTitle</name>
     </customLabels>
     <customLabels>
-        <label>Votre requête n'a pas plus être envoyée. Peut-être que vous avez perdu votre connexion internet.</label>
+        <label
+    >Votre requête n'a pas plus être envoyée. Peut-être que vous avez perdu votre connexion internet.</label>
         <name>quantic_DisconnectedDesc</name>
     </customLabels>
     <customLabels>
-        <label>L'organisation Coveo n'a pas de point de terminaison unique.</label>
+        <label
+    >L'organisation Coveo n'a pas de point de terminaison unique.</label>
         <name>quantic_NoEndpointsTitle</name>
     </customLabels>
     <customLabels>
-        <label>Vous devrez ajouter des sources à votre index, ou attendre la fin de l'indexation des sources créées.</label>
+        <label
+    >Vous devrez ajouter des sources à votre index, ou attendre la fin de l'indexation des sources créées.</label>
         <name>quantic_NoEndpointsDesc</name>
     </customLabels>
     <customLabels>
@@ -177,11 +183,13 @@
         <name>quantic_InvalidTokenDesc</name>
     </customLabels>
     <customLabels>
-        <label>Votre organisation redeviendra active et sera bientôt disponible.</label>
+        <label
+    >Votre organisation redeviendra active et sera bientôt disponible.</label>
         <name>quantic_OrganizationIsPausedTitle</name>
     </customLabels>
     <customLabels>
-        <label>Votre organisation Coveo est en pause pour cause d'inactivité et la recherche est présentement indisponible.</label>
+        <label
+    >Votre organisation Coveo est en pause pour cause d'inactivité et la recherche est présentement indisponible.</label>
         <name>quantic_OrganizationIsPausedDesc</name>
     </customLabels>
     <customLabels>
@@ -245,11 +253,13 @@
         <name>quantic_Max</name>
     </customLabels>
     <customLabels>
-        <label>Entrez une valeur numérique minimale pour la facette {{0}}</label>
+        <label
+    >Entrez une valeur numérique minimale pour la facette {{0}}</label>
         <name>quantic_NumberInputMinimum</name>
     </customLabels>
     <customLabels>
-        <label>Entrez une valeur numérique maximale pour la facette {{0}}</label>
+        <label
+    >Entrez une valeur numérique maximale pour la facette {{0}}</label>
         <name>quantic_NumberInputMaximum</name>
     </customLabels>
     <customLabels>
@@ -257,7 +267,8 @@
         <name>quantic_Apply</name>
     </customLabels>
     <customLabels>
-        <label>Appliquer les filtres numériques manuels pour la facette {{0}}</label>
+        <label
+    >Appliquer les filtres numériques manuels pour la facette {{0}}</label>
         <name>quantic_NumberInputApply</name>
     </customLabels>
     <customLabels>

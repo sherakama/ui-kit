@@ -1,4 +1,4 @@
-import { api, LightningElement, track } from 'lwc';
+import {api, LightningElement, track} from 'lwc';
 
 export default class ExampleQuanticFacetManager extends LightningElement {
   @api engineId = 'quantic-facet-manager-engine';
@@ -6,7 +6,8 @@ export default class ExampleQuanticFacetManager extends LightningElement {
   isConfigured = false;
 
   pageTitle = 'Quantic Facet Manager';
-  pageDescription = 'The QuanticFacetManager component acts as a container allowing facets to be reordered dynamically as search queries are performed.';
+  pageDescription =
+    'The QuanticFacetManager component acts as a container allowing facets to be reordered dynamically as search queries are performed.';
   options = [];
 
   get notConfigured() {

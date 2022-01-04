@@ -7,7 +7,7 @@ describe('c-quantic-search-box', () => {
     while (document.body.firstChild) {
       document.body.removeChild(document.body.firstChild);
     }
-  }  
+  }
 
   afterEach(() => {
     cleanup();

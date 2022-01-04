@@ -1,8 +1,5 @@
 import {LightningElement, api, track, wire} from 'lwc';
-import {
-  CurrentPageReference,
-  NavigationMixin,
-} from 'lightning/navigation';
+import {CurrentPageReference, NavigationMixin} from 'lightning/navigation';
 import {
   registerComponentForInit,
   initializeWithHeadless,
@@ -35,7 +32,6 @@ const CLASS_WITHOUT_SUBMIT =
 export default class QuanticStandaloneSearchBox extends NavigationMixin(
   LightningElement
 ) {
-  
   labels = {
     search,
     clear,
@@ -48,25 +44,25 @@ export default class QuanticStandaloneSearchBox extends NavigationMixin(
    */
   @api engineId;
   /**
-  * The placeholder text to display in the search box input area.
-  * @api
-  * @type {string}
-  * @defaultValue 'Search...'
-  */
+   * The placeholder text to display in the search box input area.
+   * @api
+   * @type {string}
+   * @defaultValue 'Search...'
+   */
   @api placeholder = `${this.labels.search}`;
   /**
-  * Whether not to render a submit button.
-  * @api
-  * @type {boolean}
-  * @defaultValue 'false'
-  */
+   * Whether not to render a submit button.
+   * @api
+   * @type {boolean}
+   * @defaultValue 'false'
+   */
   @api withoutSubmitButton = false;
   /**
-  * The maximum number of suggestions to display.
-  * @api
-  * @type {number}
-  * @defaultValue 5
-  */
+   * The maximum number of suggestions to display.
+   * @api
+   * @type {number}
+   * @defaultValue 5
+   */
   @api numberOfSuggestions = 5;
   /**
    * The url of the search page to redirect to when a query is made.
@@ -150,7 +146,7 @@ export default class QuanticStandaloneSearchBox extends NavigationMixin(
     this.unsubscribe = this.standaloneSearchBox.subscribe(() =>
       this.updateStandaloneState()
     );
-  }
+  };
 
   disconnectedCallback() {
     this.unsubscribe?.();
@@ -191,7 +187,9 @@ export default class QuanticStandaloneSearchBox extends NavigationMixin(
   }
 
   get searchBoxInputClass() {
-    return this.withoutSubmitButton ? 'slds-input searchbox__input' : 'slds-input searchbox__input searchbox__input-with-button';
+    return this.withoutSubmitButton
+      ? 'slds-input searchbox__input'
+      : 'slds-input searchbox__input searchbox__input-with-button';
   }
 
   showSuggestions() {
@@ -267,7 +265,7 @@ export default class QuanticStandaloneSearchBox extends NavigationMixin(
 
   resetStandaloneSearchboxState() {
     const engine = getHeadlessBindings(this.standaloneEngineId)?.engine;
-    if(!engine) {
+    if (!engine) {
       return;
     }
     const {updateQuery} = CoveoHeadless.loadQueryActions(engine);

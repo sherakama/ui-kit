@@ -1,5 +1,8 @@
 import {api, LightningElement, track} from 'lwc';
-import {initializeWithHeadless, registerComponentForInit} from 'c/quanticHeadlessLoader';
+import {
+  initializeWithHeadless,
+  registerComponentForInit,
+} from 'c/quanticHeadlessLoader';
 import {I18nUtils} from 'c/quanticUtils';
 
 import noResultsForTitle from '@salesforce/label/c.quantic_NoResultsForTitle';
@@ -18,7 +21,7 @@ import undoLastAction from '@salesforce/label/c.quantic_UndoLastAction';
  * The `QuanticNoResults` component displays search tips and a "Cancel last action" button when there are no results. Any additional content embedded inside the component will be displayed as well.
  * @category Search
  * @example
- * <c-quantic-no-results engine-id={engineId} disable-cancel-last-action></c-quantic-no-results>  
+ * <c-quantic-no-results engine-id={engineId} disable-cancel-last-action></c-quantic-no-results>
  */
 export default class QuanticNoResults extends LightningElement {
   /**
@@ -66,8 +69,8 @@ export default class QuanticNoResults extends LightningElement {
     noResultsForTitle,
     noResultsWithFilters,
     noResultsWithoutFilters,
-    undoLastAction
-  }
+    undoLastAction,
+  };
 
   connectedCallback() {
     registerComponentForInit(this, this.engineId);
@@ -85,11 +88,19 @@ export default class QuanticNoResults extends LightningElement {
     this.historyManager = CoveoHeadless.buildHistoryManager(engine);
     this.querySummary = CoveoHeadless.buildQuerySummary(engine);
     this.breadcrumbManager = CoveoHeadless.buildBreadcrumbManager(engine);
-    this.unsubscribeSearchStatus = this.searchStatus.subscribe(() => this.updateState());
-    this.unsubscribeHistoryManager = this.historyManager.subscribe(() => this.updateState());
-    this.unsubscribeQuerySummary = this.querySummary.subscribe(() => this.updateState());
-    this.unsubscribeBreadcrumbsManager = this.breadcrumbManager.subscribe(() => this.updateState());
-  }
+    this.unsubscribeSearchStatus = this.searchStatus.subscribe(() =>
+      this.updateState()
+    );
+    this.unsubscribeHistoryManager = this.historyManager.subscribe(() =>
+      this.updateState()
+    );
+    this.unsubscribeQuerySummary = this.querySummary.subscribe(() =>
+      this.updateState()
+    );
+    this.unsubscribeBreadcrumbsManager = this.breadcrumbManager.subscribe(() =>
+      this.updateState()
+    );
+  };
 
   disconnectedCallback() {
     this.unsubscribeSearchStatus?.();
@@ -97,11 +108,18 @@ export default class QuanticNoResults extends LightningElement {
     this.unsubscribeQuerySummary?.();
     this.unsubscribeBreadcrumbsManager?.();
   }
-  
+
   updateState() {
-    this.showNoResultsPanel = this.searchStatus.state.firstSearchExecuted && !this.searchStatus.state.isLoading && !this.searchStatus.state.hasResults && !this.searchStatus.state.hasError;
-    this.showUndoButton = !this.disableCancelLastAction && this.historyManager.state.past.length;
-    this.query = this.querySummary.state.hasQuery ? this.querySummary.state.query : "";
+    this.showNoResultsPanel =
+      this.searchStatus.state.firstSearchExecuted &&
+      !this.searchStatus.state.isLoading &&
+      !this.searchStatus.state.hasResults &&
+      !this.searchStatus.state.hasError;
+    this.showUndoButton =
+      !this.disableCancelLastAction && this.historyManager.state.past.length;
+    this.query = this.querySummary.state.hasQuery
+      ? this.querySummary.state.query
+      : '';
     this.hasBreadcrumbs = this.breadcrumbManager.state.hasBreadcrumbs;
   }
 
@@ -111,7 +129,10 @@ export default class QuanticNoResults extends LightningElement {
 
   get noResultsTitleLabel() {
     if (this.query) {
-      return I18nUtils.format(this.labels.noResultsForTitle, I18nUtils.getTextBold(this.query));
+      return I18nUtils.format(
+        this.labels.noResultsForTitle,
+        I18nUtils.getTextBold(this.query)
+      );
     }
     return this.labels.noResultsTitle;
   }

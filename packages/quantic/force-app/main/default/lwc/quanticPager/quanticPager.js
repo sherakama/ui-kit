@@ -1,5 +1,8 @@
 import {LightningElement, api, track} from 'lwc';
-import {registerComponentForInit, initializeWithHeadless} from 'c/quanticHeadlessLoader';
+import {
+  registerComponentForInit,
+  initializeWithHeadless,
+} from 'c/quanticHeadlessLoader';
 
 import next from '@salesforce/label/c.quantic_Next';
 import previous from '@salesforce/label/c.quantic_Previous';
@@ -31,7 +34,7 @@ export default class QuanticPager extends LightningElement {
   /** @type {number[]} */
   @track currentPages = [];
   /** @type {boolean}*/
-  @track hasResults
+  @track hasResults;
 
   /** @type {Pager} */
   pager;
@@ -48,8 +51,8 @@ export default class QuanticPager extends LightningElement {
 
   labels = {
     next,
-    previous
-  }
+    previous,
+  };
 
   connectedCallback() {
     registerComponentForInit(this, this.engineId);
@@ -66,12 +69,14 @@ export default class QuanticPager extends LightningElement {
     this.pager = CoveoHeadless.buildPager(engine, {
       options: {
         numberOfPages: Number(this.numberOfPages),
-      }
+      },
     });
     this.searchStatus = CoveoHeadless.buildSearchStatus(engine);
     this.unsubscribe = this.pager.subscribe(() => this.updateState());
-    this.unsubscribeSearchStatus = this.searchStatus.subscribe(() => this.updateState());
-  }
+    this.unsubscribeSearchStatus = this.searchStatus.subscribe(() =>
+      this.updateState()
+    );
+  };
 
   disconnectedCallback() {
     this.unsubscribe?.();
@@ -112,7 +117,7 @@ export default class QuanticPager extends LightningElement {
   get currentPagesObjects() {
     return this.currentPages.map((page) => ({
       number: page,
-      selected: page === this.currentPage
+      selected: page === this.currentPage,
     }));
   }
 }

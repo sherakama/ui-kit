@@ -6,7 +6,8 @@ export default class ExampleQuanticSort extends LightningElement {
   isConfigured = false;
 
   pageTitle = 'Quantic Sort';
-  pageDescription = 'The QuanticSort component renders a dropdown that the end user can interact with to select the criterion to use when sorting query results.';
+  pageDescription =
+    'The QuanticSort component renders a dropdown that the end user can interact with to select the criterion to use when sorting query results.';
   options = [];
 
   get notConfigured() {

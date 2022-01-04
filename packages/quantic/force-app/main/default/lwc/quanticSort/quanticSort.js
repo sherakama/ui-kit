@@ -77,7 +77,7 @@ export default class QuanticSort extends LightningElement {
     this.unsubscribeSearchStatus = this.searchStatus.subscribe(() =>
       this.updateState()
     );
-  }
+  };
 
   disconnectedCallback() {
     this.unsubscribeSort?.();
@@ -99,7 +99,8 @@ export default class QuanticSort extends LightningElement {
       {
         label: this.labels.newest,
         value: CoveoHeadless.buildCriterionExpression(this.dateDescending),
-        criterion: this.dateDescending},
+        criterion: this.dateDescending,
+      },
       {
         label: this.labels.oldest,
         value: CoveoHeadless.buildCriterionExpression(this.dateAscending),
@@ -112,7 +113,9 @@ export default class QuanticSort extends LightningElement {
    * @param {CustomEvent<{value: string}>} e
    */
   handleChange(e) {
-    this.sort.sortBy(this.options.find((option) => option.value === e.detail.value).criterion);
+    this.sort.sortBy(
+      this.options.find((option) => option.value === e.detail.value).criterion
+    );
   }
 
   get relevancy() {

@@ -10,7 +10,7 @@ import {api, LightningElement} from 'lwc';
 
 /**
  * The `QuanticFacetManager` component acts as a container component allowing facets to be reordered dynamically as search queries are performed.
- * 
+ *
  * An item template element can be assigned to the `itemTemplate` slot allowing to customize the element that wraps each facet.
  * @category Search
  * @example
@@ -100,9 +100,11 @@ export default class QuanticFacetManager extends LightningElement {
   }
 
   getFacetsFromSlot() {
-    const isFacetManager = (tagName) => /-quantic-facet-manager$/i.test(tagName);
-    return Array.from(this.querySelectorAll('*'))
-      .filter((element) => isFacetManager(element.parentElement.tagName));
+    const isFacetManager = (tagName) =>
+      /-quantic-facet-manager$/i.test(tagName);
+    return Array.from(this.querySelectorAll('*')).filter((element) =>
+      isFacetManager(element.parentElement.tagName)
+    );
   }
 
   moveFacetsToHost() {
@@ -137,7 +139,10 @@ export default class QuanticFacetManager extends LightningElement {
     }
 
     // @ts-ignore
-    const payload = this.facets.map((f) => ({facetId: f.dataset.facetId, payload: f}));
+    const payload = this.facets.map((f) => ({
+      facetId: f.dataset.facetId,
+      payload: f,
+    }));
     const sortedFacets = this.facetManager.sort(payload).map((f) => f.payload);
 
     sortedFacets.forEach((sortedFacet) => {

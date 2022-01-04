@@ -1,4 +1,4 @@
-import {LightningElement, api} from "lwc";
+import {LightningElement, api} from 'lwc';
 
 import documentation from '@salesforce/label/c.quantic_Documentation';
 import message from '@salesforce/label/c.quantic_Message';
@@ -7,8 +7,8 @@ import video from '@salesforce/label/c.quantic_Video';
 import {objectTypeIcons} from './icons/objectTypeIcons';
 import {fileTypeIcons} from './icons/fileTypeIcons';
 
-const KNOWLEDGE='Knowledge';
-const CHATTER='Chatter';
+const KNOWLEDGE = 'Knowledge';
+const CHATTER = 'Chatter';
 
 /** @typedef {import("coveo").Result} Result */
 
@@ -44,7 +44,7 @@ export default class QuanticResultLabel extends LightningElement {
    * @type {'xx-small' | 'x-small' | 'small' | 'medium' | 'large'}
    * @defaultValue `'small'`
    */
-  @api size  ='small';
+  @api size = 'small';
   /**
    * Whether to only display the icon without the label.
    * @api
@@ -59,24 +59,28 @@ export default class QuanticResultLabel extends LightningElement {
     video,
     chatter: CHATTER,
     knowledge: KNOWLEDGE,
-  }
+  };
 
   error;
 
   connectedCallback() {
     if (!this.result && (!this.label || !this.icon)) {
-      console.error(`The ${this.template.host.localName} requires either specified value for label and icon or a result object to display correctly.`);
+      console.error(
+        `The ${this.template.host.localName} requires either specified value for label and icon or a result object to display correctly.`
+      );
       this.error = `${this.template.host.localName} Error`;
     }
   }
 
-  renderedCallback() { 
+  renderedCallback() {
     this.setLabelSize();
   }
 
   setLabelSize() {
     // @ts-ignore
-    this.template.querySelector('.result-label__label')?.style.setProperty('font-size', this.size);
+    this.template
+      .querySelector('.result-label__label')
+      ?.style.setProperty('font-size', this.size);
   }
 
   get iconToDisplay() {

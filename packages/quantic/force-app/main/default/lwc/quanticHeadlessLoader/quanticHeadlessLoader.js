@@ -10,7 +10,7 @@ let dependencyPromises = [];
 
 const HeadlessBundleNames = {
   search: 'search',
-  caseAssist: 'case-assist'
+  caseAssist: 'case-assist',
 };
 
 const headlessBundles = {
@@ -29,7 +29,9 @@ const headlessBundles = {
  * @param element The Lightning element to use to load dependencies.
  */
 const loadDependencies = async (element, headlessUseCase) => {
-  const bundleInfo = headlessUseCase ? headlessBundles[headlessUseCase] : headlessBundles.search;
+  const bundleInfo = headlessUseCase
+    ? headlessBundles[headlessUseCase]
+    : headlessBundles.search;
 
   if (!dependencyPromises.length) {
     dependencyPromises = [
@@ -38,16 +40,16 @@ const loadDependencies = async (element, headlessUseCase) => {
   }
   await Promise.all(dependencyPromises);
   return bundleInfo.bundle();
-}
+};
 
 /**
  * Sets callback to execute when all components are registered with the specified engine.
- * @param {Function} callback 
- * @param {string} engineId 
+ * @param {Function} callback
+ * @param {string} engineId
  */
 const setInitializedCallback = (callback, engineId) => {
   window.coveoHeadless[engineId].initializedCallback = callback;
-}
+};
 
 /**
  * Cancels the delayed search query.
@@ -58,25 +60,30 @@ const cancelInitializedCallback = (engineId) => {
     debouncers[engineId].clearTimeout();
     delete debouncers[engineId];
   }
-}
+};
 
 /**
  * Dispatches search request.
- * @param {string} engineId The id of the engine. 
+ * @param {string} engineId The id of the engine.
  */
 const executeInitializedCallback = async (engineId) => {
-  window.coveoHeadless[engineId].initializedCallback(await window.coveoHeadless[engineId].enginePromise);
+  window.coveoHeadless[engineId].initializedCallback(
+    await window.coveoHeadless[engineId].enginePromise
+  );
 };
 
 /**
  * Starts the debounced initial search request.
- * @param {string} engineId The id of the engine. 
+ * @param {string} engineId The id of the engine.
  */
 const debounceInitializedCallback = (engineId) => {
   if (!debouncers[engineId]) {
     debouncers[engineId] = new Debouncer();
   }
-  debouncers[engineId].debounce(executeInitializedCallback, DEBOUNCE_DELAY)(engineId);
+  debouncers[engineId].debounce(
+    executeInitializedCallback,
+    DEBOUNCE_DELAY
+  )(engineId);
 };
 
 /**
@@ -84,14 +91,19 @@ const debounceInitializedCallback = (engineId) => {
  * @param {string} engineId The id of the engine.
  */
 const areAllComponentsInitialized = (engineId) =>
-  !window.coveoHeadless[engineId].components.find(component => component.initialized === false);
+  !window.coveoHeadless[engineId].components.find(
+    (component) => component.initialized === false
+  );
 
 /**
  * Returns the registered component object if it exists.
  * @param element The Lightning Element component with which to load dependencies.
  * @param {string} engineId The id of the engine.
  */
-const getRegisteredComponent = (element, engineId) => window.coveoHeadless[engineId].components.find((component) => component.element === element);
+const getRegisteredComponent = (element, engineId) =>
+  window.coveoHeadless[engineId].components.find(
+    (component) => component.element === element
+  );
 
 /**
  * Instantiates the coveoHeadless window object and the engine attribute for the provided ID.
@@ -107,15 +119,15 @@ const instantiateWindowEngineObject = (element, engineId) => {
   };
   if (!window.coveoHeadless) {
     window.coveoHeadless = {
-      [engineId]: newWindowEngineObject
-    }
+      [engineId]: newWindowEngineObject,
+    };
   } else if (!window.coveoHeadless[engineId]) {
     window.coveoHeadless[engineId] = newWindowEngineObject;
   }
-}
+};
 
 /**
- * Loads dependencies and returns an initialized Headless engine. 
+ * Loads dependencies and returns an initialized Headless engine.
  * @param {string} engineId The id of the engine.
  */
 async function initEngine(engineId) {
@@ -130,23 +142,27 @@ async function initEngine(engineId) {
     const options = await window.coveoHeadless[engineId].options.promise;
     return window.coveoHeadless[engineId].engineConstructor(options);
   } catch (error) {
-    throw new Error('Fatal error: unable to initialize Coveo Headless: ' + error);
+    throw new Error(
+      'Fatal error: unable to initialize Coveo Headless: ' + error
+    );
   }
 }
 
 /**
- * Initialize coveoHeadless Store object 
+ * Initialize coveoHeadless Store object
  * @param {string} engineId The ID of the engine.
  */
 const initQuanticStore = (engineId) => {
   try {
-     if(!window.coveoHeadless[engineId].bindings.store) {
-       window.coveoHeadless[engineId].bindings.store = Store.initialize();
-     }
+    if (!window.coveoHeadless[engineId].bindings.store) {
+      window.coveoHeadless[engineId].bindings.store = Store.initialize();
+    }
   } catch (error) {
-    throw new Error('Fatal error: unable to initialize Quantic store: ' + error);
+    throw new Error(
+      'Fatal error: unable to initialize Quantic store: ' + error
+    );
   }
-}
+};
 
 /**
  * Sets the options passed to engine constructor for given engine ID.
@@ -157,11 +173,13 @@ const initQuanticStore = (engineId) => {
  */
 function setEngineOptions(options, engineConstructor, engineId, element) {
   if (window.coveoHeadless?.[engineId]?.options?.isResolved) {
-    console.warn(`Attempted to overwrite engine options for engine ID: ${engineId}`);
+    console.warn(
+      `Attempted to overwrite engine options for engine ID: ${engineId}`
+    );
     return;
   }
   if (!window.coveoHeadless?.[engineId]) {
-    instantiateWindowEngineObject(element, engineId)
+    instantiateWindowEngineObject(element, engineId);
   }
   window.coveoHeadless[engineId].engineConstructor = engineConstructor;
   window.coveoHeadless[engineId].options.resolve(options);
@@ -180,7 +198,7 @@ function registerComponentForInit(element, engineId) {
   if (!getRegisteredComponent(element, engineId)) {
     window.coveoHeadless[engineId].components.push({
       element,
-      initialized: false
+      initialized: false,
     });
   }
 }
@@ -196,10 +214,15 @@ function setComponentInitialized(element, engineId) {
     : undefined;
 
   if (!component) {
-    throw new Error('Fatal Error: Component was not registered before initialization');
+    throw new Error(
+      'Fatal Error: Component was not registered before initialization'
+    );
   }
   component.initialized = true;
-  if (window.coveoHeadless[engineId].initializedCallback && areAllComponentsInitialized(engineId)) {
+  if (
+    window.coveoHeadless[engineId].initializedCallback &&
+    areAllComponentsInitialized(engineId)
+  ) {
     debounceInitializedCallback(engineId);
   }
 }
@@ -210,10 +233,12 @@ function setComponentInitialized(element, engineId) {
  */
 function getHeadlessEnginePromise(engineId) {
   if (!window.coveoHeadless[engineId].enginePromise) {
-    window.coveoHeadless[engineId].enginePromise = initEngine(engineId).then((engine) => {
-      window.coveoHeadless[engineId].bindings.engine = engine
-      return engine;
-    });
+    window.coveoHeadless[engineId].enginePromise = initEngine(engineId).then(
+      (engine) => {
+        window.coveoHeadless[engineId].bindings.engine = engine;
+        return engine;
+      }
+    );
   }
   return window.coveoHeadless[engineId].enginePromise;
 }
@@ -231,7 +256,7 @@ function getHeadlessBindings(engineId) {
  * @param {string} engineId The engine ID.
  */
 function getQuanticStore(engineId) {
- return window.coveoHeadless?.[engineId]?.bindings?.store;
+  return window.coveoHeadless?.[engineId]?.bindings?.store;
 }
 
 /**
@@ -255,7 +280,7 @@ async function initializeWithHeadless(element, engineId, initialize) {
 
 /**
  * Removed the headless engine instance from the window object.
- * @param {string} engineId 
+ * @param {string} engineId
  */
 function destroyEngine(engineId) {
   if (window.coveoHeadless?.[engineId]) {
@@ -306,4 +331,4 @@ export {
   registerToStore,
   getFromStore,
   HeadlessBundleNames,
-}
+};

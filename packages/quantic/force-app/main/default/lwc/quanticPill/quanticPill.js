@@ -20,7 +20,7 @@ export default class QuanticPill extends LightningElement {
    * @type {string}
    */
   @api altText;
-  
+
   deselect() {
     this.dispatchEvent(new CustomEvent('deselect'));
   }

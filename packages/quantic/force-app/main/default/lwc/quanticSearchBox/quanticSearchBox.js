@@ -4,7 +4,7 @@ import {
   initializeWithHeadless,
 } from 'c/quanticHeadlessLoader';
 
-import { keys } from 'c/quanticUtils';
+import {keys} from 'c/quanticUtils';
 
 import search from '@salesforce/label/c.quantic_Search';
 import clear from '@salesforce/label/c.quantic_Clear';
@@ -26,12 +26,11 @@ const CLASS_WITHOUT_SUBMIT =
  * <c-quantic-search-box engine-id={engineId} placeholder="Enter a query..." without-submit-button number-of-suggestions="8"></c-quantic-search-box>
  */
 export default class QuanticSearchBox extends LightningElement {
-
   labels = {
     search,
     clear,
   };
-  
+
   /**
    * The ID of the engine instance the component registers to.
    * @api
@@ -84,7 +83,7 @@ export default class QuanticSearchBox extends LightningElement {
       },
     });
     this.unsubscribe = this.searchBox.subscribe(() => this.updateState());
-  }
+  };
 
   connectedCallback() {
     registerComponentForInit(this, this.engineId);
@@ -110,11 +109,13 @@ export default class QuanticSearchBox extends LightningElement {
   }
 
   get suggestions() {
-    return this.searchBox?.state.suggestions.map((s, index) => ({
-      key: index,
-      rawValue: s.rawValue,
-      value: s.highlightedValue,
-    })) ?? [];
+    return (
+      this.searchBox?.state.suggestions.map((s, index) => ({
+        key: index,
+        rawValue: s.rawValue,
+        value: s.highlightedValue,
+      })) ?? []
+    );
   }
 
   /**
@@ -152,7 +153,9 @@ export default class QuanticSearchBox extends LightningElement {
   }
 
   get searchBoxInputClass() {
-    return this.withoutSubmitButton ? 'slds-input searchbox__input' : 'slds-input searchbox__input searchbox__input-with-button';
+    return this.withoutSubmitButton
+      ? 'slds-input searchbox__input'
+      : 'slds-input searchbox__input searchbox__input-with-button';
   }
 
   get suggestionsOpen() {

@@ -9,11 +9,16 @@
         class="slds-m-left_x-small"
         onclick={previous}
       ></lightning-button>
-  
+
       <template for:each={currentPagesObjects} for:item="page">
-        <c-quantic-number-button key={page.number} number={page.number} selected={page.selected} onselect={goto}></c-quantic-number-button>
+        <c-quantic-number-button
+          key={page.number}
+          number={page.number}
+          selected={page.selected}
+          onselect={goto}
+        ></c-quantic-number-button>
       </template>
-  
+
       <lightning-button
         disabled={nextDisabled}
         variant="base"

@@ -35,7 +35,7 @@ export default class QuanticFacetValue extends LightningElement {
    * @defaultValue `false`
    */
   @api displayAsLink = false;
-  /** 
+  /**
    * A function used to format the displayed value.
    * @api
    * @type {Function}
@@ -63,11 +63,12 @@ export default class QuanticFacetValue extends LightningElement {
    */
   onSelect(evt) {
     evt.preventDefault();
-    this.dispatchEvent(new CustomEvent(
-      'selectvalue', {
-      detail: {
-        value: this.formattedFacetValue
-      }
-    }));
+    this.dispatchEvent(
+      new CustomEvent('selectvalue', {
+        detail: {
+          value: this.formattedFacetValue,
+        },
+      })
+    );
   }
 }

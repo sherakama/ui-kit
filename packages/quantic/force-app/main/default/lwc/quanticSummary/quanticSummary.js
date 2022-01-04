@@ -1,7 +1,10 @@
 import {LightningElement, track, api} from 'lwc';
 import LOCALE from '@salesforce/i18n/locale';
 
-import {registerComponentForInit, initializeWithHeadless} from 'c/quanticHeadlessLoader';
+import {
+  registerComponentForInit,
+  initializeWithHeadless,
+} from 'c/quanticHeadlessLoader';
 import {I18nUtils} from 'c/quanticUtils';
 
 import noResults from '@salesforce/label/c.quantic_NoResults';
@@ -43,8 +46,8 @@ export default class QuanticSummary extends LightningElement {
     showingResultsOf,
     showingResultsOf_plural,
     showingResultsOfWithQuery,
-    showingResultsOfWithQuery_plural
-  }
+    showingResultsOfWithQuery_plural,
+  };
 
   connectedCallback() {
     registerComponentForInit(this, this.engineId);
@@ -60,12 +63,12 @@ export default class QuanticSummary extends LightningElement {
   initialize = (engine) => {
     this.querySummary = CoveoHeadless.buildQuerySummary(engine);
     this.unsubscribe = this.querySummary.subscribe(() => this.updateState());
-  }
+  };
 
   disconnectedCallback() {
     this.unsubscribe?.();
   }
-  
+
   updateState() {
     this.state = this.querySummary.state;
   }
@@ -83,7 +86,9 @@ export default class QuanticSummary extends LightningElement {
   }
 
   get range() {
-    return `${Intl.NumberFormat(LOCALE).format(this.state?.firstResult)}-${Intl.NumberFormat(LOCALE).format(this.state?.lastResult)}`;
+    return `${Intl.NumberFormat(LOCALE).format(
+      this.state?.firstResult
+    )}-${Intl.NumberFormat(LOCALE).format(this.state?.lastResult)}`;
   }
 
   get total() {
@@ -92,18 +97,38 @@ export default class QuanticSummary extends LightningElement {
 
   get noResultsLabel() {
     return I18nUtils.format(
-        this.hasQuery ? this.labels.noResultsFor : this.labels.noResults,
-        I18nUtils.getTextBold(this.query));
+      this.hasQuery ? this.labels.noResultsFor : this.labels.noResults,
+      I18nUtils.getTextBold(this.query)
+    );
   }
 
   get summaryLabel() {
     const labelName = this.hasQuery
-      ? I18nUtils.getLabelNameWithCount('showingResultsOfWithQuery', this.state?.lastResult)
-      : I18nUtils.getLabelNameWithCount('showingResultsOf', this.state?.lastResult);
+      ? I18nUtils.getLabelNameWithCount(
+          'showingResultsOfWithQuery',
+          this.state?.lastResult
+        )
+      : I18nUtils.getLabelNameWithCount(
+          'showingResultsOf',
+          this.state?.lastResult
+        );
     return I18nUtils.format(
       this.labels[labelName],
-      I18nUtils.getTextWithDecorator(this.range, '<b class="summary__range">', '</b>'),
-      I18nUtils.getTextWithDecorator(this.total, '<b class="summary__total">', '</b>'),
-      I18nUtils.getTextWithDecorator(this.query, '<b class="summary__query">', '</b>'));
+      I18nUtils.getTextWithDecorator(
+        this.range,
+        '<b class="summary__range">',
+        '</b>'
+      ),
+      I18nUtils.getTextWithDecorator(
+        this.total,
+        '<b class="summary__total">',
+        '</b>'
+      ),
+      I18nUtils.getTextWithDecorator(
+        this.query,
+        '<b class="summary__query">',
+        '</b>'
+      )
+    );
   }
 }

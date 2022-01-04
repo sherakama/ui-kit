@@ -3,7 +3,11 @@ import {
   registerComponentForInit,
   initializeWithHeadless,
 } from 'c/quanticHeadlessLoader';
-import {I18nUtils, getItemFromLocalStorage, setItemInLocalStorage} from 'c/quanticUtils';
+import {
+  I18nUtils,
+  getItemFromLocalStorage,
+  setItemInLocalStorage,
+} from 'c/quanticUtils';
 
 import emptyListLabel from '@salesforce/label/c.quantic_EmptyRecentResultListLabel';
 import recentResultsLabel from '@salesforce/label/c.quantic_RecentResults';
@@ -26,7 +30,7 @@ export default class QuanticRecentResultsList extends LightningElement {
     recentResultsLabel,
     collapse,
     expand,
-  }
+  };
 
   /**
    * The ID of the engine instance the component registers to.
@@ -69,10 +73,9 @@ export default class QuanticRecentResultsList extends LightningElement {
   }
   set isCollapsed(collapsed) {
     this._isCollapsed = collapsed;
-  }  
+  }
   /** @type {boolean} */
   _isCollapsed = false;
-
 
   /** @type {RecentResultsState} */
   @track state;
@@ -98,14 +101,16 @@ export default class QuanticRecentResultsList extends LightningElement {
   initialize = (engine) => {
     this.recentResultsList = CoveoHeadless.buildRecentResultsList(engine, {
       initialState: {
-        results: getItemFromLocalStorage(this.localStorageKey) ?? []
+        results: getItemFromLocalStorage(this.localStorageKey) ?? [],
       },
       options: {
-        maxLength: Number(this.maxLength)
-      }
+        maxLength: Number(this.maxLength),
+      },
     });
-    this.unsubscribe = this.recentResultsList.subscribe(() => this.updateState());
-  }
+    this.unsubscribe = this.recentResultsList.subscribe(() =>
+      this.updateState()
+    );
+  };
 
   disconnectedCallback() {
     this.unsubscribe?.();
@@ -114,7 +119,7 @@ export default class QuanticRecentResultsList extends LightningElement {
   updateState() {
     this.state = {...this.recentResultsList.state};
     if (this.state?.results) {
-      setItemInLocalStorage(this.localStorageKey, this.state.results)
+      setItemInLocalStorage(this.localStorageKey, this.state.results);
       this.showPlaceholder = false;
     }
   }

@@ -1,1 +1,4 @@
-{"ignorePatterns": "typings/**/*"}
+{
+  "ignorePatterns": "typings/**/*",
+  "extends": ["@salesforce/eslint-config-lwc/recommended"]
+}

@@ -15,7 +15,8 @@
   border: none;
 }
 
-.facet__show-more_text, .facet__show-less_text{
+.facet__show-more_text,
+.facet__show-less_text {
   display: flex;
   align-items: left;
 }
@@ -29,7 +30,7 @@
   display: flex;
   flex-direction: row;
   cursor: pointer;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 }
 
 .facet__value-option:hover {

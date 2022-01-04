@@ -178,11 +178,15 @@ export default class QuanticTimeframeFacet extends LightningElement {
    * Gets whether to show the facet.
    */
   get showFacet() {
-    const facetIsActivated = this.hasActiveValues || !!this.dateFilterState.range;
+    const facetIsActivated =
+      this.hasActiveValues || !!this.dateFilterState.range;
     const canRefineWithCustomRange = this.hasResults && this.withDatePicker;
-    const canRefineWithTimeframes = this.hasResults && this.formattedValues.length > 0;
+    const canRefineWithTimeframes =
+      this.hasResults && this.formattedValues.length > 0;
 
-    return facetIsActivated || canRefineWithCustomRange || canRefineWithTimeframes;
+    return (
+      facetIsActivated || canRefineWithCustomRange || canRefineWithTimeframes
+    );
   }
 
   /**
@@ -194,15 +198,11 @@ export default class QuanticTimeframeFacet extends LightningElement {
   }
 
   get startDateNoTime() {
-    return this.startDate
-      ? DateUtils.trimIsoTime(this.startDate)
-      : '';
+    return this.startDate ? DateUtils.trimIsoTime(this.startDate) : '';
   }
 
   get endDateNoTime() {
-    return this.endDate
-      ? DateUtils.trimIsoTime(this.endDate)
-      : '';
+    return this.endDate ? DateUtils.trimIsoTime(this.endDate) : '';
   }
 
   /**
@@ -260,7 +260,9 @@ export default class QuanticTimeframeFacet extends LightningElement {
     const values = this.facetState?.values || [];
 
     return values
-      .filter((value) => value.numberOfResults > 0 || value.state === 'selected')
+      .filter(
+        (value) => value.numberOfResults > 0 || value.state === 'selected'
+      )
       .map((value) => ({
         ...value,
         label: this.formatFacetValue(value),
@@ -319,14 +321,14 @@ export default class QuanticTimeframeFacet extends LightningElement {
   }
 
   /**
-   * @param {Event} evt 
+   * @param {Event} evt
    */
-   preventDefault(evt) {
+  preventDefault(evt) {
     evt.preventDefault();
   }
 
   /**
-   * @param {SearchEngine} engine 
+   * @param {SearchEngine} engine
    */
   initialize = (engine) => {
     this.initializeSearchStatusController(engine);
@@ -340,7 +342,7 @@ export default class QuanticTimeframeFacet extends LightningElement {
   };
 
   /**
-   * @param {SearchEngine} engine 
+   * @param {SearchEngine} engine
    */
   initializeSearchStatusController(engine) {
     this.searchStatus = CoveoHeadless.buildSearchStatus(engine);
@@ -350,7 +352,7 @@ export default class QuanticTimeframeFacet extends LightningElement {
   }
 
   /**
-   * @param {SearchEngine} engine 
+   * @param {SearchEngine} engine
    */
   initializeFacetController(engine) {
     this.facet = CoveoHeadless.buildDateFacet(engine, {
@@ -368,7 +370,7 @@ export default class QuanticTimeframeFacet extends LightningElement {
   }
 
   /**
-   * @param {SearchEngine} engine 
+   * @param {SearchEngine} engine
    */
   initializeDateFilterController(engine) {
     const dateFilterId = (this.facetId || this.field) + '_input';
@@ -402,7 +404,10 @@ export default class QuanticTimeframeFacet extends LightningElement {
     this.dateFilterState = this.dateFilter.state;
 
     if (this.dateFilterState.range) {
-      this.tryUpdateFilterRange(this.dateFilterState.range.start, this.dateFilterState.range.end);
+      this.tryUpdateFilterRange(
+        this.dateFilterState.range.start,
+        this.dateFilterState.range.end
+      );
       this.enableRangeValidation(false);
       this._showValues = false;
     } else {
@@ -469,7 +474,7 @@ export default class QuanticTimeframeFacet extends LightningElement {
   };
 
   /**
-   * @param {CustomEvent<{value: string}>} evt 
+   * @param {CustomEvent<{value: string}>} evt
    */
   onSelectValue(evt) {
     const item = this.formattedValues.find(
@@ -546,8 +551,18 @@ export default class QuanticTimeframeFacet extends LightningElement {
       return;
     }
 
-    const startDate = DateUtils.fromLocalIsoDate(this.startDatepicker.value, 0, 0, 0);
-    const endDate = DateUtils.fromLocalIsoDate(this.endDatepicker.value, 23, 59, 59);
+    const startDate = DateUtils.fromLocalIsoDate(
+      this.startDatepicker.value,
+      0,
+      0,
+      0
+    );
+    const endDate = DateUtils.fromLocalIsoDate(
+      this.endDatepicker.value,
+      23,
+      59,
+      59
+    );
 
     this.updateRangeInHeadless(startDate, endDate);
   }
@@ -563,7 +578,10 @@ export default class QuanticTimeframeFacet extends LightningElement {
 
     this.startDatepicker.required = shouldValidate;
     this.endDatepicker.required = shouldValidate;
-    this.startDatepicker.max = shouldValidate && hasEndDate ? DateUtils.trimIsoTime(this.endDatepicker.value) : '';
+    this.startDatepicker.max =
+      shouldValidate && hasEndDate
+        ? DateUtils.trimIsoTime(this.endDatepicker.value)
+        : '';
   }
 
   disableRangeRequirement() {
@@ -592,7 +610,9 @@ export default class QuanticTimeframeFacet extends LightningElement {
     this.startDatepicker.reportValidity();
     this.endDatepicker.reportValidity();
 
-    return this.startDatepicker.checkValidity() && this.endDatepicker.checkValidity();
+    return (
+      this.startDatepicker.checkValidity() && this.endDatepicker.checkValidity()
+    );
   }
 
   updateRangeInHeadless(startDate, endDate) {

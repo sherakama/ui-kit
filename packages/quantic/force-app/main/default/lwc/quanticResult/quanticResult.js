@@ -1,7 +1,7 @@
 // @ts-ignore
 import defaultTemplate from './quanticResult.html';
 
-import {LightningElement, api, track} from "lwc";
+import {LightningElement, api, track} from 'lwc';
 import {TimeSpan} from 'c/quanticUtils';
 
 /** @typedef {import("coveo").Result} Result */
@@ -44,7 +44,7 @@ export default class QuanticResult extends LightningElement {
   }
 
   get videoThumbnail() {
-    return `http://img.youtube.com/vi/${this.result.raw.ytvideoid}/mqdefault.jpg`
+    return `http://img.youtube.com/vi/${this.result.raw.ytvideoid}/mqdefault.jpg`;
   }
 
   get videoSourceId() {
@@ -52,7 +52,10 @@ export default class QuanticResult extends LightningElement {
   }
 
   get videoTimeSpan() {
-    return new TimeSpan(this.result.raw.ytvideoduration, false).getCleanHHMMSS();
+    return new TimeSpan(
+      this.result.raw.ytvideoduration,
+      false
+    ).getCleanHHMMSS();
   }
 
   onHasPreview = (evt) => {

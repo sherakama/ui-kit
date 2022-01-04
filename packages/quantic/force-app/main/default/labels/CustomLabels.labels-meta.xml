@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
         <fullName>quantic_ShowingResultsOf</fullName>
@@ -26,14 +26,16 @@
         <value>Result {{0}} of {{1}} for {{2}}</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>ex: Result 0-10 of 123,456 for potato</shortDescription>
+        <shortDescription
+    >ex: Result 0-10 of 123,456 for potato</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_ShowingResultsOfWithQuery_plural</fullName>
         <value>Results {{0}} of {{1}} for {{2}}</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>ex: Results 0-10 of 123,456 for potato</shortDescription>
+        <shortDescription
+    >ex: Results 0-10 of 123,456 for potato</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_ShowingResultsOfWithQuery_zero</fullName>
@@ -96,14 +98,16 @@
         <value>Show more values for the {{0}} facet</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Show more values for the potato facet</shortDescription>
+        <shortDescription
+    >Show more values for the potato facet</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_ShowLessFacetValues</fullName>
         <value>Show less values for the {{0}} facet</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Show less values for the potato facet</shortDescription>
+        <shortDescription
+    >Show less values for the potato facet</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_AllCategories</fullName>
@@ -166,7 +170,8 @@
         <value>Query was automatically corrected to {{0}}</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Query was automatically corrected to potato</shortDescription>
+        <shortDescription
+    >Query was automatically corrected to potato</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_SortBy</fullName>
@@ -212,10 +217,12 @@
     </labels>
     <labels>
         <fullName>quantic_CheckForMore</fullName>
-        <value>Check the {{0}} for similar errors or {{1}} for more information.</value>
+        <value
+    >Check the {{0}} for similar errors or {{1}} for more information.</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Check the community for similar errors or contact Coveo for more information.</shortDescription>
+        <shortDescription
+    >Check the community for similar errors or contact Coveo for more information.</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_Community</fullName>
@@ -247,31 +254,37 @@
     </labels>
     <labels>
         <fullName>quantic_DisconnectedDesc</fullName>
-        <value>Your query couldn't be sent. Verify your internet connection.</value>
+        <value
+    >Your query couldn't be sent. Verify your internet connection.</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Your query couldn't be sent. Verify your internet connection.</shortDescription>
+        <shortDescription
+    >Your query couldn't be sent. Verify your internet connection.</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_NoEndpointsTitle</fullName>
         <value>The Coveo organization has no registered endpoints.</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>The Coveo organization has no registered endpoints.</shortDescription>
+        <shortDescription
+    >The Coveo organization has no registered endpoints.</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_NoEndpointsDesc</fullName>
-        <value>You will need to add sources in your index, or wait for the created sources to finish indexing.</value>
+        <value
+    >You will need to add sources in your index, or wait for the created sources to finish indexing.</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Add sources in your index, or wait for the created sources to finish indexing.</shortDescription>
+        <shortDescription
+    >Add sources in your index, or wait for the created sources to finish indexing.</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_InvalidTokenTitle</fullName>
         <value>The Coveo organization cannot be accessed.</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>The Coveo organization cannot be accessed.</shortDescription>
+        <shortDescription
+    >The Coveo organization cannot be accessed.</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_InvalidTokenDesc</fullName>
@@ -282,14 +295,17 @@
     </labels>
      <labels>
         <fullName>quantic_OrganizationIsPausedTitle</fullName>
-        <value>Your organization is resuming and will be available shortly.</value>
+        <value
+    >Your organization is resuming and will be available shortly.</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Your organization is resuming and will be available shortly.</shortDescription>
+        <shortDescription
+    >Your organization is resuming and will be available shortly.</shortDescription>
     </labels>
      <labels>
         <fullName>quantic_OrganizationIsPausedDesc</fullName>
-        <value>Your Coveo organization is paused due to inactivity and search is currently unavailable.</value>
+        <value
+    >Your Coveo organization is paused due to inactivity and search is currently unavailable.</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Your Coveo organization is paused.</shortDescription>
@@ -306,7 +322,8 @@
         <value>If the problem persists, contact the administrator.</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>If the problem persists, contact the administrator.</shortDescription>
+        <shortDescription
+    >If the problem persists, contact the administrator.</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_CoveoDocsLink</fullName>
@@ -334,21 +351,26 @@
         <value>We couldn’t find anything for {{0}}</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>We couldn’t find anything for potato</shortDescription>
+        <shortDescription
+    >We couldn’t find anything for potato</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_NoResultsWithoutFilters</fullName>
-        <value>You may want to try using different keywords, or checking for spelling mistakes.</value>
+        <value
+    >You may want to try using different keywords, or checking for spelling mistakes.</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>You may want to try using different keywords, or checking for spelling mistakes.</shortDescription>
+        <shortDescription
+    >You may want to try using different keywords, or checking for spelling mistakes.</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_NoResultsWithFilters</fullName>
-        <value>You may want to try using different keywords, checking for spelling mistakes or select fewer filters.</value>
+        <value
+    >You may want to try using different keywords, checking for spelling mistakes or select fewer filters.</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Check for spelling mistakes or select fewer filters.</shortDescription>
+        <shortDescription
+    >Check for spelling mistakes or select fewer filters.</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_UndoLastAction</fullName>
@@ -383,7 +405,8 @@
       <value>Your recent searches will appear here.</value>
       <language>en_US</language>
       <protected>false</protected>
-      <shortDescription>Label displayed when recent queries list is empty.</shortDescription>
+      <shortDescription
+    >Label displayed when recent queries list is empty.</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_RecentResults</fullName>
@@ -397,7 +420,8 @@
         <value>Your recently clicked results will appear here.</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Label displayed when recent results list is empty.</shortDescription>
+        <shortDescription
+    >Label displayed when recent results list is empty.</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_CollapseFacet</fullName>
@@ -481,14 +505,16 @@
         <value>Enter a minimum numerical value for the {{0}} facet</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Enter a minimum numerical value for the [component label] facet</shortDescription>
+        <shortDescription
+    >Enter a minimum numerical value for the [component label] facet</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_NumberInputMaximum</fullName>
         <value>Enter a maximum numerical value for the {{0}} facet</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Enter a maximum numerical value for the [component label] facet</shortDescription>
+        <shortDescription
+    >Enter a maximum numerical value for the [component label] facet</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_Apply</fullName>
@@ -502,21 +528,24 @@
         <value>Apply custom numerical values for the {{0}} facet</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Apply custom numerical values for the [component label] facet</shortDescription>
+        <shortDescription
+    >Apply custom numerical values for the [component label] facet</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_MessageWhenRangeOverflow</fullName>
         <value>This value must be less than or equal to {{0}}</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>This value must be less than or equal to [value]</shortDescription>
+        <shortDescription
+    >This value must be less than or equal to [value]</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_MessageWhenRangeUnderflow</fullName>
         <value>This value must be greater than or equal to {{0}}</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>This value must be greater than or equal to [value]</shortDescription>
+        <shortDescription
+    >This value must be greater than or equal to [value]</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_Close</fullName>

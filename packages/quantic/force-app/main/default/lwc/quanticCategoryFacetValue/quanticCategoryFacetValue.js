@@ -1,6 +1,6 @@
 import {api, LightningElement} from 'lwc';
 
-import inLabel from "@salesforce/label/c.quantic_InLabel";
+import inLabel from '@salesforce/label/c.quantic_InLabel';
 
 /** @typedef {import("coveo").CategoryFacetValue} CategoryFacetValue */
 
@@ -24,14 +24,14 @@ export default class QuanticCategoryFacetValue extends LightningElement {
    * @defaultValue `false`
    */
   @api isSearchResult = false;
-  /** 
+  /**
    * Whether the value is an active parent node.
    * @api
    * @type {boolean}
    * @defaultValue `false`
    */
   @api activeParent = false;
-  /** 
+  /**
    * Whether the value is a non-active parent node.
    * @api
    * @type {boolean}
@@ -40,8 +40,8 @@ export default class QuanticCategoryFacetValue extends LightningElement {
   @api nonActiveParent = false;
 
   labels = {
-    inLabel
-  }
+    inLabel,
+  };
 
   get categoryFacetLiClass() {
     return this.activeParent ? 'slds-var-m-left_large slds-grid' : 'slds-grid';
@@ -50,17 +50,18 @@ export default class QuanticCategoryFacetValue extends LightningElement {
   get facetValue() {
     return this.item.value;
   }
-  
+
   /**
    * @param {Event} evt
    */
   onSelect(evt) {
     evt.preventDefault();
-    this.dispatchEvent(new CustomEvent(
-      'selectvalue', {
-      detail: {
-        value: this.facetValue
-      }
-    }));
+    this.dispatchEvent(
+      new CustomEvent('selectvalue', {
+        detail: {
+          value: this.facetValue,
+        },
+      })
+    );
   }
 }

@@ -17,7 +17,7 @@ export default class ExampleSearch extends LightningElement {
   @api disableStateInUrl = false;
   /** @type {boolean} */
   @api skipFirstSearch = false;
-  
+
   handleResultTemplateRegistration(event) {
     event.stopPropagation();
 
@@ -39,18 +39,18 @@ export default class ExampleSearch extends LightningElement {
       {
         content: youtubeTemplate,
         conditions: [isYouTube],
-        fields: ['ytvideoid', 'ytvideoduration']
+        fields: ['ytvideoid', 'ytvideoduration'],
       },
       {
         content: caseTemplate,
         conditions: [isCase],
-        fields: ['sfstatus', 'sfcasestatus', 'sfcasenumber']
+        fields: ['sfstatus', 'sfcasestatus', 'sfcasenumber'],
       },
       {
         content: chatterTemplate,
         conditions: [isChatter],
-        fields: ['sfcreatedbyname']
-      },
+        fields: ['sfcreatedbyname'],
+      }
     );
   }
 }

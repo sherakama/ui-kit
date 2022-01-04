@@ -4,7 +4,7 @@ import {
   loadDependencies,
   setEngineOptions,
   setInitializedCallback,
-  HeadlessBundleNames
+  HeadlessBundleNames,
 } from 'c/quanticHeadlessLoader';
 // @ts-ignore
 import getHeadlessConfiguration from '@salesforce/apex/HeadlessController.getHeadlessConfiguration';
