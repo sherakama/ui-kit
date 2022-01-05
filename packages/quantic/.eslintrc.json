@@ -1,4 +1,9 @@
 {
   "ignorePatterns": "typings/**/*",
-  "extends": ["@salesforce/eslint-config-lwc/recommended"]
+  "overrides": [
+    {
+      "files": ["**/*.js"],
+      "extends": ["@salesforce/eslint-config-lwc/recommended"]
+    }
+  ]
 }

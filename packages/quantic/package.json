@@ -15,7 +15,7 @@
     "test:lint": "eslint force-app/main/default/lwc/ --format junit -o reports/eslint.xml",
     "lint:fix": "eslint force-app/main/default/lwc/ --fix && eslint force-app/examples/main/lwc/ --fix",
     "fix": "npm run lint:fix",
-    "pretty": "prettier --write \"force-app/**/*.{js,html,css,json,xml}\"",
+    "pretty": "prettier --write \"./**/*.{js,html,css,json,xml}\"",
     "copy:staticresources": "node copy-static-resources.js",
     "build": "npm run copy:staticresources",
     "start": "npx rimraf .localdevserver && npm run copy:staticresources && sfdx force:source:deploy -p force-app/main && sfdx force:lightning:lwc:start --port 3334",
