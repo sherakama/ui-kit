@@ -76,10 +76,6 @@ export default class QuanticDidYouMean extends LightningElement {
     this.didYouMean.applyCorrection();
   }
 
-  get noResultsLabel() {
-    return I18nUtils.format(this.labels.noResultsFor, I18nUtils.getTextBold(this.originalQuery));
-  }
-
   get correctedQueryLabel() {
     return I18nUtils.format(this.labels.queryCorrectedTo, I18nUtils.getTextBold(this.correctedQuery));
   }

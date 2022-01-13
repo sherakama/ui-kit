@@ -29,7 +29,7 @@
         <name>quantic_NoResults</name>
     </customLabels>
     <customLabels>
-        <label>Aucun résultat pour {{0}}</label>
+        <label>Nous n'avons rien trouvé pour</label>
         <name>quantic_NoResultsFor</name>
     </customLabels>
     <customLabels>
@@ -107,10 +107,6 @@
     <customLabels>
         <label>Plus anciens</label>
         <name>quantic_Oldest</name>
-    </customLabels>
-    <customLabels>
-        <label>Nous n'avons rien trouvé pour {{0}}</label>
-        <name>quantic_NoResultsForTitle</name>
     </customLabels>
     <customLabels>
         <label>Aucun résultat</label>

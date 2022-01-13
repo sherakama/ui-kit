@@ -40,7 +40,7 @@
         <value>No results for</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>ex: No results for potato</shortDescription>
+        <shortDescription>ex: No results for</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_NoResults</fullName>
@@ -51,10 +51,10 @@
     </labels>
     <labels>
         <fullName>quantic_NoResultsFor</fullName>
-        <value>No Results for {{0}}</value>
+        <value>We couldn't find anything for</value>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>No Results for potato</shortDescription>
+        <shortDescription>We coudln't find anything for</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_Clear</fullName>
@@ -328,13 +328,6 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>No results</shortDescription>
-    </labels>
-    <labels>
-        <fullName>quantic_NoResultsForTitle</fullName>
-        <value>We couldn’t find anything for {{0}}</value>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>We couldn’t find anything for potato</shortDescription>
     </labels>
     <labels>
         <fullName>quantic_NoResultsWithoutFilters</fullName>

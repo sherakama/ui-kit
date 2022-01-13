@@ -3,16 +3,17 @@
         <template if:true={wasAutomaticallyCorrected}>
             <div class="slds-var-m-vertical_x-small">
                 <p class="mb-1">
-                  <lightning-formatted-rich-text value={noResultsLabel}></lightning-formatted-rich-text>
+                  <span>{labels.noResultsFor}</span>
+                  <span class="slds-text-title_bold"> {originalQuery}</span>
                 </p>
                 <lightning-formatted-rich-text value={correctedQueryLabel}></lightning-formatted-rich-text>
             </div>
         </template>
         <template if:false={wasAutomaticallyCorrected}>
             <div class="slds-var-m-vertical_x-small">
-                <span>{labels.didYouMean} </span> 
+                <span>{labels.didYouMean} </span>
                 <button class="slds-button" onclick={applyCorrection}><span class="slds-text-title_bold">{correctedQuery}</span></button>
-            </div> 
+            </div>
         </template>
     </template>
 </template>

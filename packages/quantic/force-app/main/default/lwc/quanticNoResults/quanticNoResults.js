@@ -1,8 +1,7 @@
 import {api, LightningElement, track} from 'lwc';
 import {initializeWithHeadless, registerComponentForInit} from 'c/quanticHeadlessLoader';
-import {I18nUtils} from 'c/quanticUtils';
 
-import noResultsForTitle from '@salesforce/label/c.quantic_NoResultsForTitle';
+import noResultsFor from '@salesforce/label/c.quantic_NoResultsFor';
 import noResultsTitle from '@salesforce/label/c.quantic_NoResultsTitle';
 import noResultsWithFilters from '@salesforce/label/c.quantic_NoResultsWithFilters';
 import noResultsWithoutFilters from '@salesforce/label/c.quantic_NoResultsWithoutFilters';
@@ -63,7 +62,7 @@ export default class QuanticNoResults extends LightningElement {
 
   labels = {
     noResultsTitle,
-    noResultsForTitle,
+    noResultsFor,
     noResultsWithFilters,
     noResultsWithoutFilters,
     undoLastAction
@@ -110,9 +109,6 @@ export default class QuanticNoResults extends LightningElement {
   }
 
   get noResultsTitleLabel() {
-    if (this.query) {
-      return I18nUtils.format(this.labels.noResultsForTitle, I18nUtils.getTextBold(this.query));
-    }
-    return this.labels.noResultsTitle;
+    return this.query ? this.labels.noResultsFor : this.labels.noResultsTitle;
   }
 }
