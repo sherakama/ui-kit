@@ -22,22 +22,22 @@
         <shortDescription>No Results</shortDescription>
     </labels>
     <labels>
-        <fullName>quantic_ShowingResultsOfWithQuery</fullName>
-        <value>Result {{0}} of {{1}} for {{2}}</value>
+        <fullName>quantic_ShowingResultsOfFor</fullName>
+        <value>Result {{0}} of {{1}} for</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ex: Result 0-10 of 123,456 for potato</shortDescription>
     </labels>
     <labels>
-        <fullName>quantic_ShowingResultsOfWithQuery_plural</fullName>
-        <value>Results {{0}} of {{1}} for {{2}}</value>
+        <fullName>quantic_ShowingResultsOfFor_plural</fullName>
+        <value>Results {{0}} of {{1}} for</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ex: Results 0-10 of 123,456 for potato</shortDescription>
     </labels>
     <labels>
-        <fullName>quantic_ShowingResultsOfWithQuery_zero</fullName>
-        <value>No results for {{2}}</value>
+        <fullName>quantic_ShowingResultsOfFor_zero</fullName>
+        <value>No results for</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ex: No results for potato</shortDescription>

@@ -8,8 +8,8 @@ import noResults from '@salesforce/label/c.quantic_NoResults';
 import noResultsFor from '@salesforce/label/c.quantic_NoResultsFor';
 import showingResultsOf from '@salesforce/label/c.quantic_ShowingResultsOf';
 import showingResultsOf_plural from '@salesforce/label/c.quantic_ShowingResultsOf_plural';
-import showingResultsOfWithQuery from '@salesforce/label/c.quantic_ShowingResultsOfWithQuery';
-import showingResultsOfWithQuery_plural from '@salesforce/label/c.quantic_ShowingResultsOfWithQuery_plural';
+import showingResultsOfFor from '@salesforce/label/c.quantic_ShowingResultsOfFor';
+import showingResultsOfFor_plural from '@salesforce/label/c.quantic_ShowingResultsOfFor_plural';
 
 /** @typedef {import("coveo").SearchEngine} SearchEngine */
 /** @typedef {import("coveo").QuerySummary} QuerySummary */
@@ -42,8 +42,8 @@ export default class QuanticSummary extends LightningElement {
     noResultsFor,
     showingResultsOf,
     showingResultsOf_plural,
-    showingResultsOfWithQuery,
-    showingResultsOfWithQuery_plural
+    showingResultsOfFor,
+    showingResultsOfFor_plural
   }
 
   connectedCallback() {
@@ -79,7 +79,7 @@ export default class QuanticSummary extends LightningElement {
   }
 
   get query() {
-    return this.state?.hasQuery ? `${this.state.query}` : '';
+    return this.state?.hasQuery ? this.state.query : '';
   }
 
   get range() {
@@ -98,12 +98,11 @@ export default class QuanticSummary extends LightningElement {
 
   get summaryLabel() {
     const labelName = this.hasQuery
-      ? I18nUtils.getLabelNameWithCount('showingResultsOfWithQuery', this.state?.lastResult)
+      ? I18nUtils.getLabelNameWithCount('showingResultsOfFor', this.state?.lastResult)
       : I18nUtils.getLabelNameWithCount('showingResultsOf', this.state?.lastResult);
     return I18nUtils.format(
       this.labels[labelName],
       I18nUtils.getTextWithDecorator(this.range, '<b class="summary__range">', '</b>'),
-      I18nUtils.getTextWithDecorator(this.total, '<b class="summary__total">', '</b>'),
-      I18nUtils.getTextWithDecorator(this.query, '<b class="summary__query">', '</b>'));
+      I18nUtils.getTextWithDecorator(this.total, '<b class="summary__total">', '</b>'));
   }
 }

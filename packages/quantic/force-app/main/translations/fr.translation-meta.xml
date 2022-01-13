@@ -13,16 +13,16 @@
         <name>quantic_ShowingResultsOf_zero</name>
     </customLabels>
     <customLabels>
-        <label>Résultat {{0}} de {{1}} pour {{2}}</label>
-        <name>quantic_ShowingResultsOfWithQuery</name>
+        <label>Résultat {{0}} de {{1}} pour</label>
+        <name>quantic_ShowingResultsOfFor</name>
     </customLabels>
     <customLabels>
-        <label>Résultats {{0}} de {{1}} pour {{2}}</label>
-        <name>quantic_ShowingResultsOfWithQuery_plural</name>
+        <label>Résultats {{0}} de {{1}} pour</label>
+        <name>quantic_ShowingResultsOfFor_plural</name>
     </customLabels>
     <customLabels>
-        <label>Aucun résultat pour {{2}}</label>
-        <name>quantic_ShowingResultsOfWithQuery_zero</name>
+        <label>Aucun résultat pour</label>
+        <name>quantic_ShowingResultsOfFor_zero</name>
     </customLabels>
     <customLabels>
         <label>Aucun résultat</label>

@@ -2,6 +2,9 @@
   <template if:true={hasResults}>
     <p class="slds-text-color_weak">
       <lightning-formatted-rich-text value={summaryLabel}></lightning-formatted-rich-text>
+      <template if:true={hasQuery}>
+        <span class="bold"> {query}</span>
+      </template>
     </p>
   </template>
 </template>
