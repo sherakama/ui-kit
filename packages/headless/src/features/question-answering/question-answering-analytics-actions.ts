@@ -1,54 +1,61 @@
 import {validatePayload} from '../../utils/validate-payload';
-import {AnalyticsType, makeAnalyticsAction} from '../analytics/analytics-utils';
+import {
+  AnalyticsType,
+  makeAnalyticsActionWithDescription,
+} from '../analytics/analytics-utils';
 import {
   documentIdentifierPayloadDefinition,
   QuestionAnsweringDocumentIdActionCreatorPayload,
 } from './question-answering-document-id';
 
-export const logExpandSmartSnippet = makeAnalyticsAction(
-  'analytics/smartSnippet/expand',
-  AnalyticsType.Custom,
-  (client) => client.logExpandSmartSnippet()
-);
+export const logExpandSmartSnippet = () =>
+  makeAnalyticsActionWithDescription(
+    'analytics/smartSnippet/expand',
+    AnalyticsType.Custom,
+    (client) => client.buildExpandSmartSnippet()
+  );
 
-export const logCollapseSmartSnippet = makeAnalyticsAction(
-  'analytics/smartSnippet/collapse',
-  AnalyticsType.Custom,
-  (client) => client.logCollapseSmartSnippet()
-);
+export const logCollapseSmartSnippet = () =>
+  makeAnalyticsActionWithDescription(
+    'analytics/smartSnippet/collapse',
+    AnalyticsType.Custom,
+    (client) => client.buildCollapseSmartSnippet()
+  );
 
-export const logLikeSmartSnippet = makeAnalyticsAction(
-  'analytics/smartSnippet/like',
-  AnalyticsType.Custom,
-  (client) => client.logLikeSmartSnippet()
-);
+export const logLikeSmartSnippet = () =>
+  makeAnalyticsActionWithDescription(
+    'analytics/smartSnippet/like',
+    AnalyticsType.Custom,
+    (client) => client.buildLikeSmartSnippet()
+  );
 
-export const logDislikeSmartSnippet = makeAnalyticsAction(
-  'analytics/smartSnippet/dislike',
-  AnalyticsType.Custom,
-  (client) => client.logDislikeSmartSnippet()
-);
+export const logDislikeSmartSnippet = () =>
+  makeAnalyticsActionWithDescription(
+    'analytics/smartSnippet/dislike',
+    AnalyticsType.Custom,
+    (client) => client.buildDislikeSmartSnippet()
+  );
 
 export const logExpandSmartSnippetSuggestion = (
   payload: QuestionAnsweringDocumentIdActionCreatorPayload
 ) =>
-  makeAnalyticsAction(
+  makeAnalyticsActionWithDescription(
     'analytics/smartSnippetSuggestion/expand',
     AnalyticsType.Custom,
     (client) => {
       validatePayload(payload, documentIdentifierPayloadDefinition());
-      return client.logExpandSmartSnippetSuggestion(payload);
+      return client.buildExpandSmartSnippetSuggestion(payload);
     }
-  )();
+  );
 
 export const logCollapseSmartSnippetSuggestion = (
   payload: QuestionAnsweringDocumentIdActionCreatorPayload
 ) =>
-  makeAnalyticsAction(
+  makeAnalyticsActionWithDescription(
     'analytics/smartSnippetSuggestion/expand',
     AnalyticsType.Custom,
     (client) => {
       validatePayload(payload, documentIdentifierPayloadDefinition());
-      return client.logCollapseSmartSnippetSuggestion(payload);
+      return client.buildCollapseSmartSnippetSuggestion(payload);
     }
-  )();
+  );

@@ -61,14 +61,17 @@ export function buildNumericFacet(
     deselectAll() {
       coreController.deselectAll();
       dispatch(fetchProductListing()).then(() =>
-        dispatch(logFacetClearAll(getFacetId()))
+        dispatch(logFacetClearAll(getFacetId()).logAnalyticsAction)
       );
     },
 
     sortBy(criterion: RangeFacetSortCriterion) {
       coreController.sortBy(criterion);
       dispatch(fetchProductListing()).then(() =>
-        dispatch(logFacetUpdateSort({facetId: getFacetId(), criterion}))
+        dispatch(
+          logFacetUpdateSort({facetId: getFacetId(), criterion})
+            .logAnalyticsAction
+        )
       );
     },
 
@@ -77,6 +80,7 @@ export function buildNumericFacet(
       dispatch(fetchProductListing()).then(() =>
         dispatch(
           getAnalyticsActionForToggleRangeFacetSelect(getFacetId(), selection)
+            .logAnalyticsAction
         )
       );
     },

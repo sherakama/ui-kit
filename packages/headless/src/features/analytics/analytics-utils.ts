@@ -38,9 +38,9 @@ import {RecommendationAppState} from '../../state/recommendation-app-state';
 import {ResultWithFolding} from '../folding/folding-slice';
 import {getAllIncludedResultsFrom} from '../folding/folding-utils';
 import {CaseAssistAppState} from '../../state/case-assist-app-state';
-import {analyticsDescription} from '../configuration/configuration-actions';
 import P from 'pino';
 import {PreprocessRequest} from '../../api/preprocess-request';
+import {analyticsDescription} from '../configuration/configuration-actions';
 
 export enum AnalyticsType {
   Search,
@@ -68,9 +68,24 @@ export type ClickAction = AsyncThunkAction<
 
 export type AnyAnalyticsAction<T extends AnalyticsType> = AsyncThunkAction<
   {analyticsType: T},
+  void | {},
+  AsyncThunkAnalyticsOptions<StateNeededByAnalyticsProvider>
+>;
+
+export type AnalyticsDescriptionThunk = AsyncThunk<
+  void,
   void,
   AsyncThunkAnalyticsOptions<StateNeededByAnalyticsProvider>
 >;
+
+export interface AnyAnalyticsPayload<T extends AnalyticsType> {
+  logAnalyticsAction: AnyAnalyticsAction<T>;
+  analyticsDescriptionThunk: AnalyticsDescriptionThunk;
+}
+
+export type SearchAnalyticsPayload = AnyAnalyticsPayload<AnalyticsType.Search>;
+export type ClickAnalyticsPayload = AnyAnalyticsPayload<AnalyticsType.Click>;
+export type CustomAnalyticsPayload = AnyAnalyticsPayload<AnalyticsType.Custom>;
 
 const searchPageState = (getState: () => unknown) =>
   getState() as SearchAppState;
@@ -82,16 +97,7 @@ export interface AsyncThunkAnalyticsOptions<
   extra: ThunkExtraArguments;
 }
 
-export interface temp__MakeAnalyticsActionReturnType<T extends AnalyticsType> {
-  description: AsyncThunk<
-    void,
-    void,
-    AsyncThunkAnalyticsOptions<StateNeededByAnalyticsProvider>
-  >;
-  action: AnyAnalyticsAction<T>;
-}
-
-export const temp__makeAnalyticsAction = <T extends AnalyticsType>(
+export const makeAnalyticsActionWithDescription = <T extends AnalyticsType>(
   prefix: string,
   analyticsType: T,
   builder: (
@@ -101,7 +107,7 @@ export const temp__makeAnalyticsAction = <T extends AnalyticsType>(
   provider: (state: Partial<SearchAppState>) => SearchPageClientProvider = (
     s
   ) => new AnalyticsProvider(s as StateNeededByAnalyticsProvider)
-): temp__MakeAnalyticsActionReturnType<T> => {
+): AnyAnalyticsPayload<T> => {
   const getBuilder = (
     getState: () => StateNeededByAnalyticsProvider,
     logger: P.Logger,
@@ -119,63 +125,72 @@ export const temp__makeAnalyticsAction = <T extends AnalyticsType>(
     return {builder: builder(client, state), client};
   };
 
+  const logAnalyticsAction = createAsyncThunk<
+    {analyticsType: T},
+    void,
+    AsyncThunkAnalyticsOptions<StateNeededByAnalyticsProvider>
+  >(
+    prefix,
+    async (
+      _,
+      {getState, extra: {analyticsClientMiddleware, preprocessRequest, logger}}
+    ) => {
+      const {builder, client} = getBuilder(
+        getState,
+        logger,
+        analyticsClientMiddleware,
+        preprocessRequest
+      );
+      const response = await builder.log();
+      logger.info(
+        {client: client.coveoAnalyticsClient, response},
+        'Analytics response'
+      );
+      return {analyticsType};
+    }
+  )();
+
+  const analyticsDescriptionThunk = createAsyncThunk<
+    void,
+    void,
+    AsyncThunkAnalyticsOptions<StateNeededByAnalyticsProvider>
+  >(
+    `${prefix}/description`,
+    async (
+      _,
+      {
+        getState,
+        extra: {analyticsClientMiddleware, preprocessRequest, logger},
+        dispatch,
+      }
+    ) => {
+      const state = searchPageState(getState);
+      const client = configureAnalytics({
+        state,
+        logger,
+        analyticsClientMiddleware,
+        preprocessRequest,
+        provider: provider(state),
+      });
+      const {description} = builder(client, state);
+      dispatch(analyticsDescription(description));
+    }
+  );
+
   return {
-    action: createAsyncThunk<
-      {analyticsType: T},
-      void,
-      AsyncThunkAnalyticsOptions<StateNeededByAnalyticsProvider>
-    >(
-      prefix,
-      async (
-        _,
-        {
-          getState,
-          extra: {analyticsClientMiddleware, preprocessRequest, logger},
-        }
-      ) => {
-        const {builder, client} = getBuilder(
-          getState,
-          logger,
-          analyticsClientMiddleware,
-          preprocessRequest
-        );
-        const response = await builder.exec();
-        logger.info(
-          {client: client.coveoAnalyticsClient, response},
-          'Analytics response'
-        );
-        return {analyticsType};
-      }
-    )(),
-    description: createAsyncThunk<
-      void,
-      void,
-      AsyncThunkAnalyticsOptions<StateNeededByAnalyticsProvider>
-    >(
-      prefix,
-      async (
-        _,
-        {
-          getState,
-          extra: {analyticsClientMiddleware, preprocessRequest, logger},
-          dispatch,
-        }
-      ) => {
-        const state = searchPageState(getState);
-        const client = configureAnalytics({
-          state,
-          logger,
-          analyticsClientMiddleware,
-          preprocessRequest,
-          provider: provider(state),
-        });
-        const {description} = builder(client, state);
-        dispatch(analyticsDescription(description));
-      }
-    ),
+    logAnalyticsAction,
+    analyticsDescriptionThunk,
   };
 };
 
+/**
+ * @deprecated Please use makeAnalyticsActionWithDescription instead
+ * @param prefix
+ * @param analyticsType
+ * @param log
+ * @param provider
+ * @returns
+ */
 export const makeAnalyticsAction = <T extends AnalyticsType>(
   prefix: string,
   analyticsType: T,
@@ -198,6 +213,9 @@ export const makeAnalyticsAction = <T extends AnalyticsType>(
       {getState, extra: {analyticsClientMiddleware, preprocessRequest, logger}}
     ) => {
       const state = searchPageState(getState);
+      logger.warn(
+        'Using deprecated analytics action. By using this, we some analytics properties will not be passed to the Coveo platform. Please migrate.'
+      );
       const client = configureAnalytics({
         state,
         logger,

@@ -95,32 +95,38 @@ export function buildFacet(
     toggleSelect: (selection: FacetValue) => {
       coreController.toggleSelect(selection);
       dispatch(fetchProductListing());
-      dispatch(getAnalyticsActionForToggleFacetSelect(getFacetId(), selection));
+      dispatch(
+        getAnalyticsActionForToggleFacetSelect(getFacetId(), selection)
+          .logAnalyticsAction
+      );
     },
 
     deselectAll() {
       coreController.deselectAll();
       dispatch(fetchProductListing());
-      dispatch(logFacetClearAll(getFacetId()));
+      dispatch(logFacetClearAll(getFacetId()).logAnalyticsAction);
     },
 
     sortBy(criterion: FacetSortCriterion) {
       coreController.sortBy(criterion);
       dispatch(fetchProductListing());
-      dispatch(logFacetUpdateSort({facetId: getFacetId(), criterion}));
+      dispatch(
+        logFacetUpdateSort({facetId: getFacetId(), criterion})
+          .logAnalyticsAction
+      );
     },
 
     showMoreValues() {
       coreController.showMoreValues();
       dispatch(fetchProductListing()).then(() =>
-        dispatch(logFacetShowMore(getFacetId()))
+        dispatch(logFacetShowMore(getFacetId()).logAnalyticsAction)
       );
     },
 
     showLessValues() {
       coreController.showLessValues();
       dispatch(fetchProductListing()).then(() =>
-        dispatch(logFacetShowLess(getFacetId()))
+        dispatch(logFacetShowLess(getFacetId()).logAnalyticsAction)
       );
     },
 

@@ -110,19 +110,19 @@ export function buildSmartSnippet(engine: SearchEngine): SmartSnippet {
     },
 
     expand() {
-      engine.dispatch(logExpandSmartSnippet());
+      engine.dispatch(logExpandSmartSnippet().logAnalyticsAction);
       engine.dispatch(expandSmartSnippet());
     },
     collapse() {
-      engine.dispatch(logCollapseSmartSnippet());
+      engine.dispatch(logCollapseSmartSnippet().logAnalyticsAction);
       engine.dispatch(collapseSmartSnippet());
     },
     like() {
-      engine.dispatch(logLikeSmartSnippet());
+      engine.dispatch(logLikeSmartSnippet().logAnalyticsAction);
       engine.dispatch(likeSmartSnippet());
     },
     dislike() {
-      engine.dispatch(logDislikeSmartSnippet());
+      engine.dispatch(logDislikeSmartSnippet().logAnalyticsAction);
       engine.dispatch(dislikeSmartSnippet());
     },
   };

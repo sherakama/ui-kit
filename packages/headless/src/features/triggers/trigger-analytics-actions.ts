@@ -1,54 +1,49 @@
-import {AnalyticsType, makeAnalyticsAction} from '../analytics/analytics-utils';
+import {
+  AnalyticsType,
+  makeAnalyticsActionWithDescription,
+} from '../analytics/analytics-utils';
 
-export const logTriggerQuery = makeAnalyticsAction(
-  'analytics/trigger/query',
-  AnalyticsType.Search,
-  (client, state) => {
-    if (state.triggers?.query) {
-      return client.logTriggerQuery();
+export const logTriggerQuery = () =>
+  makeAnalyticsActionWithDescription(
+    'analytics/trigger/query',
+    AnalyticsType.Search,
+    (client) => {
+      return client.buildTriggerQuery();
     }
-    return;
-  }
-);
+  );
 
-export const logNotifyTrigger = makeAnalyticsAction(
-  'analytics/trigger/notify',
-  AnalyticsType.Search,
-  (client, state) => {
-    if (state.triggers?.notification) {
-      return client.logTriggerNotify({
-        notification: state.triggers.notification,
+export const logNotifyTrigger = () =>
+  makeAnalyticsActionWithDescription(
+    'analytics/trigger/notify',
+    AnalyticsType.Search,
+    (client, state) => {
+      return client.buildTriggerNotify({
+        notification: state.triggers?.notification || '',
       });
     }
-    return;
-  }
-);
+  );
 
-export const logTriggerRedirect = makeAnalyticsAction(
-  'analytics/trigger/redirect',
-  AnalyticsType.Search,
-  (client, state) => {
-    if (state.triggers?.redirectTo) {
-      return client.logTriggerRedirect({
-        redirectedTo: state.triggers.redirectTo,
+export const logTriggerRedirect = () =>
+  makeAnalyticsActionWithDescription(
+    'analytics/trigger/redirect',
+    AnalyticsType.Search,
+    (client, state) => {
+      return client.buildTriggerRedirect({
+        redirectedTo: state.triggers?.redirectTo || '',
       });
     }
-    return;
-  }
-);
+  );
 
 /**
  * Log trigger execute
  */
-export const logTriggerExecute = makeAnalyticsAction(
-  'analytics/trigger/execute',
-  AnalyticsType.Search,
-  (client, state) => {
-    if (state.triggers?.execute) {
-      return client.logTriggerExecute({
-        executed: state.triggers.execute.functionName,
+export const logTriggerExecute = () =>
+  makeAnalyticsActionWithDescription(
+    'analytics/trigger/execute',
+    AnalyticsType.Search,
+    (client, state) => {
+      return client.buildTriggerExecute({
+        executed: state.triggers?.execute.functionName || '',
       });
     }
-    return;
-  }
-);
+  );

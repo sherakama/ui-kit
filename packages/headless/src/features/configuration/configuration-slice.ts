@@ -130,6 +130,7 @@ export const configurationReducer = createReducer(
           action.payload.tab || state.analytics.originLevel2;
       })
       .addCase(analyticsDescription, (state, action) => {
+        console.log(action.payload);
         state.analytics.actionCause = action.payload.actionCause;
         state.analytics.customData = action.payload.customData;
       })

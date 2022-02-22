@@ -41,7 +41,7 @@ export function buildInteractiveResult(
       return;
     }
     wasOpened = true;
-    engine.dispatch(logDocumentOpen(props.options.result));
+    engine.dispatch(logDocumentOpen(props.options.result).logAnalyticsAction);
   };
 
   const action = () => {

@@ -10,7 +10,7 @@ import {
 } from '../../features/query-set/query-set-actions';
 import {
   prepareForSearchWithQuery,
-  temp__executeSearch,
+  executeSearch,
 } from '../../features/search/search-actions';
 import {buildController, Controller} from '../controller/headless-controller';
 import {logSearchboxSubmit} from '../../features/query/query-analytics-actions';
@@ -44,10 +44,7 @@ import {
 } from '../../app/reducers';
 import {loadReducerError} from '../../utils/errors';
 import {SearchEngine} from '../../app/search-engine/search-engine';
-import {
-  AnalyticsType,
-  temp__MakeAnalyticsActionReturnType,
-} from '../../features/analytics/analytics-utils';
+import {SearchAnalyticsPayload} from '../../features/analytics/analytics-utils';
 
 export type {SearchBoxOptions, SuggestionHighlightingOptions, Delimiters};
 
@@ -172,13 +169,11 @@ export function buildSearchBox(
 
   const getValue = () => engine.state.querySet[options.id];
 
-  const performSearch = async (
-    analytics: temp__MakeAnalyticsActionReturnType<AnalyticsType.Search>
-  ) => {
+  const performSearch = async (analytics: SearchAnalyticsPayload) => {
     const {enableQuerySyntax} = options;
 
     dispatch(prepareForSearchWithQuery({q: getValue(), enableQuerySyntax}));
-    await dispatch(temp__executeSearch(analytics));
+    await dispatch(executeSearch(analytics));
   };
 
   return {

@@ -51,7 +51,9 @@ export function buildResultsPerPage(
 
     set(num: number) {
       coreController.set(num);
-      dispatch(fetchProductListing()).then(() => dispatch(logPagerResize()));
+      dispatch(fetchProductListing()).then(() =>
+        dispatch(logPagerResize().logAnalyticsAction)
+      );
     },
   };
 }

@@ -4,7 +4,10 @@ import {AsyncThunkOptions} from '../../app/async-thunk-options';
 import {search} from '../../app/reducers';
 import {SearchEngine} from '../../app/search-engine/search-engine';
 import {ClientThunkExtraArguments} from '../../app/thunk-extra-arguments';
-import {SearchAction} from '../analytics/analytics-utils';
+import {
+  SearchAction,
+  SearchAnalyticsPayload,
+} from '../analytics/analytics-utils';
 import {
   executeSearch,
   ExecuteSearchThunkReturn,
@@ -33,10 +36,10 @@ export interface SearchActionCreators {
    * @returns A dispatchable action.
    */
   executeSearch(
-    analyticsSearchAction: SearchAction
+    analyticsSearchAction: SearchAction | SearchAnalyticsPayload
   ): AsyncThunkAction<
     ExecuteSearchThunkReturn,
-    SearchAction,
+    SearchAction | SearchAnalyticsPayload,
     AsyncThunkOptions<
       StateNeededByExecuteSearch,
       ClientThunkExtraArguments<SearchAPIClient>
@@ -64,10 +67,10 @@ export interface SearchActionCreators {
    * @returns A dispatchable action.
    */
   fetchFacetValues(
-    analyticsSearchAction: SearchAction
+    analyticsSearchAction: SearchAction | SearchAnalyticsPayload
   ): AsyncThunkAction<
     ExecuteSearchThunkReturn,
-    SearchAction,
+    SearchAction | SearchAnalyticsPayload,
     AsyncThunkOptions<
       StateNeededByExecuteSearch,
       ClientThunkExtraArguments<SearchAPIClient>

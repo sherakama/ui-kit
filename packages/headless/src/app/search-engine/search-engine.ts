@@ -32,7 +32,10 @@ import {
 import {firstSearchExecutedSelector} from '../../features/search/search-selectors';
 import {SearchAppState} from '../../state/search-app-state';
 import {SearchThunkExtraArguments} from '../search-thunk-extra-arguments';
-import {SearchAction} from '../../features/analytics/analytics-utils';
+import {
+  SearchAction,
+  SearchAnalyticsPayload,
+} from '../../features/analytics/analytics-utils';
 import {StandaloneSearchBoxAnalytics} from '../../features/standalone-search-box-set/standalone-search-box-set-state';
 
 export type {SearchEngineConfiguration, SearchConfigurationOptions};
@@ -53,7 +56,9 @@ export interface SearchEngine<State extends object = {}>
    *
    * @param analyticsEvent - The analytics event to log in association with the first search. If unspecified, `logInterfaceLoad` will be used.
    */
-  executeFirstSearch(analyticsEvent?: SearchAction): void;
+  executeFirstSearch(
+    analyticsEvent?: SearchAction | SearchAnalyticsPayload
+  ): void;
 
   /**
    * Executes the first search, and logs the analytics event that triggered a redirection from a standalone search box.

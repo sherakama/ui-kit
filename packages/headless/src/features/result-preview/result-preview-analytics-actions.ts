@@ -2,24 +2,24 @@ import {Result} from '../../api/search/search/result';
 import {
   AnalyticsType,
   documentIdentifier,
-  makeAnalyticsAction,
+  makeAnalyticsActionWithDescription,
   partialDocumentInformation,
   validateResultPayload,
 } from '../analytics/analytics-utils';
 
 export const logDocumentQuickview = (result: Result) => {
-  return buildDocumentQuickviewThunk(result)();
+  return buildDocumentQuickviewThunk(result);
 };
 
 export const buildDocumentQuickviewThunk = (result: Result) => {
-  return makeAnalyticsAction(
+  return makeAnalyticsActionWithDescription(
     'analytics/resultPreview/open',
     AnalyticsType.Click,
     (client, state) => {
       validateResultPayload(result);
       const info = partialDocumentInformation(result, state);
       const id = documentIdentifier(result);
-      return client.logDocumentQuickview(info, id);
+      return client.buildDocumentQuickview(info, id);
     }
   );
 };

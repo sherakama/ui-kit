@@ -1,6 +1,9 @@
 import {createAction} from '@reduxjs/toolkit';
 import {validatePayload} from '../../utils/validate-payload';
-import {AnalyticsType, makeAnalyticsAction} from '../analytics/analytics-utils';
+import {
+  AnalyticsType,
+  makeAnalyticsActionWithDescription,
+} from '../analytics/analytics-utils';
 import {
   staticFilterIdSchema,
   staticFilterValueSchema,
@@ -90,20 +93,20 @@ export interface StaticFilterValueMetadata {
 export const logStaticFilterSelect = (
   metadata: LogStaticFilterToggleValueActionCreatorPayload
 ) =>
-  makeAnalyticsAction(
+  makeAnalyticsActionWithDescription(
     'analytics/staticFilter/select',
     AnalyticsType.Search,
-    (client) => client.logStaticFilterSelect(metadata)
-  )();
+    (client) => client.buildStaticFilterSelect(metadata)
+  );
 
 export const logStaticFilterDeselect = (
   metadata: LogStaticFilterToggleValueActionCreatorPayload
 ) =>
-  makeAnalyticsAction(
+  makeAnalyticsActionWithDescription(
     'analytics/staticFilter/deselect',
     AnalyticsType.Search,
-    (client) => client.logStaticFilterDeselect(metadata)
-  )();
+    (client) => client.buildStaticFilterDeselect(metadata)
+  );
 
 export interface LogStaticFilterClearAllActionCreatorPayload {
   /**
@@ -115,8 +118,8 @@ export interface LogStaticFilterClearAllActionCreatorPayload {
 export const logStaticFilterClearAll = (
   metadata: LogStaticFilterClearAllActionCreatorPayload
 ) =>
-  makeAnalyticsAction(
+  makeAnalyticsActionWithDescription(
     'analytics/staticFilter/clearAll',
     AnalyticsType.Search,
-    (client) => client.logStaticFilterClearAll(metadata)
-  )();
+    (client) => client.buildStaticFilterClearAll(metadata)
+  );

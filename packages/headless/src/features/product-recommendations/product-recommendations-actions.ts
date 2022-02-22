@@ -170,7 +170,8 @@ export const getProductRecommendations = createAsyncThunk<
       recommendations: fetched.success.results.map((result) =>
         mapResultToProductResult(result, {additionalFields})
       ),
-      analyticsAction: logProductRecommendations(),
+      analyticsAction: logProductRecommendations()
+        .logAnalyticsAction as SearchAction,
       searchUid: fetched.success.searchUid,
       duration,
     };

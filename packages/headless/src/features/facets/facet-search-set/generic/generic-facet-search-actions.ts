@@ -45,7 +45,7 @@ export const executeFacetSearch = createAsyncThunk<
     }
 
     const response = await apiClient.facetSearch(req);
-    dispatch(logFacetSearch(facetId));
+    dispatch(logFacetSearch(facetId).logAnalyticsAction);
 
     return {facetId, response};
   }

@@ -13,7 +13,7 @@ export function buildMockSearch(
     error: null,
     automaticallyCorrected: false,
     originalQuery: '',
-    analyticsAction: logInterfaceLoad(),
+    analyticsAction: logInterfaceLoad().logAnalyticsAction,
     ...config,
   };
 }

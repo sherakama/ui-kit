@@ -1,7 +1,7 @@
 import {validatePayload} from '../../../../utils/validate-payload';
 import {
   AnalyticsType,
-  makeAnalyticsAction,
+  makeAnalyticsActionWithDescription,
 } from '../../../analytics/analytics-utils';
 import {getRangeFacetMetadata} from '../generic/range-facet-analytics-actions';
 import {rangeFacetSelectionPayloadDefinition} from '../generic/range-facet-validate-payload';
@@ -22,7 +22,7 @@ export interface LogNumericFacetBreadcrumbActionCreatorPayload {
 export const logNumericFacetBreadcrumb = (
   payload: LogNumericFacetBreadcrumbActionCreatorPayload
 ) =>
-  makeAnalyticsAction(
+  makeAnalyticsActionWithDescription(
     'analytics/numericFacet/breadcrumb',
     AnalyticsType.Search,
     (client, state) => {
@@ -32,6 +32,6 @@ export const logNumericFacetBreadcrumb = (
       );
       const metadata = getRangeFacetMetadata(state, payload);
 
-      return client.logBreadcrumbFacet(metadata);
+      return client.buildBreadcrumbFacet(metadata);
     }
-  )();
+  );

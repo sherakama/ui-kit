@@ -48,7 +48,7 @@ export const checkForRedirection = createAsyncThunk<
 
     const planRedirection = new ExecutionPlan(response.success).redirectionUrl;
     if (planRedirection) {
-      dispatch(logRedirection());
+      dispatch(logRedirection().logAnalyticsAction);
     }
 
     return planRedirection || payload.defaultRedirectionUrl;

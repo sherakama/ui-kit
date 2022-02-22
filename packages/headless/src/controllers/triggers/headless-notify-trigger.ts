@@ -53,7 +53,7 @@ export function buildNotifyTrigger(engine: SearchEngine): NotifyTrigger {
 
         if (hasChanged && getState().triggers.notification) {
           listener();
-          dispatch(logNotifyTrigger());
+          dispatch(logNotifyTrigger().logAnalyticsAction);
         }
       };
       strictListener();

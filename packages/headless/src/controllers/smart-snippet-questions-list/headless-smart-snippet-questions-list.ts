@@ -128,11 +128,15 @@ export function buildSmartSnippetQuestionsList(
     },
 
     expand(documentId: QuestionAnswerDocumentIdentifier) {
-      engine.dispatch(logExpandSmartSnippetSuggestion(documentId));
+      engine.dispatch(
+        logExpandSmartSnippetSuggestion(documentId).logAnalyticsAction
+      );
       engine.dispatch(expandSmartSnippetRelatedQuestion(documentId));
     },
     collapse(documentId: QuestionAnswerDocumentIdentifier) {
-      engine.dispatch(logCollapseSmartSnippetSuggestion(documentId));
+      engine.dispatch(
+        logCollapseSmartSnippetSuggestion(documentId).logAnalyticsAction
+      );
       engine.dispatch(collapseSmartSnippetRelatedQuestion(documentId));
     },
   };

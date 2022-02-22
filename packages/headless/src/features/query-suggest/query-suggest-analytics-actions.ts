@@ -2,7 +2,7 @@ import type {OmniboxSuggestionsMetadata} from 'coveo.analytics/dist/definitions/
 import {SearchAppState} from '../../state/search-app-state';
 import {
   AnalyticsType,
-  temp__makeAnalyticsAction,
+  makeAnalyticsActionWithDescription,
 } from '../analytics/analytics-utils';
 
 export interface LogQuerySuggestionClickActionCreatorPayload {
@@ -20,12 +20,12 @@ export interface LogQuerySuggestionClickActionCreatorPayload {
 export const logQuerySuggestionClick = (
   payload: LogQuerySuggestionClickActionCreatorPayload
 ) =>
-  temp__makeAnalyticsAction(
+  makeAnalyticsActionWithDescription(
     'analytics/querySuggest',
     AnalyticsType.Search,
     (client, state) => {
       const metadata = buildOmniboxSuggestionMetadata(state, payload);
-      return client.makeLogOmniboxAnalytics(metadata);
+      return client.buildOmniboxAnalytics(metadata);
     }
   );
 

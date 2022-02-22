@@ -47,7 +47,7 @@ export function buildDateFilter(
     clear: () => {
       coreController.clear();
       dispatch(fetchProductListing()).then(() =>
-        dispatch(logFacetClearAll(getFacetId()))
+        dispatch(logFacetClearAll(getFacetId()).logAnalyticsAction)
       );
     },
     setRange: (range) => {
@@ -58,7 +58,7 @@ export function buildDateFilter(
             logFacetSelect({
               facetId: getFacetId(),
               facetValue: `${range.start}..${range.end}`,
-            })
+            }).logAnalyticsAction
           )
         );
       }

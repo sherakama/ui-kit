@@ -63,7 +63,8 @@ export const getRecommendations = createAsyncThunk<
     }
     return {
       recommendations: fetched.success.results,
-      analyticsAction: logRecommendationUpdate(),
+      analyticsAction: logRecommendationUpdate()
+        .logAnalyticsAction as SearchAction,
       duration,
       searchUid: fetched.success.searchUid,
     };

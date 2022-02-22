@@ -29,7 +29,9 @@ export function buildQuickview(
   props: QuickviewProps
 ): Quickview {
   const fetchResultContentCallback = () => {
-    engine.dispatch(logDocumentQuickview(props.options.result));
+    engine.dispatch(
+      logDocumentQuickview(props.options.result).logAnalyticsAction
+    );
   };
 
   return buildQuickviewCore(engine, props, fetchResultContentCallback);

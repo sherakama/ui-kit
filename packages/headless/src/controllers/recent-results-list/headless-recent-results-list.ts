@@ -146,7 +146,7 @@ export function buildRecentResultsList(
     },
 
     clear() {
-      dispatch(logClearRecentResults());
+      dispatch(logClearRecentResults().logAnalyticsAction);
       dispatch(clearRecentResults());
     },
   };

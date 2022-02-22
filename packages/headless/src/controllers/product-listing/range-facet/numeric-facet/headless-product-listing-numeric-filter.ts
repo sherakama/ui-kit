@@ -48,7 +48,7 @@ export function buildNumericFilter(
     clear: () => {
       coreController.clear();
       dispatch(fetchProductListing()).then(() =>
-        dispatch(logFacetClearAll(getFacetId()))
+        dispatch(logFacetClearAll(getFacetId()).logAnalyticsAction)
       );
     },
     setRange: (range) => {
@@ -59,7 +59,7 @@ export function buildNumericFilter(
             logFacetSelect({
               facetId: getFacetId(),
               facetValue: `${range.start}..${range.end}`,
-            })
+            }).logAnalyticsAction
           )
         );
       }

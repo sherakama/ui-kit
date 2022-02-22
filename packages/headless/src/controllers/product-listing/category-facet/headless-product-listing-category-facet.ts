@@ -89,34 +89,40 @@ export function buildCategoryFacet(
     toggleSelect: (selection: CategoryFacetValue) => {
       coreController.toggleSelect(selection);
       dispatch(fetchProductListing());
-      dispatch(getToggleSelectAnalyticsAction(getFacetId(), selection));
+      dispatch(
+        getToggleSelectAnalyticsAction(getFacetId(), selection)
+          .logAnalyticsAction
+      );
     },
 
     deselectAll: () => {
       coreController.deselectAll();
       dispatch(fetchProductListing()).then(() =>
-        dispatch(logFacetClearAll(getFacetId()))
+        dispatch(logFacetClearAll(getFacetId()).logAnalyticsAction)
       );
     },
 
     sortBy(criterion: CategoryFacetSortCriterion) {
       coreController.sortBy(criterion);
       dispatch(fetchProductListing()).then(() =>
-        dispatch(logFacetUpdateSort({facetId: getFacetId(), criterion}))
+        dispatch(
+          logFacetUpdateSort({facetId: getFacetId(), criterion})
+            .logAnalyticsAction
+        )
       );
     },
 
     showMoreValues() {
       coreController.showMoreValues();
       dispatch(fetchProductListing()).then(() =>
-        dispatch(logFacetShowMore(getFacetId()))
+        dispatch(logFacetShowMore(getFacetId()).logAnalyticsAction)
       );
     },
 
     showLessValues() {
       coreController.showLessValues();
       dispatch(fetchProductListing()).then(() =>
-        dispatch(logFacetShowLess(getFacetId()))
+        dispatch(logFacetShowLess(getFacetId()).logAnalyticsAction)
       );
     },
 

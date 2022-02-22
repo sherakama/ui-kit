@@ -66,7 +66,7 @@ export function buildExecuteTrigger(engine: SearchEngine): ExecuteTrigger {
 
         if (hasChanged && this.state.functionName) {
           listener();
-          dispatch(logTriggerExecute());
+          dispatch(logTriggerExecute().logAnalyticsAction);
         }
       };
       strictListener();

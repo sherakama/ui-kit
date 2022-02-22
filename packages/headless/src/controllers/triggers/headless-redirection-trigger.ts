@@ -55,7 +55,7 @@ export function buildRedirectionTrigger(
 
         if (hasChanged && this.state.redirectTo) {
           listener();
-          dispatch(logTriggerRedirect());
+          dispatch(logTriggerRedirect().logAnalyticsAction);
         }
       };
       strictListener();

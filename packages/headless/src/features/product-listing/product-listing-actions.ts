@@ -98,7 +98,7 @@ export const fetchProductListing = createAsyncThunk<
     );
 
     if (isErrorResponse(fetched)) {
-      dispatch(logQueryError(fetched.error));
+      dispatch(logQueryError(fetched.error).logAnalyticsAction);
       return rejectWithValue(fetched.error);
     }
 

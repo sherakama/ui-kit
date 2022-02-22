@@ -167,7 +167,7 @@ export function buildRecentQueriesList(
     },
 
     clear() {
-      dispatch(logClearRecentQueries());
+      dispatch(logClearRecentQueries().logAnalyticsAction);
       dispatch(clearRecentQueries());
     },
 
