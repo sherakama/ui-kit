@@ -87,7 +87,6 @@ export function parseAssetURL(url: string, assetPath = './assets') {
   return null;
 }
 
-// TODO: add tests
 export function elementHasAncestorTag(
   el: HTMLElement,
   tagName: string

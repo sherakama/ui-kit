@@ -4,6 +4,7 @@ import {
   randomID,
   kebabToCamel,
   parseAssetURL,
+  elementHasAncestorTag,
 } from './utils';
 
 describe('once', () => {
@@ -81,5 +82,27 @@ describe('parseAssetURL', () => {
     expect(parseAssetURL('assets://attachment.svg')).toBe(
       '/assets/attachment.svg'
     );
+  });
+});
+
+describe('elementHasAncestorTag', () => {
+  it('works with orphan element', () => {
+    expect(elementHasAncestorTag(document.createElement('div'), 'div')).toEqual(
+      false
+    );
+  });
+  it('works with child', () => {
+    const parent = document.createElement('div');
+    const child = document.createElement('div');
+    parent.appendChild(child);
+    expect(elementHasAncestorTag(child, 'div')).toEqual(true);
+  });
+  it('works with grandchild', () => {
+    const grandparent = document.createElement('div');
+    const parent = document.createElement('p');
+    grandparent.appendChild(parent);
+    const child = document.createElement('span');
+    parent.appendChild(child);
+    expect(elementHasAncestorTag(child, 'div')).toEqual(true);
   });
 });
