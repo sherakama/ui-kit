@@ -736,14 +736,33 @@ export namespace Components {
         "initialChoice"?: number;
     }
     interface AtomicSearchBox {
+        "fieldsToInclude": string;
+        /**
+          * The search interface language.
+         */
+        "language": string;
+        "maxInstantResults": number;
         /**
           * The amount of queries displayed when the user interacts with the search box. By default, a mix of query suggestions and recent queries will be shown. You can configure those settings using the following components as children:  - atomic-search-box-query-suggestions  - atomic-search-box-recent-queries
          */
         "numberOfQueries": number;
         /**
+          * The search interface [query pipeline](https://docs.coveo.com/en/180/).
+         */
+        "pipeline"?: string;
+        /**
           * Defining this option makes the search box standalone.  This option defines the default URL the user should be redirected to, when a query is submitted. If a query pipeline redirect is triggered, it will redirect to that URL instead (see [query pipeline triggers](https://docs.coveo.com/en/1458)).
          */
         "redirectionUrl"?: string;
+        /**
+          * The search interface [search hub](https://docs.coveo.com/en/1342/).
+         */
+        "searchHub": string;
+        /**
+          * The [tz database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) identifier of the time zone to use to correctly interpret dates in the query expression, facets, and result items. By default, the timezone will be [guessed](https://day.js.org/docs/en/timezone/guessing-user-timezone).
+          * @example America/Montreal
+         */
+        "timezone"?: string;
     }
     interface AtomicSearchBoxQuerySuggestions {
         /**
@@ -2192,14 +2211,33 @@ declare namespace LocalJSX {
         "initialChoice"?: number;
     }
     interface AtomicSearchBox {
+        "fieldsToInclude"?: string;
+        /**
+          * The search interface language.
+         */
+        "language"?: string;
+        "maxInstantResults"?: number;
         /**
           * The amount of queries displayed when the user interacts with the search box. By default, a mix of query suggestions and recent queries will be shown. You can configure those settings using the following components as children:  - atomic-search-box-query-suggestions  - atomic-search-box-recent-queries
          */
         "numberOfQueries"?: number;
         /**
+          * The search interface [query pipeline](https://docs.coveo.com/en/180/).
+         */
+        "pipeline"?: string;
+        /**
           * Defining this option makes the search box standalone.  This option defines the default URL the user should be redirected to, when a query is submitted. If a query pipeline redirect is triggered, it will redirect to that URL instead (see [query pipeline triggers](https://docs.coveo.com/en/1458)).
          */
         "redirectionUrl"?: string;
+        /**
+          * The search interface [search hub](https://docs.coveo.com/en/1342/).
+         */
+        "searchHub"?: string;
+        /**
+          * The [tz database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) identifier of the time zone to use to correctly interpret dates in the query expression, facets, and result items. By default, the timezone will be [guessed](https://day.js.org/docs/en/timezone/guessing-user-timezone).
+          * @example America/Montreal
+         */
+        "timezone"?: string;
     }
     interface AtomicSearchBoxQuerySuggestions {
         /**

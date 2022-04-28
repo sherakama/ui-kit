@@ -1060,13 +1060,13 @@ export declare interface AtomicSearchBox extends Components.AtomicSearchBox {}
 
 @ProxyCmp({
   defineCustomElementFn: undefined,
-  inputs: ['numberOfQueries', 'redirectionUrl']
+  inputs: ['fieldsToInclude', 'language', 'maxInstantResults', 'numberOfQueries', 'pipeline', 'redirectionUrl', 'searchHub', 'timezone']
 })
 @Component({
   selector: 'atomic-search-box',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<ng-content></ng-content>',
-  inputs: ['numberOfQueries', 'redirectionUrl']
+  inputs: ['fieldsToInclude', 'language', 'maxInstantResults', 'numberOfQueries', 'pipeline', 'redirectionUrl', 'searchHub', 'timezone']
 })
 export class AtomicSearchBox {
   protected el: HTMLElement;

@@ -15,8 +15,8 @@
 
         // Initialization
         await searchInterface.initialize({
-          accessToken: 'xx564559b1-0045-48e1-953c-3addd1ee4457',
-          organizationId: 'searchuisamples',
+          accessToken: 'xx149e3ec9-786f-4c6c-b64f-49a403b930de',
+          organizationId: 'fashioncoveodemocomgzh7iep8',
         });
 
         // Trigger a first search
@@ -133,11 +133,18 @@
 
   <body>
     <atomic-aria-live></atomic-aria-live>
-    <atomic-search-interface>
+    <atomic-search-interface search-hub="MainSearch">
       <atomic-search-layout>
         <div class="header-bg"></div>
         <atomic-layout-section section="search">
-          <atomic-search-box></atomic-search-box>
+          <atomic-search-box>
+            <template>
+              <div>
+                <atomic-result-image field="ec_images"></atomic-result-image>
+                <atomic-result-link></atomic-result-link>
+              </div>
+            </template>
+          </atomic-search-box>
         </atomic-layout-section>
         <atomic-layout-section section="facets">
           <atomic-facet-manager>

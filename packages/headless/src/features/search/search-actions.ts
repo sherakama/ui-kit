@@ -129,6 +129,7 @@ export const executeSearch = createAsyncThunk<
     analyticsAction: SearchAction,
     {getState, dispatch, rejectWithValue, extra}
   ) => {
+    debugger;
     const state = getState();
     addEntryInActionsHistory(state);
     const fetched = await fetchFromAPI(

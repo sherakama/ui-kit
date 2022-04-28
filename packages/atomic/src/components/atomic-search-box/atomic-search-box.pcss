@@ -10,3 +10,17 @@
   content: '';
   @apply absolute w-5/6 h-5/6 bg-background rounded-full;
 }
+
+.with-results {
+  display: grid;
+  grid-template-columns: 1fr minmax(min-content, 80%);
+}
+
+
+.instant-results {
+  display: grid;
+
+  atomic-result {
+    padding: 20px;
+  }
+}

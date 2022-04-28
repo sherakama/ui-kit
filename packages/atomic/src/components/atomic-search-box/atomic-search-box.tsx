@@ -1,6 +1,14 @@
 import SearchIcon from 'coveo-styleguide/resources/icons/svg/search.svg';
 import ClearIcon from 'coveo-styleguide/resources/icons/svg/clear.svg';
-import {Component, h, State, Prop, Listen, Watch} from '@stencil/core';
+import {
+  Component,
+  h,
+  State,
+  Prop,
+  Listen,
+  Watch,
+  Element,
+} from '@stencil/core';
 import {
   SearchBox,
   SearchBoxState,
@@ -10,11 +18,21 @@ import {
   StandaloneSearchBox,
   StandaloneSearchBoxState,
   buildStandaloneSearchBox,
+  SearchEngine,
+  buildSearchEngine,
+  loadQueryActions,
+  loadSearchActions,
+  LogLevel,
+  loadSearchAnalyticsActions,
+  Result,
+  buildResultList,
+  EcommerceDefaultFieldsToInclude,
 } from '@coveo/headless';
 import {
   Bindings,
   BindStateToController,
   InitializeBindings,
+  InitializeEvent,
 } from '../../utils/initialization-utils';
 import {Button} from '../common/button';
 import {randomID} from '../../utils/utils';
@@ -54,7 +72,32 @@ export class AtomicSearchBox {
   private querySetActions!: QuerySetActionCreators;
   private pendingSuggestionEvents: SearchBoxSuggestionsEvent[] = [];
   private suggestions: SearchBoxSuggestions[] = [];
+  private hangingComponentsInitialization: InitializeEvent[] = [];
+  @Prop({reflect: true}) public fieldsToInclude = '';
 
+  /**
+   * The search interface [query pipeline](https://docs.coveo.com/en/180/).
+   */
+  @Prop({reflect: true}) public pipeline?: string;
+
+  /**
+   * The search interface [search hub](https://docs.coveo.com/en/1342/).
+   */
+  @Prop({reflect: true}) public searchHub = 'default';
+
+  /**
+   * The [tz database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) identifier of the time zone to use to correctly interpret dates in the query expression, facets, and result items.
+   * By default, the timezone will be [guessed](https://day.js.org/docs/en/timezone/guessing-user-timezone).
+   *
+   * @example
+   * America/Montreal
+   */
+  @Prop({reflect: true}) public timezone?: string;
+
+  /**
+   * The search interface language.
+   */
+  @Prop({reflect: true}) public language = 'en';
   @BindStateToController('searchBox')
   @State()
   private searchBoxState!: SearchBoxState | StandaloneSearchBoxState;
@@ -62,7 +105,16 @@ export class AtomicSearchBox {
   @State() private isExpanded = false;
   @State() private activeDescendant = '';
   @State() private suggestionElements: SearchBoxSuggestionElement[] = [];
+  private engine?: SearchEngine;
+  @Element() public host!: HTMLDivElement;
 
+  @State()
+  private instantResultsQuery = '';
+
+  @State()
+  private resultCache: Record<string, Result[]> = {};
+
+  private resultTemplate!: DocumentFragment;
   /**
    * The amount of queries displayed when the user interacts with the search box.
    * By default, a mix of query suggestions and recent queries will be shown.
@@ -81,8 +133,23 @@ export class AtomicSearchBox {
    */
   @Prop({reflect: true}) public redirectionUrl?: string;
 
+  @Prop({reflect: true}) public maxInstantResults = 3;
+
   @AriaLiveRegion('search-box')
   protected ariaMessage!: string;
+
+  @Listen('atomic/suggestionsBindings')
+  public handleInitialization(event: InitializeEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (this.engine) {
+      event.detail(this.bindings);
+      return;
+    }
+
+    this.hangingComponentsInitialization.push(event);
+  }
 
   public initialize() {
     this.id = randomID('atomic-search-box-');
@@ -117,6 +184,17 @@ export class AtomicSearchBox {
       )
     );
     this.pendingSuggestionEvents = [];
+    this.initializeInstantResults();
+
+    this.resultTemplate = this.host.querySelector(
+      'template'
+    )?.content!;
+    if (!this.resultTemplate) {
+      const content = document.createDocumentFragment();
+      const linkEl = document.createElement('atomic-result-link');
+      content.appendChild(linkEl);
+      this.resultTemplate = content;
+    }
   }
 
   public componentDidUpdate() {
@@ -150,6 +228,73 @@ export class AtomicSearchBox {
   @Watch('redirectionUrl')
   watchRedirectionUrl() {
     this.initialize();
+  }
+
+  @Watch('instantResultsQuery')
+  watchInstantResultsQuery() {
+    if (!this.resultCache[this.instantResultsQuery]) {
+      this.searchInstantResults(this.instantResultsQuery);
+    }
+  }
+
+  /**
+   * Initializes the connection with the headless search engine using options for `accessToken` (required), `organizationId` (required), `renewAccessToken`, and `platformUrl`.
+   */
+  private initializeInstantResults() {
+    this.initEngine();
+    this.initComponents();
+  }
+
+  private initEngine() {
+    const mainEngine = this.bindings.engine.state;
+    const config = {
+      configuration: {
+        accessToken: mainEngine.configuration.accessToken,
+        organizationId: mainEngine.configuration.organizationId,
+        search: {
+          searchHub: mainEngine.searchHub,
+          pipeline: mainEngine.pipeline || undefined,
+          locale: mainEngine.configuration.search.locale,
+          timezone: mainEngine.configuration.search.timezone,
+        },
+      },
+      loggerOptions: {
+        level: 'silent' as LogLevel,
+      },
+    };
+    try {
+      this.engine = buildSearchEngine(config);
+      buildResultList(this.engine, {options:{ fieldsToInclude: [...EcommerceDefaultFieldsToInclude, ...this.fieldsToInclude]}})
+      this.engine.subscribe(() => {
+        const searchStatusState = this.engine!.state;
+        if (this.hasResultsCache(searchStatusState)) {
+          this.setResultsCache(searchStatusState);
+        }
+      });
+    } catch (error) {
+      this.error = error as Error;
+      throw error;
+    }
+  }
+
+  private hasResultsCache(state: any) {
+    return (
+      state.search.queryExecuted &&
+      !this.resultCache[state.search.queryExecuted]
+    );
+  }
+
+  private setResultsCache(state: any) {
+    this.resultCache = {
+      ...this.resultCache,
+      [state.search.queryExecuted]: state.search.results.slice(0, this.maxInstantResults),
+    };
+  }
+
+  private initComponents() {
+    this.hangingComponentsInitialization.forEach((event) =>
+      event.detail(this.bindings)
+    );
   }
 
   private get suggestionBindings(): SearchBoxSuggestionsBindings {
@@ -269,8 +414,25 @@ export class AtomicSearchBox {
     const max =
       this.numberOfQueries +
       suggestionElements.filter((sug) => sug.query === undefined).length;
+
+    if (suggestionElements.length) {
+      const q = suggestionElements[1].query || '';
+      if (!this.resultCache[q]) {
+        this.searchInstantResults(q);
+      }
+      this.instantResultsQuery = q;
+    }
     this.suggestionElements = suggestionElements.slice(0, max);
     this.updateAriaMessage();
+  }
+
+  private searchInstantResults(q: string) {
+    const {updateQuery} = loadQueryActions(this.engine!);
+    const {executeSearch} = loadSearchActions(this.engine!);
+    const {logSearchFromLink} = loadSearchAnalyticsActions(this.engine!);
+
+    this.engine!.dispatch(updateQuery({q}));
+    this.engine!.dispatch(executeSearch(logSearchFromLink()));
   }
 
   private onInput(value: string) {
@@ -286,9 +448,10 @@ export class AtomicSearchBox {
   }
 
   private clearSuggestions() {
-    this.isExpanded = false;
+    // TODO:
+    // this.isExpanded = false;
     this.updateActiveDescendant();
-    this.clearSuggestionElements();
+    // this.clearSuggestionElements();
   }
 
   private onSubmit() {
@@ -415,6 +578,12 @@ export class AtomicSearchBox {
           isSelected ? 'bg-neutral-light' : ''
         }`}
         onMouseDown={(e) => e.preventDefault()}
+        onMouseOver={() => {
+          console.log('suggestion.query:', suggestion.query)
+          if (suggestion.query) {
+            this.instantResultsQuery = suggestion.query || '';
+          }
+        }}
         onClick={() => suggestion.onSelect()}
       >
         {suggestion.content}
@@ -423,8 +592,6 @@ export class AtomicSearchBox {
   }
 
   private renderSuggestions() {
-    const showSuggestions = this.hasSuggestions && this.isExpanded;
-
     return (
       <ul
         id={this.popupId}
@@ -432,9 +599,6 @@ export class AtomicSearchBox {
         part="suggestions"
         aria-label={this.bindings.i18n.t('query-suggestion-list')}
         ref={(el) => (this.listRef = el!)}
-        class={`w-full z-10 absolute left-0 top-full rounded-md bg-background border border-neutral ${
-          showSuggestions ? '' : 'hidden'
-        }`}
       >
         {this.suggestionElements.map((suggestion, index) =>
           this.renderSuggestion(suggestion, index)
@@ -461,6 +625,9 @@ export class AtomicSearchBox {
   }
 
   public render() {
+    const instantResults = this.resultCache[this.instantResultsQuery] || [];
+    const showSuggestions = this.hasSuggestions && this.isExpanded;
+
     return [
       <div
         part="wrapper"
@@ -469,7 +636,26 @@ export class AtomicSearchBox {
         }
       >
         {this.renderInputContainer()}
-        {this.renderSuggestions()}
+        <div
+          class={`w-full z-10 absolute left-0 top-full rounded-md bg-background border border-neutral ${
+            showSuggestions ? '' : 'hidden'
+          } ${instantResults.length ? 'with-results' : ''}`}
+          part="suggestions-wrapper"
+        >
+          {this.renderSuggestions()}
+          {showSuggestions && !!instantResults.length && (
+            <div part="results" class="instant-results" style={{gridTemplateColumns: `repeat(${this.maxInstantResults}, 1fr)`}}>
+              {instantResults.map((result) => (
+                <atomic-result
+                  content={this.resultTemplate}
+                  engine={this.engine!}
+                  result={result}
+                  key={result.uniqueId}
+                ></atomic-result>
+              ))}
+            </div>
+          )}
+        </div>
         {this.renderSubmitButton()}
       </div>,
       !this.suggestions.length && (
