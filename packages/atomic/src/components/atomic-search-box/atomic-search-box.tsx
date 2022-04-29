@@ -188,7 +188,7 @@ export class AtomicSearchBox {
 
     this.resultTemplate = this.host.querySelector(
       'template'
-    )?.content!;
+      )?.content!;
     if (!this.resultTemplate) {
       const content = document.createDocumentFragment();
       const linkEl = document.createElement('atomic-result-link');
@@ -448,10 +448,9 @@ export class AtomicSearchBox {
   }
 
   private clearSuggestions() {
-    // TODO:
-    // this.isExpanded = false;
+    this.isExpanded = false;
     this.updateActiveDescendant();
-    // this.clearSuggestionElements();
+    this.clearSuggestionElements();
   }
 
   private onSubmit() {
