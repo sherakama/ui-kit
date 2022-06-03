@@ -12,6 +12,7 @@ import {getSearchHubInitialState} from '../../features/search-hub/search-hub-sta
 import {setPipeline} from '../../features/pipeline/pipeline-actions';
 import {getPipelineInitialState} from '../../features/pipeline/pipeline-state';
 import {getConfigurationInitialState} from '../../features/configuration/configuration-state';
+import {executeSearch} from '../../features/search/search-actions';
 
 export interface CoveoJSONWebToken {
   searchHub?: string;
@@ -209,6 +210,29 @@ export const jwtReducer: (logger: P.Logger) => Reducer = (logger) => {
           action.payload.userDisplayName,
           logger
         );
+      })
+      .addCase(executeSearch.fulfilled, (state, action) => {
+        const pipelineFromResponse = action.payload.response.pipeline;
+        const pipelineFromState = state.pipeline;
+        if (isNullOrUndefined(pipelineFromResponse)) {
+          return state;
+        }
+
+        if (pipelineFromState === pipelineFromResponse) {
+          return state;
+        }
+
+        if (pipelineFromState !== getPipelineInitialState()) {
+          logger.warn(
+            `Mismatch on pipeline API response ${pipelineFromResponse} and engine configuration.`
+          );
+          logger.warn(
+            `To remove this warning, make sure that the pipeline [${pipelineFromResponse}] matches engine configuration value [${pipelineFromState}]`
+          );
+        }
+
+        //state.pipeline = pipelineFromResponse;
+        return state;
       });
   });
 };
