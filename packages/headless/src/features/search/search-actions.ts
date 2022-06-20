@@ -1,4 +1,9 @@
-import {createAsyncThunk, ThunkDispatch, AnyAction} from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  ThunkDispatch,
+  AnyAction,
+  SerializedError,
+} from '@reduxjs/toolkit';
 import {
   SearchAPIClient,
   isErrorResponse,
@@ -45,9 +50,11 @@ import {extractHistory} from '../history/history-state';
 import {getSearchInitialState} from './search-state';
 import {logFetchMoreResults, logQueryError} from './search-analytics-actions';
 import {
+  ErrorResponse,
   MappedSearchRequest,
   mapSearchRequest,
   mapSearchResponse,
+  SuccessResponse,
 } from './search-mappings';
 import {BooleanValue, NumberValue, StringValue} from '@coveo/bueno';
 import {updatePage} from '../pagination/pagination-actions';
@@ -309,7 +316,7 @@ export const fetchFacetValues = createAsyncThunk<
 );
 
 export const fetchInstantResults = createAsyncThunk<
-  FetchInstantResultsThunkReturn,
+  FetchInstantResultsThunkReturn | SerializedError,
   FetchInstantResultsActionCreatorPayload,
   AsyncThunkSearchOptions<StateNeededByExecuteSearch & InstantResultSection>
 >(
@@ -330,12 +337,17 @@ export const fetchInstantResults = createAsyncThunk<
     const {q, maxResultsPerQuery} = payload;
     const state = getState();
 
-    const response = await fetchInstantResultsFromAPI(
-      apiClient,
-      state,
-      q,
-      maxResultsPerQuery
-    );
+    let response: SuccessResponse | ErrorResponse;
+    try {
+      response = await fetchInstantResultsFromAPI(
+        apiClient,
+        state,
+        q,
+        maxResultsPerQuery
+      );
+    } catch (e) {
+      return e as SerializedError;
+    }
 
     if (isErrorResponse(response)) {
       dispatch(logQueryError(response.error));

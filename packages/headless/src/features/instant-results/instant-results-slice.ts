@@ -1,4 +1,4 @@
-import {createReducer} from '@reduxjs/toolkit';
+import {createReducer, SerializedError} from '@reduxjs/toolkit';
 import {fetchInstantResults} from '../search/search-actions';
 
 import {
@@ -49,12 +49,16 @@ export const instantResultsReducer = createReducer(
       }
     });
     builder.addCase(fetchInstantResults.fulfilled, (state, action) => {
-      const {results} = action.payload;
       const {cacheTimeout} = action.meta.arg;
       const cached = getCached(state, action.meta);
+
       cached!.isLoading = false;
-      cached!.error = null;
-      cached!.results = results;
+      cached!.error =
+        'message' in action.payload
+          ? (action.payload as SerializedError)
+          : null;
+      cached!.results =
+        'results' in action.payload ? action.payload.results : [];
       cached!.expiresAt = cacheTimeout ? cacheTimeout + Date.now() : 0;
     });
     builder.addCase(fetchInstantResults.rejected, (state, action) => {
