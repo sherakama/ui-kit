@@ -15,6 +15,7 @@ import {getAttributesFromLinkSlot} from '../../result-link/attributes-slot';
 import {isUndefined} from '@coveo/bueno';
 import {buildStringTemplateFromResult} from '../../../../utils/result-utils';
 import {getDefaultSlotFromHost} from '../../../../utils/slot-utils';
+import {closest} from '../../../../utils/utils';
 
 /**
  * The `atomic-result-link` component automatically transforms a search result title into a clickable link that points to the original item.
@@ -65,8 +66,12 @@ export class AtomicResultLink implements InitializableComponent {
   private linkAttributes?: Attr[];
 
   public initialize() {
+    const inSearchBox = !!closest(this.host, 'atomic-search-box');
     this.interactiveResult = buildInteractiveResult(this.bindings.engine, {
-      options: {result: this.result},
+      options: {
+        result: this.result,
+        location: inSearchBox ? 'querySuggestPreview' : '',
+      },
     });
   }
 

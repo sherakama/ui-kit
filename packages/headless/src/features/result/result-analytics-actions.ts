@@ -7,7 +7,7 @@ import {
 } from '../analytics/analytics-utils';
 import {Result} from '../../api/search/search/result';
 
-export const logDocumentOpenThunk = (result: Result) =>
+export const logDocumentOpenThunk = (result: Result, location?: string) =>
   makeAnalyticsAction(
     'analytics/result/open',
     AnalyticsType.Click,
@@ -15,10 +15,12 @@ export const logDocumentOpenThunk = (result: Result) =>
       validateResultPayload(result);
       return client.logDocumentOpen(
         partialDocumentInformation(result, state),
-        documentIdentifier(result)
+        documentIdentifier(result),
+        location ? {location} : undefined
       );
     }
   );
 
-export const logDocumentOpen = (result: Result) =>
-  logDocumentOpenThunk(result)();
+export const logDocumentOpen = (result: Result, location?: string) => {
+  return logDocumentOpenThunk(result, location)();
+};

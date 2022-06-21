@@ -14,6 +14,10 @@ export interface InteractiveResultOptions extends InteractiveResultCoreOptions {
    * The query result.
    */
   result: Result;
+  /**
+   * The location of the result on the page that will be passed as matadata to the analytics library.
+   */
+  location?: string;
 }
 
 export interface InteractiveResultProps extends InteractiveResultCoreProps {
@@ -46,7 +50,9 @@ export function buildInteractiveResult(
       return;
     }
     wasOpened = true;
-    engine.dispatch(logDocumentOpen(props.options.result));
+    engine.dispatch(
+      logDocumentOpen(props.options.result, props.options.location)
+    );
   };
 
   const action = () => {
