@@ -1,5 +1,6 @@
 import {LightningElement, api} from 'lwc';
 import {
+  getHeadlessBundle,
   initializeWithHeadless,
   registerComponentForInit,
 } from 'c/quanticHeadlessLoader';
@@ -68,6 +69,8 @@ export default class QuanticRefineToggle extends LightningElement {
   /** @type {string} */
   modalId = 'refineModal';
 
+  headless;
+
   connectedCallback() {
     registerComponentForInit(this, this.engineId);
   }
@@ -80,8 +83,9 @@ export default class QuanticRefineToggle extends LightningElement {
    * @param {SearchEngine} engine
    */
   initialize = (engine) => {
-    this.querySummary = CoveoHeadless.buildQuerySummary(engine);
-    this.breadcrumbManager = CoveoHeadless.buildBreadcrumbManager(engine);
+    this.headless = getHeadlessBundle(this.engineId);
+    this.querySummary = this.headless.buildQuerySummary(engine);
+    this.breadcrumbManager = this.headless.buildBreadcrumbManager(engine);
 
     this.unsubscribeQuerySummary = this.querySummary.subscribe(() =>
       this.updateTotalResults()

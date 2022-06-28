@@ -1,5 +1,5 @@
 import {LightningElement, api} from 'lwc';
-import {getAllFacetsFromStore} from 'c/quanticHeadlessLoader';
+import {getAllFacetsFromStore, getHeadlessBundle} from 'c/quanticHeadlessLoader';
 import {
   initializeWithHeadless,
   registerComponentForInit,
@@ -54,6 +54,8 @@ export default class QuanticRefineModalContent extends LightningElement {
   /** @type {boolean} */
   hasActiveFilters = false;
 
+  headless;
+
   connectedCallback() {
     registerComponentForInit(this, this.engineId);
   }
@@ -71,8 +73,10 @@ export default class QuanticRefineModalContent extends LightningElement {
    * @param {SearchEngine} engine
    */
   initialize = (engine) => {
-    this.searchStatus = CoveoHeadless.buildSearchStatus(engine);
-    this.breadcrumbManager = CoveoHeadless.buildBreadcrumbManager(engine);
+    this.headless = getHeadlessBundle(this.engineId);
+
+    this.searchStatus = this.headless.buildSearchStatus(engine);
+    this.breadcrumbManager = this.headless.buildBreadcrumbManager(engine);
     this.unsubscribeSearchStatus = this.searchStatus.subscribe(() =>
       this.gatherFacets()
     );

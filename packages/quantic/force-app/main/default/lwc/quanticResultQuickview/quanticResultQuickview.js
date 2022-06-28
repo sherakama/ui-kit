@@ -1,5 +1,5 @@
 import {LightningElement, api, track} from 'lwc';
-import {getHeadlessEnginePromise} from 'c/quanticHeadlessLoader';
+import {getHeadlessBundle, getHeadlessEnginePromise} from 'c/quanticHeadlessLoader';
 
 import close from '@salesforce/label/c.quantic_Close';
 import openPreview from '@salesforce/label/c.quantic_OpenPreview';
@@ -82,6 +82,8 @@ export default class QuanticResultQuickview extends LightningElement {
     noPreview
   }
 
+  headless;
+
   connectedCallback() {
     getHeadlessEnginePromise(this.engineId).then((engine) => {
       this.initialize(engine);
@@ -102,13 +104,12 @@ export default class QuanticResultQuickview extends LightningElement {
    * @param {SearchEngine} engine
    */
   initialize = (engine) => {
+    this.headless = getHeadlessBundle(this.engineId);
     const options = {
       result: this.result,
       maximumPreviewSize: Number(this.maximumPreviewSize),
     };
-    this.quickview = this.useCase === 'case-assist'
-      ? CoveoHeadlessCaseAssist.buildCaseAssistQuickview(engine, {options})
-      : CoveoHeadless.buildQuickview(engine, {options});
+    this.quickview = this.headless.buildQuickview(engine, {options});
     this.unsubscribe = this.quickview.subscribe(() => this.updateState());
 
     this.dispatchHasPreview(this.quickview.state.resultHasPreview);
@@ -132,7 +133,7 @@ export default class QuanticResultQuickview extends LightningElement {
 
   addRecentResult() {
     getHeadlessEnginePromise(this.engineId).then((engine) => {
-      const {pushRecentResult} = CoveoHeadless.loadRecentResultsActions(engine);
+      const {pushRecentResult} = this.headless.loadRecentResultsActions(engine);
       engine.dispatch(pushRecentResult(JSON.parse(JSON.stringify(this.result))));
     });
   }

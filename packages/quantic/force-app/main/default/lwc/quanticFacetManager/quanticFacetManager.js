@@ -1,4 +1,5 @@
 import {
+  getHeadlessBundle,
   initializeWithHeadless,
   registerComponentForInit,
 } from 'c/quanticHeadlessLoader';
@@ -47,6 +48,8 @@ export default class QuanticFacetManager extends LightningElement {
 
   hostReadyClass = 'facet-manager__host_ready';
 
+  headless;
+
   connectedCallback() {
     registerComponentForInit(this, this.engineId);
   }
@@ -64,14 +67,15 @@ export default class QuanticFacetManager extends LightningElement {
    * @param {SearchEngine} engine
    */
   initialize = (engine) => {
+    this.headless = getHeadlessBundle(this.engineId);
     this.resolveItemTemplate();
     this.moveFacetsToHost();
 
-    this.facetManager = CoveoHeadless.buildFacetManager(engine);
+    this.facetManager = this.headless.buildFacetManager(engine);
     this.unsubscribeFacetManager = this.facetManager.subscribe(() =>
       this.updateFacetManagerState()
     );
-    this.searchStatus = CoveoHeadless.buildSearchStatus(engine);
+    this.searchStatus = this.headless.buildSearchStatus(engine);
     this.unsubscribeSearchStatus = this.searchStatus.subscribe(() =>
       this.updateSearchStatusState()
     );

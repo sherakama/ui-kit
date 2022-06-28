@@ -1,5 +1,5 @@
 import {LightningElement, api} from 'lwc';
-import {getHeadlessEnginePromise} from 'c/quanticHeadlessLoader';
+import {getHeadlessBundle, getHeadlessEnginePromise} from 'c/quanticHeadlessLoader';
 import {ResultUtils} from 'c/quanticUtils';
 
 /** @typedef {import("coveo").Result} Result */
@@ -47,6 +47,8 @@ export default class QuanticResultLink extends LightningElement {
   /** @type {SearchEngine} */
   engine;
 
+  headless;
+
   connectedCallback() {
     getHeadlessEnginePromise(this.engineId).then((engine) => {
       this.initialize(engine);
@@ -59,14 +61,13 @@ export default class QuanticResultLink extends LightningElement {
    * @param {SearchEngine} engine
    */
   initialize = (engine) => {
+    this.headless = getHeadlessBundle(this.engineId);
     this.engine = engine;
     ResultUtils.bindClickEventsOnResult(
       this.engine,
       this.result,
       this.template,
-      this.useCase === 'case-assist'
-        ? CoveoHeadlessCaseAssist.buildCaseAssistInteractiveResult
-        : CoveoHeadless.buildInteractiveResult
+      this.headless.buildInteractiveResult
     );
   };
 }

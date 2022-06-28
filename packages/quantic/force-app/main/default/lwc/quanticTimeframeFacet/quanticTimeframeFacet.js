@@ -1,5 +1,6 @@
 import {
   getHeadlessBindings,
+  getHeadlessBundle,
   initializeWithHeadless,
   registerComponentForInit,
   registerToStore,
@@ -169,6 +170,8 @@ export default class QuanticTimeframeFacet extends LightningElement {
     apply,
   };
 
+  headless;
+
   connectedCallback() {
     registerComponentForInit(this, this.engineId);
   }
@@ -243,7 +246,7 @@ export default class QuanticTimeframeFacet extends LightningElement {
   get currentValues() {
     return this.timeframes.map((timeframe) => {
       return timeframe.period === 'past'
-        ? CoveoHeadless.buildDateRange({
+        ? this.headless.buildDateRange({
             start: {
               period: timeframe.period,
               unit: timeframe.unit,
@@ -251,7 +254,7 @@ export default class QuanticTimeframeFacet extends LightningElement {
             },
             end: {period: 'now'},
           })
-        : CoveoHeadless.buildDateRange({
+        : this.headless.buildDateRange({
             start: {period: 'now'},
             end: {
               period: timeframe.period,
@@ -338,6 +341,8 @@ export default class QuanticTimeframeFacet extends LightningElement {
    * @param {SearchEngine} engine 
    */
   initialize = (engine) => {
+    this.headless = getHeadlessBundle(this.engineId);
+
     this.initializeSearchStatusController(engine);
     this.initializeFacetController(engine);
     this.initializeDateFilterController(engine);
@@ -353,7 +358,7 @@ export default class QuanticTimeframeFacet extends LightningElement {
    * @param {SearchEngine} engine 
    */
   initializeSearchStatusController(engine) {
-    this.searchStatus = CoveoHeadless.buildSearchStatus(engine);
+    this.searchStatus = this.headless.buildSearchStatus(engine);
     this.unsubscribeSearchStatus = this.searchStatus.subscribe(() =>
       this.updateSearchStatusState()
     );
@@ -363,7 +368,7 @@ export default class QuanticTimeframeFacet extends LightningElement {
    * @param {SearchEngine} engine 
    */
   initializeFacetController(engine) {
-    this.facet = CoveoHeadless.buildDateFacet(engine, {
+    this.facet = this.headless.buildDateFacet(engine, {
       options: {
         field: this.field,
         currentValues: this.currentValues,
@@ -383,7 +388,7 @@ export default class QuanticTimeframeFacet extends LightningElement {
   initializeDateFilterController(engine) {
     const dateFilterId = (this.facetId || this.field) + '_input';
 
-    this.dateFilter = CoveoHeadless.buildDateFilter(engine, {
+    this.dateFilter = this.headless.buildDateFilter(engine, {
       options: {
         field: this.field,
         facetId: dateFilterId,
@@ -448,8 +453,8 @@ export default class QuanticTimeframeFacet extends LightningElement {
    */
   formatFacetValue = (facetValue) => {
     try {
-      const startDate = CoveoHeadless.deserializeRelativeDate(facetValue.start);
-      const endDate = CoveoHeadless.deserializeRelativeDate(facetValue.end);
+      const startDate = this.headless.deserializeRelativeDate(facetValue.start);
+      const endDate = this.headless.deserializeRelativeDate(facetValue.end);
 
       const relativeDate = startDate.period === 'past' ? startDate : endDate;
 

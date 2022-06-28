@@ -1,6 +1,6 @@
 import {PayloadAction} from '@reduxjs/toolkit';
 import {CoreEngine} from '../..';
-import {caseContext} from '../../app/reducers';
+import {insightCaseContext} from '../../app/reducers';
 import {setCaseContext} from './case-context-actions';
 
 export interface CaseContextActionCreators {
@@ -18,7 +18,7 @@ export interface CaseContextActionCreators {
 export function loadCaseContextActions(
   engine: CoreEngine
 ): CaseContextActionCreators {
-  engine.addReducers({caseContext});
+  engine.addReducers({insightCaseContext});
 
   return {
     setCaseContext,
