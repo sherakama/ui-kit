@@ -25,6 +25,7 @@ import {
   NoopPostprocessQuerySuggestResponseMiddleware,
   NoopPostprocessSearchResponseMiddleware,
 } from '../../api/search/search-api-client-middleware';
+import {configureAnalytics} from '../../api/analytics/search-analytics';
 
 export type {ProductListingEngineConfiguration};
 export {getSampleProductListingEngineConfiguration};
@@ -76,6 +77,7 @@ export function buildProductListingEngine(
   const thunkArguments: ProductListingThunkExtraArguments = {
     ...buildThunkExtraArguments(options.configuration, logger),
     apiClient: productListingClient,
+    analyticsClientFactory: configureAnalytics,
   };
 
   const augmentedOptions: EngineOptions<ProductListingEngineReducers> = {

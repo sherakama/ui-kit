@@ -25,6 +25,7 @@ import {SearchThunkExtraArguments} from '../search-thunk-extra-arguments';
 import {setSearchHub} from '../../features/search-hub/search-hub-actions';
 import {isNullOrUndefined} from '@coveo/bueno';
 import {updateSearchConfiguration} from '../../features/configuration/configuration-actions';
+import {configureAnalytics} from '../../api/analytics/search-analytics';
 
 export type {ProductRecommendationEngineConfiguration} from './product-recommendation-engine-configuration';
 export {getSampleProductRecommendationEngineConfiguration} from './product-recommendation-engine-configuration';
@@ -74,6 +75,7 @@ export function buildProductRecommendationEngine(
     ...buildThunkExtraArguments(options.configuration, logger),
     apiClient: searchAPIClient,
     searchAPIClient,
+    analyticsClientFactory: configureAnalytics,
   };
 
   const augmentedOptions: EngineOptions<ProductRecommendationEngineReducers> = {

@@ -20,6 +20,7 @@ import {CaseAssistThunkExtraArguments} from '../case-assist-thunk-extra-argument
 import {setCaseAssistConfiguration} from '../../features/case-assist-configuration/case-assist-configuration-actions';
 import {setSearchHub} from '../../features/search-hub/search-hub-actions';
 import {isNullOrUndefined} from '@coveo/bueno';
+import {configureCaseAssistAnalytics} from '../../api/analytics/case-assist-analytics';
 
 export type {CaseAssistEngineConfiguration};
 
@@ -73,6 +74,7 @@ export function buildCaseAssistEngine(
   const thunkArguments: CaseAssistThunkExtraArguments = {
     ...buildThunkExtraArguments(options.configuration, logger),
     apiClient: caseAssistAPIClient,
+    analyticsClientFactory: configureCaseAssistAnalytics,
   };
 
   const augmentedOptions: EngineOptions<CaseAssistEngineReducers> = {

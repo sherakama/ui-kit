@@ -150,6 +150,10 @@ export const configureAnalytics = ({
   return client;
 };
 
+export type AnalyticsClientFactory<T> = ({
+  ...args
+}: ConfigureAnalyticsOptions) => T;
+
 export const getVisitorID = () =>
   new CoveoAnalyticsClient({}).getCurrentVisitorId();
 

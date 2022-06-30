@@ -2,6 +2,7 @@ import {Logger} from 'pino';
 import {AsyncThunkOptions} from '../../../app/async-thunk-options';
 import {ClientThunkExtraArguments} from '../../../app/thunk-extra-arguments';
 import {InsightAppState} from '../../../state/insight-app-state';
+import {InsightAnalyticsClientFactory} from '../../analytics/insight-analytics';
 import {PlatformClient} from '../../platform-client';
 import {PreprocessRequest} from '../../preprocess-request';
 import {buildAPIResponseFromErrorOrThrow} from '../../search/search-api-error-response';
@@ -30,7 +31,10 @@ export interface InsightAPIClientOptions {
 }
 
 export interface AsyncThunkInsightOptions<T extends Partial<InsightAppState>>
-  extends AsyncThunkOptions<T, ClientThunkExtraArguments<InsightAPIClient>> {
+  extends AsyncThunkOptions<
+    T,
+    ClientThunkExtraArguments<InsightAPIClient, InsightAnalyticsClientFactory>
+  > {
   rejectValue: InsightAPIErrorStatusResponse;
 }
 

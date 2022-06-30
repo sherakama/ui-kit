@@ -28,6 +28,7 @@ import {SearchAction} from '../../features/analytics/analytics-utils';
 import {logInterfaceLoad} from '../../features/analytics/analytics-actions';
 import {firstSearchExecutedSelector} from '../../features/search/search-selectors';
 import {executeSearch} from '../../features/insight-search/insight-search-actions';
+import {configureInsightAnalytics} from '../../api/analytics/insight-analytics';
 
 export type {InsightEngineConfiguration};
 
@@ -84,6 +85,7 @@ export function buildInsightEngine(
   const thunkArguments: InsightThunkExtraArguments = {
     ...buildThunkExtraArguments(options.configuration, logger),
     apiClient: insightAPIClient,
+    analyticsClientFactory: configureInsightAnalytics,
   };
 
   const augmentedOptions: EngineOptions<InsightEngineReducers> = {

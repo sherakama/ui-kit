@@ -143,4 +143,6 @@ export const configureInsightAnalytics = ({
   return client;
 };
 
+export type InsightAnalyticsClientFactory = typeof configureInsightAnalytics;
+
 export const historyStore = new history.HistoryStore();

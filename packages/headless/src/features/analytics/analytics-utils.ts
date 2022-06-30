@@ -16,12 +16,10 @@ import {
   CoveoSearchPageClient,
   SearchPageClientProvider,
   CaseAssistClient,
-  CoveoInsightClient,
 } from 'coveo.analytics';
 import {SearchEventResponse} from 'coveo.analytics/dist/definitions/events';
 import {AsyncThunkAction, createAsyncThunk} from '@reduxjs/toolkit';
 import {requiredNonEmptyString} from '../../utils/validate-payload';
-import {ThunkExtraArguments} from '../../app/thunk-extra-arguments';
 import {
   ConfigurationSection,
   PipelineSection,
@@ -31,19 +29,14 @@ import {ResultWithFolding} from '../folding/folding-slice';
 import {getAllIncludedResultsFrom} from '../folding/folding-utils';
 import {CaseAssistAppState} from '../../state/case-assist-app-state';
 import {
-  configureAnalytics,
   SearchAnalyticsProvider,
   StateNeededBySearchAnalyticsProvider,
 } from '../../api/analytics/search-analytics';
-import {
-  configureCaseAssistAnalytics,
-  StateNeededByCaseAssistAnalytics,
-} from '../../api/analytics/case-assist-analytics';
-import {InsightAppState} from '../../state/insight-app-state';
-import {
-  configureInsightAnalytics,
-  StateNeededByInsightAnalyticsProvider,
-} from '../../api/analytics/insight-analytics';
+import {StateNeededByCaseAssistAnalytics} from '../../api/analytics/case-assist-analytics';
+import {StateNeededByInsightAnalyticsProvider} from '../../api/analytics/insight-analytics';
+import {InsightClientThunkExtraArguments} from '../../app/insight-thunk-extra-arguments';
+import {SearchClientThunkExtraArguments} from '../../app/search-thunk-extra-arguments';
+import {CaseAssistThunkExtraArguments} from '../../app/case-assist-thunk-extra-arguments';
 
 export enum AnalyticsType {
   Search,
@@ -82,14 +75,21 @@ export interface AsyncThunkAnalyticsOptions<
   T extends Partial<StateNeededBySearchAnalyticsProvider>
 > {
   state: T;
-  extra: ThunkExtraArguments;
+  extra: SearchClientThunkExtraArguments;
+}
+
+export interface AsyncThunkCaseAssistAnalyticsOptions<
+  T extends Partial<StateNeededByInsightAnalyticsProvider>
+> {
+  state: T;
+  extra: CaseAssistThunkExtraArguments;
 }
 
 export interface AsyncThunkInsightAnalyticsOptions<
   T extends Partial<StateNeededByInsightAnalyticsProvider>
 > {
   state: T;
-  extra: ThunkExtraArguments;
+  extra: InsightClientThunkExtraArguments;
 }
 
 export const makeAnalyticsAction = <T extends AnalyticsType>(
@@ -111,10 +111,18 @@ export const makeAnalyticsAction = <T extends AnalyticsType>(
     prefix,
     async (
       _,
-      {getState, extra: {analyticsClientMiddleware, preprocessRequest, logger}}
+      {
+        getState,
+        extra: {
+          analyticsClientMiddleware,
+          preprocessRequest,
+          logger,
+          analyticsClientFactory,
+        },
+      }
     ) => {
       const state = searchPageState(getState);
-      const client = configureAnalytics({
+      const client = analyticsClientFactory({
         state,
         logger,
         analyticsClientMiddleware,
@@ -157,15 +165,23 @@ export const makeCaseAssistAnalyticsAction = (
   return createAsyncThunk<
     void,
     void,
-    AsyncThunkAnalyticsOptions<StateNeededByCaseAssistAnalytics>
+    AsyncThunkCaseAssistAnalyticsOptions<StateNeededByCaseAssistAnalytics>
   >(
     prefix,
     async (
       _,
-      {getState, extra: {analyticsClientMiddleware, preprocessRequest, logger}}
+      {
+        getState,
+        extra: {
+          analyticsClientMiddleware,
+          preprocessRequest,
+          logger,
+          analyticsClientFactory,
+        },
+      }
     ) => {
       const state = getState();
-      const client = configureCaseAssistAnalytics({
+      const client = analyticsClientFactory({
         state,
         logger,
         analyticsClientMiddleware,
@@ -176,41 +192,6 @@ export const makeCaseAssistAnalyticsAction = (
         {client: client.coveoAnalyticsClient, response},
         'Analytics response'
       );
-    }
-  );
-};
-
-export const makeInsightAnalyticsAction = <T extends AnalyticsType>(
-  prefix: string,
-  analyticsType: T,
-  log: (
-    client: CoveoInsightClient,
-    state: ConfigurationSection & Partial<InsightAppState>
-  ) => Promise<void | SearchEventResponse> | void
-) => {
-  return createAsyncThunk<
-    {analyticsType: T},
-    void,
-    AsyncThunkInsightAnalyticsOptions<StateNeededByInsightAnalyticsProvider>
-  >(
-    prefix,
-    async (
-      _,
-      {getState, extra: {analyticsClientMiddleware, preprocessRequest, logger}}
-    ) => {
-      const state = getState();
-      const client = configureInsightAnalytics({
-        state,
-        logger,
-        analyticsClientMiddleware,
-        preprocessRequest,
-      });
-      const response = await log(client, state);
-      logger.info(
-        {client: client.coveoAnalyticsClient, response},
-        'Analytics response'
-      );
-      return {analyticsType};
     }
   );
 };

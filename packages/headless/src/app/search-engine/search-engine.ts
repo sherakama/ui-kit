@@ -35,6 +35,7 @@ import {SearchThunkExtraArguments} from '../search-thunk-extra-arguments';
 import {SearchAction} from '../../features/analytics/analytics-utils';
 import {StandaloneSearchBoxAnalytics} from '../../features/standalone-search-box-set/standalone-search-box-set-state';
 import {jwtReducer} from './jwt-reducer';
+import {configureAnalytics} from '../../api/analytics/search-analytics';
 
 export type {SearchEngineConfiguration, SearchConfigurationOptions};
 export {getSampleSearchEngineConfiguration};
@@ -93,6 +94,7 @@ export function buildSearchEngine(options: SearchEngineOptions): SearchEngine {
     ...buildThunkExtraArguments(options.configuration, logger),
     searchAPIClient: searchAPIClient,
     apiClient: searchAPIClient,
+    analyticsClientFactory: configureAnalytics,
   };
 
   const augmentedOptions: EngineOptions<SearchEngineReducers> = {
