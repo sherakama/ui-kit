@@ -4,6 +4,7 @@ import {
   fetchProductListing,
   setAdditionalFields,
   setProductListingUrl,
+  setRouting,
 } from './product-listing-actions';
 
 export const productListingReducer = createReducer(
@@ -16,6 +17,9 @@ export const productListingReducer = createReducer(
       })
       .addCase(setAdditionalFields, (state, action) => {
         state.additionalFields = action.payload.additionalFields;
+      })
+      .addCase(setRouting, (state, action) => {
+        state.routing = action.payload.routing;
       })
       .addCase(fetchProductListing.rejected, (state, action) => {
         state.error = action.payload ? action.payload : null;

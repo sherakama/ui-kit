@@ -2,6 +2,7 @@ import {
   fetchProductListing,
   setAdditionalFields,
   setProductListingUrl,
+  setRouting,
 } from '../../features/product-listing/product-listing-actions';
 import {buildController, Controller} from '../controller/headless-controller';
 import {ArrayValue, Schema, StringValue} from '@coveo/bueno';
@@ -11,6 +12,7 @@ import {ProductListingEngine} from '../../app/product-listing-engine/product-lis
 import {validateOptions} from '../../utils/validate-payload';
 import {ProductRecommendation} from '../../product-listing.index';
 import {ProductListingAPIErrorStatusResponse} from '../../api/commerce/product-listings/product-listing-api-client';
+import {Routing} from '../../features/product-listing/product-listing-state';
 
 const optionsSchema = new Schema({
   url: new StringValue({
@@ -57,7 +59,10 @@ export interface ProductListing extends Controller {
    * Sets the additional fields to request in addition to the standard commerce fields.
    * @param additionalFields - The new additional fields.
    */
+
   setAdditionalFields(additionalFields: string[]): void;
+
+  setRouting(routing: Routing): void;
 
   /**
    * Refreshes the product listing.
@@ -147,6 +152,8 @@ export function buildProductListing(
       dispatch(setAdditionalFields({additionalFields})),
 
     refresh: () => dispatch(fetchProductListing()),
+
+    setRouting: (routing: Routing) => dispatch(setRouting({routing})),
   };
 }
 

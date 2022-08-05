@@ -23,9 +23,9 @@ import {
   ProductListingSuccessResponse,
 } from '../../api/commerce/product-listings/product-listing-request';
 import {validatePayload} from '../../utils/validate-payload';
-import {ArrayValue, StringValue} from '@coveo/bueno';
+import {ArrayValue, StringValue, Value} from '@coveo/bueno';
 import {SortBy} from '../sort/sort';
-import {ProductListingState} from './product-listing-state';
+import {ProductListingState, Routing} from './product-listing-state';
 import {logQueryError} from '../search/search-analytics-actions';
 
 export interface SetProductListingUrlPayload {
@@ -64,6 +64,18 @@ export const setAdditionalFields = createAction(
           emptyAllowed: false,
         }),
       }),
+    })
+);
+
+export interface SetRoutingPayload {
+  routing: Routing;
+}
+
+export const setRouting = createAction(
+  'productlisting/setRouting',
+  (payload: SetRoutingPayload) =>
+    validatePayload(payload, {
+      routing: new Value({}),
     })
 );
 
@@ -135,6 +147,12 @@ export const buildProductListingRequest = async (
           advancedParameters: state.productListing.advancedParameters || {},
         }
       : {}),
+    ...(state.productListing.routing && {
+      routing: {
+        rootUrl: state.productListing.routing.rootUrl,
+        slug: state.productListing.routing.slug,
+      },
+    }),
     ...(facets.length && {
       facets: {
         requests: facets,

@@ -2,6 +2,18 @@ import {ProductListingAPIErrorStatusResponse} from '../../api/commerce/product-l
 import {ProductRecommendation} from '../../api/search/search/product-recommendation';
 import {AnyFacetResponse} from '../facets/generic/interfaces/generic-facet-response';
 
+export interface Slug {
+  segmentField0: string;
+  segmentField1?: string;
+  segmentField2?: string;
+  segmentField3?: string;
+}
+
+export interface Routing {
+  rootUrl: string;
+  slug: Slug;
+}
+
 export interface ProductListingState {
   url: string;
   clientId: string;
@@ -16,6 +28,7 @@ export interface ProductListingState {
   error: ProductListingAPIErrorStatusResponse | null;
   isLoading: boolean;
   responseId: string;
+  routing: Routing | null;
 }
 
 export const getProductListingInitialState = (): ProductListingState => ({
@@ -32,4 +45,5 @@ export const getProductListingInitialState = (): ProductListingState => ({
   error: null,
   isLoading: false,
   responseId: '',
+  routing: null,
 });
