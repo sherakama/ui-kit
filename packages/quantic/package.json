@@ -38,8 +38,7 @@
     "postinstall": "node scripts/npm/setup-quantic.js"
   },
   "dependencies": {
-    "@coveo/headless": "1.112.0",
-    "fs-extra": "10.1.0"
+    "@coveo/headless": "1.112.0"
   },
   "engines": {
     "node": ">=14.0.0"
@@ -57,6 +56,7 @@
     "cypress": "10.8.0",
     "cypress-plugin-tab": "1.0.5",
     "dotenv": "10.0.0",
+    "fs-extra": "^11.1.0",
     "jest-junit": "12.3.0",
     "jsdoc": "3.6.11",
     "jsdoc-tsimport-plugin": "1.0.5",
