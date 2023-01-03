@@ -37,6 +37,7 @@ export function buildInsightLayout(element: HTMLElement, widget: boolean) {
       width: 100%;
       display: flex;
       flex-wrap: wrap;
+      flex-shrink: 0;
       grid-gap: 0.5rem;
       background: var(--atomic-neutral-light);
       padding-top: 1.5rem;
